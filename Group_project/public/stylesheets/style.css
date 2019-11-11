@@ -1,0 +1,23 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#map{
+  height: 400px;
+  width: 75%;
+  overflow: hidden;
+  float: left;
+
+}
+#captur{
+  height: 400px;
+  width:15%;
+  overflow: hidden;
+  float: left;
+}
+
