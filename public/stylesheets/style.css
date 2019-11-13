@@ -1,22 +1,30 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /* padding: 50px; */
   /* display: flex;
-	flex-direction: column; */
+  flex-direction: column; */
 	height: 100%;
-	background: #F3F4F8;
+	background: white;
 }
 
-a {
-  color: #00B7FF;
+.title h1{
+  font-family: 'Open Sans', sans-serif;
 }
-
+.content{
+  padding-top: 2%;
+}
 #map{
-  height: 400px;
-  width: 100%;
+  height: 550px;
+  width: 65%;
+  overflow: hidden;
+  float: right;
+}
+
+#result_box{
+  height: 550px;
+  width: 35%;
   overflow: hidden;
   float: left;
-
+  background: #4285F4;
 }
 
 
