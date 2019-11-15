@@ -12,10 +12,10 @@ function initMap(){
         preserveViewport: false,
         map:map
     })
-    var marker = new google.maps.Marker({
-        position:uluru, 
-        title: "uluru",
-        map:map,
-    });
+    // var marker = new google.maps.Marker({
+    //     position:uluru, 
+    //     title: "uluru",
+    //     map:map,
+    // });
     marker.setMap(map);
 }

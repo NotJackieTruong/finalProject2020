@@ -1,7 +1,6 @@
 doctype html
 html
   head
-    title= title
     link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='https://code.jquery.com/jquery-2.2.4.min.js')
@@ -14,11 +13,12 @@ html
     //- link(rel="stylesheet", href="/stylesheets/footer.css")
     //- script(src='/javascript/footer.js')
     //gg font
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+    link(href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700&display=swap" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet")
   body
     block header
       div(class="title")
-        h1 Title
+        h1(class="title") Title
       nav.navbar
         ul.nav
           li
