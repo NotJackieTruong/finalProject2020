@@ -1,5 +1,5 @@
 nav.navbar{
-	background-color: #34A853 ;
+	background-color: #0F9D58 ;
 }
 ul.nav {
 	display: flex;
@@ -31,7 +31,7 @@ ul.nav > li {
 
 ul.nav > li:hover {
 	background: #e7e6f1;
-	color: #34A853;
+	color: #0F9D58;
 	
 	
 }
@@ -70,7 +70,7 @@ ul.dropdown {
 	margin: 0;
 	padding: 5px 0 30px;
 	list-style: none;
-	color: #34A853;
+	color: #0F9D58;
 	background: #e5e4ea;
 	box-shadow: 1px 2px 5px -1px rgba(0, 0, 0, 0.15), 0px 4px 14px -1px rgba(0, 0, 0, 0.1);
 	transform: translate(0, -60px);
