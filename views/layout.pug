@@ -1,24 +1,26 @@
 doctype html
 html
   head
-    title= title
     link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='https://code.jquery.com/jquery-2.2.4.min.js')
-    //inilialize gg map
+    //-inilialize gg map
     script(src='/javascripts/gmap.js')
-    //navbar
+    //-navbar
     script(src='/javascripts/navbar.js')
     link(rel="stylesheet", href="/stylesheets/navbar.css")
-    //footer
+    //-footer
     //- link(rel="stylesheet", href="/stylesheets/footer.css")
     //- script(src='/javascript/footer.js')
-    //gg font
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+    //-gg font
+    link(href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700&display=swap" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet")
+    //-search box
+    link(href="./stylesheets/seasrch_box.css" rel="stylesheet")
   body
     block header
       div(class="title")
-        h1 Title
+        h1(class="title") Title
       nav.navbar
         ul.nav
           li
@@ -52,9 +54,9 @@ html
     
     //AIzaSyC2OL-R4c9DjPXxVkvyqWVjcp5xFmitFIQ
     script(async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2OL-R4c9DjPXxVkvyqWVjcp5xFmitFIQ&callback=initMap") 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    
+    script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous")
+    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous")
+    script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2OL-R4c9DjPXxVkvyqWVjcp5xFmitFIQ&libraries=places&callback=initMap" async defer)
     block footer
       

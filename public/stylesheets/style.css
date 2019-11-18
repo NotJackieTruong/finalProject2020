@@ -3,19 +3,25 @@ body {
   /* display: flex;
   flex-direction: column; */
 	height: 100%;
-	background: white;
+  background: white;
+  font-family: 'Open Sans', sans-serif ;
 }
 
+.title h1.title{
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 350%;
+  line-height: 80px;
+  color: #F4B400;
+}
 .title h1{
-  font-family: 'Open Sans', sans-serif;
+  margin: 0;
 }
 .content{
-  padding-top: 2%;
+  padding-top: 3%;
 }
 #map{
   height: 550px;
   width: 65%;
-
   overflow: hidden;
   float: right;
 }
