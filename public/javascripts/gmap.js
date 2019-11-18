@@ -12,10 +12,9 @@ function initMap(){
         preserveViewport: false,
         map:map
     })
-    var marker = new google.maps.Marker({
-        position:uluru, 
-        title: "uluru",
-        map:map,
-    });
-    marker.setMap(map);
+    haNoiLayer.addListener('click', function(event) {
+        var content = event.featureData.description;
+        var testimonial = document.getElementById('capture');
+        testimonial.innerHTML = content;
+      });
 }
