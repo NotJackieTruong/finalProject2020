@@ -7,59 +7,59 @@ function initMap(){
             zoom:6,
             center: center
         })
-    // var marker = new google.maps.Marker({
-    //     position: center,
-    //     map: map,
-    //     });
+
     var haNoiLayer = new google.maps.KmlLayer(src,{
         suppressInfoWindows: true,
         preserveViewport: false,
         map:map
     })
+
     haNoiLayer.addListener('click', function(event) {
         var content = event.featureData.description;
         var testimonial = document.getElementById('capture');
         testimonial.innerHTML = content;
       });
-    var markers = [];
-    var geocoder = new google.maps.Geocoder;
-    var infowindow = new google.maps.InfoWindow();
 
-    map.addListener("click", function(e) {
-        // Clear all old markers after click
-        for (var i = 0; i < markers.length; i++) {
-            markers[i].setMap(null)
-        }
-        markers = [];
+    // test pop up thong tin
+    // var markers = [];
+    // var geocoder = new google.maps.Geocoder;
+    // var infowindow = new google.maps.InfoWindow();
 
-        // Create new marker with position is e.latLng
-        // code
+    // map.addListener("click", function(e) {
+    //     // Clear all old markers after click
+    //     for (var i = 0; i < markers.length; i++) {
+    //         markers[i].setMap(null)
+    //     }
+    //     markers = [];
 
-        geocoder.geocode(
-            { "location": e.latLng },
-            function(results, status) {
-                if (status === google.maps.GeocoderStatus.OK) {
-                if (results[0]) {
-                    infowindow.setContent(
-                    "<div>" +
-                        "<b>Address :</b> " + results[0].formatted_address + "<br>" +
-                        "<b>Latitude :</b> " + results[0].geometry.location.lat() + "<br>" +
-                        "<b>Longitude :</b> " + results[0].geometry.location.lng() +
-                    "</div>"
-                    );
-                    infowindow.open(map, marker);
-                } else {
-                    console.log("No results found");
-                }
-                } else {
-                console.log("Geocoder failed due to: " + status);
-                }
-            }
-            );
+    //     // Create new marker with position is e.latLng
+    //     // code
 
-            map.panTo(marker.position); // Set new point to center of map
+    //     geocoder.geocode(
+    //         { "location": e.latLng },
+    //         function(results, status) {
+    //             if (status === google.maps.GeocoderStatus.OK) {
+    //             if (results[0]) {
+    //                 infowindow.setContent(
+    //                 "<div>" +
+    //                     "<b>Address :</b> " + results[0].formatted_address + "<br>" +
+    //                     "<b>Latitude :</b> " + results[0].geometry.location.lat() + "<br>" +
+    //                     "<b>Longitude :</b> " + results[0].geometry.location.lng() +
+    //                 "</div>"
+    //                 );
+    //                 infowindow.open(map, marker);
+    //             } else {
+    //                 console.log("No results found");
+    //             }
+    //             } else {
+    //             console.log("Geocoder failed due to: " + status);
+    //             }
+    //         }
+    //         );
 
-            markers.push(marker); // add new marker to markers array
-        });
+    //         map.panTo(marker.position); // Set new point to center of map
+
+    //         markers.push(marker); // add new marker to markers array
+    //     });
   
 }
