@@ -20,16 +20,16 @@ function initMap(){
             zoom:6,
             center: center
         })
-    var haNoiLayer = new google.maps.KmlLayer(src,{
-        suppressInfoWindows: true,
-        preserveViewport: false,
-        map:map
-    })
-    haNoiLayer.addListener('click', function(event) {
-        var content = event.featureData.description;
-        var testimonial = document.getElementById('capture');
-        testimonial.innerHTML = content;
-      });
+    // var haNoiLayer = new google.maps.KmlLayer(src,{
+    //     suppressInfoWindows: true,
+    //     preserveViewport: false,
+    //     map:map
+    // })
+    // haNoiLayer.addListener('click', function(event) {
+    //     var content = event.featureData.description;
+    //     var testimonial = document.getElementById('capture');
+    //     testimonial.innerHTML = content;
+    //   });
 
     // test function draw
     drawPolygon(map)
@@ -40,14 +40,10 @@ function initMap(){
     // var infowindow = new google.maps.InfoWindow();
 
     // map.addListener("click", function(e) {
-    //     // Clear all old markers after click
     //     for (var i = 0; i < markers.length; i++) {
     //         markers[i].setMap(null)
     //     }
     //     markers = [];
-
-    //     // Create new marker with position is e.latLng
-    //     // code
 
     //     geocoder.geocode(
     //         { "location": e.latLng },
