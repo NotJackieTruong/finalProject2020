@@ -1,3 +1,16 @@
+//function ve polygon
+function drawPolygon(googlemap){
+    var phucxaPolygon = new google.maps.Polygon({
+        paths: arrCoor,
+        strokeColor: 'blue',
+        strokeOpacity: 0.2,
+        strokeWeight: 3,
+        fillColor: 'blue',
+        fillOpacity: 0.35
+    });
+    phucxaPolygon.setMap(googlemap);
+}
+
 function initMap(){
     console.log("This file works and is from gmap.js")
     var center ={lat: 21.0453913, lng:105.8172996}
@@ -7,19 +20,20 @@ function initMap(){
             zoom:6,
             center: center
         })
-
     var haNoiLayer = new google.maps.KmlLayer(src,{
         suppressInfoWindows: true,
         preserveViewport: false,
         map:map
     })
-
     haNoiLayer.addListener('click', function(event) {
         var content = event.featureData.description;
         var testimonial = document.getElementById('capture');
         testimonial.innerHTML = content;
       });
 
+    // test function draw
+    drawPolygon(map)
+    
     // test pop up thong tin
     // var markers = [];
     // var geocoder = new google.maps.Geocoder;

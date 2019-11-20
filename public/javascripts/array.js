@@ -12,26 +12,8 @@ for( var i = 0; i < arr.length; i++){
 function storeCoordinate(xVal,yVal, array){
     array.push({lng: xVal, lat: yVal})
 }
-var arrCoor = new Array()
+var arrCoor = []
 for( var i = 0; i < arr.length; ){
     storeCoordinate(arr[i],arr[i+1],arrCoor);
     i  = i+2
-}
-function initMap(){
-    var center ={lat: 21.0453913, lng:105.8172996};
-    var map = new google.maps.Map(
-        document.getElementById('map'),{
-            zoom: 6,
-            center: center
-        }
-    );
-    var phucxaPolygon = new google.maps.Polygon({
-        paths: arrCoor,
-        strokeColor: 'blue',
-        strokeOpacity: 0.2,
-        strokeWeight: 3,
-        fillColor: 'blue',
-        fillOpacity: 0.35
-    });
-    phucxaPolygon.setMap(map);
 }
