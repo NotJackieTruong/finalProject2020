@@ -1,0 +1,27 @@
+
+extends layout
+block content
+ div(class="content")
+    div(id="map")
+    div(id="result_box")
+      div(id="search_box")
+        // search input box
+        form
+          .form-group.input-group
+            input#search_location.form-control(type='text' placeholder='Search location')
+            .input-group-btn
+              button.btn.btn-default.get_map(type='submit')
+                | Locate
+        // display google map
+        #geomap
+        // display selected location information
+        h4 Location Details
+        p
+          | Address: 
+          input.search_addr(type='text' size='45')
+        p
+          | Latitude: 
+          input.search_latitude(type='text' size='30')
+        p
+          | Longitude: 
+          input.search_longitude(type='text' size='30')
