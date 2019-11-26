@@ -1,17 +1,34 @@
-// import { functionTypeAnnotation } from "babel-types";
+// //function ve polygon
+// function drawPolygon(googlemap){
+//     var phucxaPolygon = new google.maps.Polygon({
+//         paths: arrCoor,
+//         strokeColor: 'blue',
+//         strokeOpacity: 0.2,
+//         strokeWeight: 3,
+//         fillColor: 'blue',
+//         fillOpacity: 0.35
 
-//function ve polygon
-function drawPolygon(googlemap){
-    var phucxaPolygon = new google.maps.Polygon({
-        paths: arrCoor,
-        strokeColor: 'blue',
-        strokeOpacity: 0.2,
-        strokeWeight: 3,
-        fillColor: 'blue',
-        fillOpacity: 0.35
-    });
-    phucxaPolygon.setMap(googlemap);
+var maxPopulation = 58554
+var minPopulation = 1410
+
+function opacityOverlay(population){
+    var opacity = (population - minPopulation)/(maxPopulation-minPopulation)
+    return opacity;
 }
+// function ve polygon
+function drawPolygon(googlemap, Pathcoordinate, id){
+    var setPolygon = new google.maps.Polygon({
+        paths: Pathcoordinate,
+        strokeColor: 'white',
+        strokeOpacity: 1,
+        strokeWeight: 0.1,
+        fillColor: 'red',
+        fillOpacity: opacityOverlay(ObjectData[id].Population)
+
+    });
+    setPolygon.setMap(googlemap);
+}
+
 var geocoder;
 var map;
 var marker;
@@ -41,7 +58,7 @@ function initialize(){
     
     var LatLng = new google.maps.LatLng(initialLat, initialLong);
     var options = {
-        zoom: 12,
+        zoom: 9,
         center: LatLng,
         
     };
@@ -72,8 +89,10 @@ function initialize(){
 
 
 
-
-    drawPolygon(map)
+    //ve polygon theo id cua ObjectData
+    for(var i = 0 ; i <  ObjectData.length; i++){
+        drawPolygon(map, getCoordinate(i), i)
+    }
 }
 
 $(document).ready(function(){
@@ -135,3 +154,4 @@ $(document).ready(function(){
         })
     })
 })
+
