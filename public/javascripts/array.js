@@ -3,7 +3,7 @@ function storeCoordinate(xVal,yVal, array){
     array.push({lng: xVal, lat: yVal})
 }
 function getCoordinate(id){
-    var CoordinateString = ObjectData[id].Coordianates
+    var CoordinateString = ObjectData[id].Coordinates
     var arr = CoordinateString.split(/,| /)
     for( var i = 0; i < arr.length; i++){ 
         arr[i] = arr[i]*1 
