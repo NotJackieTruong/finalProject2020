@@ -4,7 +4,7 @@ var minPopulation = 0
 //Hiện thông tin polygon
 var addListenersOnPolygon = function(polygon) {
     google.maps.event.addListener(polygon, 'click', function (event) {
-      alert(polygon.tag);
+        alert(polygon.tag)
     });  
   }
 
@@ -31,16 +31,45 @@ function colorOverlay(population){
     var heso = (population - minPopulation)/(maxPopulation-minPopulation)//dân số tăng hệ số tăng
     var colorchange = heso*510 //dân số tăng colorchange tăng
     var red = green = blue = 0
-    if( colorchange < 70){
-        red = colorchange*(51/14)
+    if( colorchange < 100){
+        red = colorchange*2.55
         green = 255
     }
     else{
         red = 255
-        green = (-51/88)*colorchange+13005/44
+        green = (-51/82)*colorchange+13005/41
     }
     return ["rgb(",red,",",green,",",blue,")"].join("")
 }
+//Lẩy center polygon
+function polygonCenter(poly) {
+    var latitudes = [];
+    var longitudes = [];
+    var vertices = poly.getPath();
+
+    // put all latitudes and longitudes in arrays
+    for (var i = 0; i < vertices.length; i++) {
+        longitudes.push(vertices.getAt(i).lng());
+        latitudes.push(vertices.getAt(i).lat());
+    }
+
+    // sort the arrays low to high
+    latitudes.sort();
+    longitudes.sort();
+
+    // get the min and max of each
+    var lowX = latitudes[0];
+    var highX = latitudes[latitudes.length - 1];
+    var lowy = longitudes[0];
+    var highy = longitudes[latitudes.length - 1];
+
+    // center of the polygon is the starting point plus the midpoint
+    var centerX = lowX + ((highX - lowX) / 2);
+    var centerY = lowy + ((highy - lowy) / 2);
+
+    return (new google.maps.LatLng(centerX, centerY));
+}
+
 
 // function ve polygon
 function drawPolygon(googlemap, Pathcoordinate, id){
@@ -56,7 +85,27 @@ function drawPolygon(googlemap, Pathcoordinate, id){
     });
     setPolygon.setMap(googlemap);
     addListenersOnPolygon(setPolygon);
+    // const marker = new google.maps.Marker({
+    //     map: map,
+    //     label: 'name',
+    //     position: polygonCenter(setPolygon),
+    //     icon: {
+    //         path: google.maps.SymbolPath.CIRCLE,
+    //         scale: 0
+    //     }
+    //   });
 }
+
+
+
+
+
+
+
+
+
+
+
 var map;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
