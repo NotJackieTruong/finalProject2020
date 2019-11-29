@@ -1,10 +1,16 @@
 var maxPopulation = 81690
 var minPopulation = 0
-
+var polygonArray = []
 //Hiện thông tin polygon
 var addListenersOnPolygon = function(polygon) {
     google.maps.event.addListener(polygon, 'click', function (event) {
         alert(polygon.tag)
+        // if(polygon.getVisible() == true){
+        //     polygon.setVisible(false)
+        // }
+        // else{
+        //     polygon.setVisible(true)
+        // }
     });  
   }
 
@@ -30,7 +36,9 @@ function opacityOverlay(population){
 function colorOverlay(population){
     var heso = (population - minPopulation)/(maxPopulation-minPopulation)//dân số tăng hệ số tăng
     var colorchange = heso*510 //dân số tăng colorchange tăng
-    var red = green = blue = 0
+    var red = green = 0
+    var blue = 100
+
     if( colorchange < 100){
         red = colorchange*2.55
         green = 255
@@ -41,6 +49,7 @@ function colorOverlay(population){
     }
     return ["rgb(",red,",",green,",",blue,")"].join("")
 }
+
 //Lẩy center polygon
 function polygonCenter(poly) {
     var latitudes = [];
@@ -70,7 +79,6 @@ function polygonCenter(poly) {
     return (new google.maps.LatLng(centerX, centerY));
 }
 
-
 // function ve polygon
 function drawPolygon(googlemap, Pathcoordinate, id){
     var setPolygon = new google.maps.Polygon({
@@ -78,11 +86,12 @@ function drawPolygon(googlemap, Pathcoordinate, id){
         strokeColor: 'purple',
         strokeOpacity: 10,
         strokeWeight: 0.2,
+        visible: true,
         fillColor: colorOverlay(getPopulation(ObjectData[id].Population)),
         fillOpacity: 5,
         tag: "Phường: "+ObjectData[id].Ward+"\nThành phố: "+ ObjectData[id].City+"\nTỉnh: "+ObjectData[id].Province+"\nDân Số: "+ObjectData[id].Population ,
-        
     });
+    polygonArray.push(setPolygon);
     setPolygon.setMap(googlemap);
     addListenersOnPolygon(setPolygon);
     // const marker = new google.maps.Marker({
@@ -95,16 +104,6 @@ function drawPolygon(googlemap, Pathcoordinate, id){
     //     }
     //   });
 }
-
-
-
-
-
-
-
-
-
-
 
 var map;
 function initMap() {
