@@ -5,7 +5,6 @@ var polygonArray = []
 var addListenersOnPolygon = function(polygon) {
     google.maps.event.addListener(polygon, 'click', function (event) {
         alert(polygon.tag)
-        $('.population'),val(ObjectData[id].Population)
         // if(polygon.getVisible() == true){
         //     polygon.setVisible(false)
         // }
