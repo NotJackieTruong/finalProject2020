@@ -1,3 +1,4 @@
+/* general css */
 body {
   /* padding: 50px; */
   /* display: flex;
@@ -19,19 +20,53 @@ body {
 .content{
   padding-top: 3%;
 }
+
+/* map css */
 #map{
   height: 550px;
-  width: 65%;
+  width: 85%;
   overflow: hidden;
   float: right;
 }
 
+/* result box css */
 #result_box{
   height: 550px;
-  width: 35%;
+  width: 15%;
   overflow: hidden;
   float: left;
   background: #4285F4;
 }
 
+.form-group.input-group{
+  z-index: 0;
+}
 
+#search_box{
+  margin: 20px 10px 0 10px;
+
+}
+
+#search_box input.search_addr{
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#search_box input.search_latitude{
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#search_box input.search_longitude{
+  box-sizing: border-box;
+  width: 100%;
+}
+
+@media (max-width:960px){
+  #map{
+    width: 80%;
+  }
+  #result_box{
+    width: 20%;
+  }
+}

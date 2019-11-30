@@ -6,8 +6,9 @@ html
     script(src='https://code.jquery.com/jquery-2.2.4.min.js')
     //-inilialize gg map
     script(src='/javascripts/HNward.js' )
-    script(src='/javascripts/testfunction.js' )
+    script(src='/javascripts/gmap_polygon.js' )
     script(src='/javascripts/array.js')
+    script(src='/javascripts/gmap_init.js')
     //-navbar
     script(src='/javascripts/navbar.js')
     link(rel="stylesheet", href="/stylesheets/navbar.css")
@@ -61,8 +62,10 @@ html
 
     block content
     
-    //AIzaSyAECzjHT9kMSFcH8AIMQdDtPsXzkWuZmCQ
-    script(type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAECzjHT9kMSFcH8AIMQdDtPsXzkWuZmCQ')
+    //-khanh gg map api: AIzaSyAECzjHT9kMSFcH8AIMQdDtPsXzkWuZmCQ
+    //- script(type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAECzjHT9kMSFcH8AIMQdDtPsXzkWuZmCQ')
+    //-ngoc gg map api 
+    script(type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAECzjHT9kMSFcH8AIMQdDtPsXzkWuZmCQ&callback=initMap')
 
     //- script(async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAECzjHT9kMSFcH8AIMQdDtPsXzkWuZmCQ&callback=initMap") 
     script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")

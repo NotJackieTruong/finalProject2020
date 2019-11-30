@@ -26,7 +26,6 @@ function initialize() {
     });
 
     google.maps.event.addListener(marker, "dragend", function(){
-        console.log("helloakljflka")
         var point = marker.getPosition();
         map.panTo(point);
         geocoder.geocode({'LatLng': marker.getPosition()}, function(results, status){
@@ -41,7 +40,9 @@ function initialize() {
         })
     })
     //ve polygon theo id cua ObjectData
+    for(var i = 0 ; i <  ObjectData.length; i++){
         drawPolygon(map, getCoordinate(i), i)
+    }
 
 }
 

@@ -5,6 +5,7 @@ var polygonArray = []
 var addListenersOnPolygon = function(polygon) {
     google.maps.event.addListener(polygon, 'click', function (event) {
         alert(polygon.tag)
+        $('.population'),val(ObjectData[id].Population)
         // if(polygon.getVisible() == true){
         //     polygon.setVisible(false)
         // }
@@ -107,13 +108,11 @@ function drawPolygon(googlemap, Pathcoordinate, id){
 
 var map;
 function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 21.0453913, lng:105.8172996},
-        zoom: 9
-    });
+    initialize();
 
     //ve polygon theo id cua ObjectData
     for(var i = 0 ; i <  ObjectData.length; i++){
         drawPolygon(map, getCoordinate(i), i)
     }
+    
 }
