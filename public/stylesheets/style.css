@@ -23,15 +23,16 @@ body {
 
 /* map css */
 #map{
-  height: 550px;
+  height: 700px;
   width: 85%;
   overflow: hidden;
   float: right;
+
 }
 
 /* result box css */
 #result_box{
-  height: 550px;
+  height: 700px;
   width: 15%;
   overflow: hidden;
   float: left;
