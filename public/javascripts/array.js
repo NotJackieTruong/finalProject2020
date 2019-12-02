@@ -124,3 +124,13 @@ function drawPolygon(googlemap, Pathcoordinate, id){
     //     }
     //   });
 }
+var map
+function initMap(){
+    map = new google.maps.Map(document.getElementById('map'),{
+        zoom: 9,
+        center: {lat: 21.0453913,lng: 105.8172996} 
+    });
+    for(var i = 0 ; i <  ObjectData.length; i++){
+        drawPolygon(map, getCoordinate(i), i)
+    }
+}
