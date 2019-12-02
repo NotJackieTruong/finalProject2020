@@ -1,10 +1,37 @@
+// test tach string coordinate thanh array coordinate objects *OK*
+function storeCoordinate(xVal,yVal, array){
+    array.push({lng: xVal, lat: yVal})
+}
+function getCoordinate(id){
+    var CoordinateString = ObjectData[id].Coordinates
+    var arr = CoordinateString.split(/,| /)
+    for( var i = 0; i < arr.length; i++){ 
+        arr[i] = arr[i]*1 
+    }
+    for( var i = 0; i < arr.length; i++){ 
+        if ( arr[i] === 0) {
+        arr.splice(i, 1); 
+        }   
+    }
+    var Coordinate = []
+    for( var i = 0; i < arr.length; ){
+        storeCoordinate(arr[i],arr[i+1],Coordinate);
+        i  = i+2
+    }
+    return Coordinate
+}
+
+var map;
 var maxPopulation = 81690
 var minPopulation = 0
 var polygonArray = []
+
+
 //Hiện thông tin polygon
 var addListenersOnPolygon = function(polygon) {
     google.maps.event.addListener(polygon, 'click', function (event) {
-        alert(polygon.tag)
+        console.log(polygon.getPaths())
+        $('.population').val(polygon.tag);
         // if(polygon.getVisible() == true){
         //     polygon.setVisible(false)
         // }
@@ -90,7 +117,9 @@ function drawPolygon(googlemap, Pathcoordinate, id){
         fillColor: colorOverlay(getPopulation(ObjectData[id].Population)),
         fillOpacity: 5,
         tag: "Phường: "+ObjectData[id].Ward+"\nThành phố: "+ ObjectData[id].City+"\nTỉnh: "+ObjectData[id].Province+"\nDân Số: "+ObjectData[id].Population ,
+    
     });
+  
     polygonArray.push(setPolygon);
     setPolygon.setMap(googlemap);
     addListenersOnPolygon(setPolygon);
@@ -105,13 +134,8 @@ function drawPolygon(googlemap, Pathcoordinate, id){
     //   });
 }
 
-var map;
+//initialize gg map on the website
+
 function initMap() {
     initialize();
-
-    //ve polygon theo id cua ObjectData
-    for(var i = 0 ; i <  ObjectData.length; i++){
-        drawPolygon(map, getCoordinate(i), i)
-    }
-    
 }
