@@ -31,7 +31,7 @@ var polygonArray = []
 var addListenersOnPolygon = function(polygon) {
     google.maps.event.addListener(polygon, 'click', function (event) {
         console.log(polygon.getPaths())
-        $('.population').val(polygon.tag);
+        $('#population').val(polygon.tag);
         // if(polygon.getVisible() == true){
         //     polygon.setVisible(false)
         // }

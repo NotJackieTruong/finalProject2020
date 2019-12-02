@@ -2,28 +2,46 @@ extends layout
 block content
  div(class="content")
     div(id="map")
-    div(id="result_box")
-      div(id="search_box")
-        // search input box
-        form
-          .form-group.input-group
-            input#search_location.form-control(type='text' placeholder='Search location')
-            .input-group-btn
-              button.btn.btn-default.get_map(type='submit')
-                | Locate
+   
+    //- create a search box like side menu
+    #sideMenu.sideNav
+      a.closeBtn(href='javascript:void(0)' onclick='closeNav()') &times;
+      form
+        .form-group.input-group
+          input#search_location.form-control(type='text' placeholder='Search location')
+          .input-group-btn
+            button.btn.btn-default.get_map(type='submit')
+              | Locate
+      h4 Location Details
+      p
+        | Address:
+        input#search_addr(type='text')
+      p
+        | Latitude: 
+        input#search_latitude(type='text')
+      p
+        | Longitude: 
+        input#search_longitude(type='text')
+      p 
+        | Population
+        input#population(type='text')
+    span(style="font-size:30px;cursor:pointer" onclick="openNav()") &#x2630; open
+         //- div(id="result_box")
+    //-   div(id="search_box")
+        //-search input box
         //- // display google map
         //- #geomap
         // display selected location information
-        h4 Location Details
-        p
-          | Address: 
-          input.search_addr(type='text')
-        p
-          | Latitude: 
-          input.search_latitude(type='text')
-        p
-          | Longitude: 
-          input.search_longitude(type='text')
-        p 
-          | Population
-          input.population(type='text')
+      
+        //- p
+        //-   | Address: 
+        //-   input.search_addr(type='text')
+        //- p
+        //-   | Latitude: 
+        //-   input.search_latitude(type='text')
+        //- p
+        //-   | Longitude: 
+        //-   input.search_longitude(type='text')
+        //- p 
+        //-   | Population
+        //-   input.population(type='text')

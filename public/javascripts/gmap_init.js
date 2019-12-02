@@ -20,14 +20,11 @@ function initialize() {
     
     geocoder = new google.maps.Geocoder();
 
-    // marker = new google.maps.Marker({
-    //     map: map,
-    //     draggable: true,
-    //     position: LatLng
-    // });
-    map.addListener('click', function(e) {
-        placeMarkerAndPanTo(e.latLng, map);
-      });
+    marker = new google.maps.Marker({
+        map: map,
+        draggable: true,
+        position: LatLng
+    });
     // google.maps.event.addListener(marker, "dragend", function(){
     //     var point = marker.getPosition();
     //     map.panTo(point);
@@ -49,16 +46,14 @@ function initialize() {
         drawPolygon(map, getCoordinate(i), i)
     }
 
+    var centerControlDiv = document.createElement('div');
+    var centerControl = new CenterControl(centerControlDiv, map);
+
+    centerControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(centerControlDiv);
+
 
 }
-
-function placeMarkerAndPanTo(latLng, map) {
-    marker = new google.maps.Marker({
-        position: latLng,
-        map: map
-      });
-      map.panTo(latLng);
-  }
 
 $(document).ready(function(){
     initialize();
@@ -98,9 +93,9 @@ $(document).ready(function(){
             if (status == google.maps.GeocoderStatus.OK) {
                 map.setCenter(results[0].geometry.location);
                 marker.setPosition(results[0].geometry.location);
-                $('.search_addr').val(results[0].formatted_address);
-                $('.search_latitude').val(marker.getPosition().lat());
-                $('.search_longitude').val(marker.getPosition().lng());
+                $('#search_addr').val(results[0].formatted_address);
+                $('#search_latitude').val(marker.getPosition().lat());
+                $('#search_longitude').val(marker.getPosition().lng());
             
         
             } else {
@@ -115,11 +110,42 @@ $(document).ready(function(){
     //     geocoder.geocode({'latLng': marker.getPosition()}, function(results, status){
     //         if (status == google.maps.GeocoderStatus.OK) {
     //             if (results[0]) {
-    //                 $('.search_addr').val(results[0].formatted_address);
-    //                 $('.search_latitude').val(marker.getPosition().lat());
-    //                 $('.search_longitude').val(marker.getPosition().lng());
+    //                 $('#search_addr').val(results[0].formatted_address);
+    //                 $('#search_latitude').val(marker.getPosition().lat());
+    //                 $('#search_longitude').val(marker.getPosition().lng());
     //             }
     //         }
     //     })
     // })
 })
+
+//create a control on gmap
+function CenterControl(controlDiv, map){
+     // Set CSS for the control border.
+     var controlUI = document.createElement('div');
+     controlUI.style.backgroundColor = '#fff';
+     controlUI.style.border = '2px solid #fff';
+     controlUI.style.borderRadius = '2px';
+     controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+     controlUI.style.cursor = 'pointer';
+    //  controlUI.style.marginBottom = '22px';
+     controlUI.style.marginTop='10px';
+     controlUI.style.textAlign = 'center';
+     controlUI.title = 'Click to recenter the map';
+     controlDiv.appendChild(controlUI);
+
+     // Set CSS for the control interior.
+     var controlText = document.createElement('div');
+     controlText.style.color = 'rgb(25,25,25)';
+     controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+     controlText.style.fontSize = '16px';
+     controlText.style.lineHeight = '38px';
+     controlText.style.paddingLeft = '5px';
+     controlText.style.paddingRight = '5px';
+     controlText.innerHTML = 'Center Map';
+     controlUI.appendChild(controlText);
+
+     controlUI.addEventListener('click', function(){
+         alert("hello");
+     })
+}

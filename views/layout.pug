@@ -27,6 +27,10 @@ html
     link(rel='stylesheet' href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css')
     script(src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js')
 
+    //-side menu
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel='stylesheet' href='/stylesheets/side_menu.css')
+    script(src='/javascripts/sideMenu.js')
   body
     block header
       div(class="title")
@@ -69,6 +73,11 @@ html
           li.menu__group
             a.menu__link(href='/catalog/about') About us
 
+        //- #sideMenu.sideNav
+        //-   a.closeBtn(href='javascript:void(0)' onclick='closeNav()') &times;
+        //-   a(href="#") Something
+        //-   a(href="#") Something
+    
 
     block content
     
