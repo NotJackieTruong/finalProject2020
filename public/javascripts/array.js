@@ -1,7 +1,8 @@
-// test tach string coordinate thanh array coordinate objects *OK*
 function storeCoordinate(xVal,yVal, array){
     array.push({lng: xVal, lat: yVal})
 }
+
+// lấy coordinate HN
 function getCoordinate(id){
     var CoordinateString = ObjectData[id].Coordinates
     var arr = CoordinateString.split(/,| /)
@@ -99,38 +100,42 @@ function polygonCenter(poly) {
     return (new google.maps.LatLng(centerX, centerY));
 }
 
-// function ve polygon
-function drawPolygon(googlemap, Pathcoordinate, id){
-    var setPolygon = new google.maps.Polygon({
-        paths: Pathcoordinate,
-        strokeColor: 'purple',
-        strokeOpacity: 10,
-        strokeWeight: 0.2,
-        visible: true,
-        fillColor: colorOverlay(getPopulation(ObjectData[id].Population)),
-        fillOpacity: 5,
-        tag: "Phường: "+ObjectData[id].Ward+"\nThành phố: "+ ObjectData[id].City+"\nTỉnh: "+ObjectData[id].Province+"\nDân Số: "+ObjectData[id].Population ,
-    });
-    polygonArray.push(setPolygon);
-    setPolygon.setMap(googlemap);
-    addListenersOnPolygon(setPolygon);
-    // const marker = new google.maps.Marker({
-    //     map: map,
-    //     label: 'name',
-    //     position: polygonCenter(setPolygon),
-    //     icon: {
-    //         path: google.maps.SymbolPath.CIRCLE,
-    //         scale: 0
-    //     }
-    //   });
-}
 var map
 function initMap(){
     map = new google.maps.Map(document.getElementById('map'),{
         zoom: 9,
         center: {lat: 21.0453913,lng: 105.8172996} 
     });
+    var data_layer = new google.maps.Data({map: map});
     for(var i = 0 ; i <  ObjectData.length; i++){
-        drawPolygon(map, getCoordinate(i), i)
+        var color = colorOverlay(getPopulation(ObjectData[i].Population))
+        data_layer.add(
+            {
+                geometry: new google.maps.Data.Polygon([getCoordinate(i)]),
+                properties:{
+                    color: color,
+                    id: i,
+                    clickable: true
+                }
+            }) 
+        data_layer.setStyle(function(feature) {
+            var color = feature.getProperty('color');
+            var click = feature.getProperty('clickable')
+            return ({
+                strokeColor: 'purple',
+                strokeOpacity: 10,
+                strokeWeight: 0.2,
+                fillOpacity: 5,
+                fillColor: color,
+                clickable: click,
+            });
+        });
+        data_layer.addListener('click', function(event) {
+            console.log(event.feature.getProperty('id'))
+          });
     }
+    var data_layer2 = new google.maps.Data({map: map});
+    data_layer2.loadGeoJson(
+        'https://storage.googleapis.com/map_population/citylevelBoundary.json'
+    )
 }
