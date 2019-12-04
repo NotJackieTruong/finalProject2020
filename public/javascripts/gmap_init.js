@@ -159,6 +159,7 @@ function CenterControl(controlDiv, map){
     checkBoxText.id = 'checkBoxTex'
     checkBoxText.innerHTML='Polygon'
     checkBoxUI.appendChild(checkBoxText)
+    //call remove polygon function when click
     checkBoxUI.addEventListener('click', function(){
         removePolygon();
     })
