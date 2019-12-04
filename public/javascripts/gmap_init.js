@@ -46,11 +46,16 @@ function initialize() {
         drawPolygon(map, getCoordinate(i), i)
     }
 
-    var centerControlDiv = document.createElement('div');
-    var centerControl = new CenterControl(centerControlDiv, map);
+    var searchControlDiv = document.createElement('div');
+    var centerControl = new CenterControl(searchControlDiv, map);
 
-    centerControlDiv.index = 1;
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(centerControlDiv);
+    searchControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchControlDiv);
+
+    // var checkBoxDiv = document.createElement('div');
+    // var checkBoxControl = new checkBoxControl(checkBoxDiv, map);
+    // checkBoxDiv.index = 1;
+    // map.controls[google.maps.ControlPosition.TOP_RIGHT].push(checkBoxDiv);
 
 
 }
@@ -121,31 +126,69 @@ $(document).ready(function(){
 
 //create a control on gmap
 function CenterControl(controlDiv, map){
-     // Set CSS for the control border.
-     var controlUI = document.createElement('div');
-     controlUI.style.backgroundColor = '#fff';
-     controlUI.style.border = '2px solid #fff';
-     controlUI.style.borderRadius = '2px';
-     controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-     controlUI.style.cursor = 'pointer';
-    //  controlUI.style.marginBottom = '22px';
-     controlUI.style.marginTop='10px';
-     controlUI.style.textAlign = 'center';
-     controlUI.title = 'Click to recenter the map';
-     controlDiv.appendChild(controlUI);
+     // Set CSS for the search control border.
+     var searchUI = document.createElement('div');
+     searchUI.id = 'searchUI';
+     searchUI.title = 'Click to recenter the map';
+     controlDiv.style.clear='both'
+     controlDiv.appendChild(searchUI);
 
-     // Set CSS for the control interior.
-     var controlText = document.createElement('div');
-     controlText.style.color = 'rgb(25,25,25)';
-     controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-     controlText.style.fontSize = '16px';
-     controlText.style.lineHeight = '38px';
-     controlText.style.paddingLeft = '5px';
-     controlText.style.paddingRight = '5px';
-     controlText.innerHTML = 'Center Map';
-     controlUI.appendChild(controlText);
+     // Set CSS for the search control interior.
+     var searchControlText = document.createElement('div');
+     searchControlText.id= 'searchText';
+     searchUI.appendChild(searchControlText);
 
-     controlUI.addEventListener('click', function(){
-         alert("hello");
+     searchUI.addEventListener('click', function(){
+        openNav();
      })
+
+     // Set CSS for the check box control border
+     var checkBoxUI = document.createElement('div');
+     checkBoxUI.id = 'checkBoxUI'
+     controlDiv.appendChild(checkBoxUI);
+
+     // Set CSS for the checkbox control interior
+    //  var filters = document.getElementById('filters');
+
+    //  var item = filters.appendChild(document.createElement('div'));
+    //  var checkBoxText = document.createElement('input')
+    //  var checkbox = item.appendChild(checkBoxText);
+    //  checkbox.type='checkbox';
+    //  checkbox.checked= true;
+    var checkBoxText = document.createElement('div');
+    checkBoxText.id = 'checkBoxTex'
+    checkBoxText.innerHTML='Polygon'
+    checkBoxUI.appendChild(checkBoxText)
+    checkBoxUI.addEventListener('click', function(){
+        removePolygon();
+    })
 }
+
+// function checkBoxControl(checkBoxDiv, map){
+//     var controlUI = document.createElement('div');
+//     controlUI.style.backgroundColor = '#fff';
+//     controlUI.style.border = '0px solid #fff';
+//     controlUI.style.borderRadius = '2px';
+//     controlUI.style.boxShadow = '0 1px 4px -1px rgba(0,0,0,.3)';
+//     controlUI.style.cursor = 'pointer';
+//    //  controlUI.style.marginBottom = '22px';
+//     controlUI.style.height="40px";
+//     controlUI.style.width="40px";
+//     controlUI.style.backgroundImage='url(/images/search.svg)';
+//     controlUI.style.margin='10px';
+//     controlUI.style.textAlign = 'center';
+//     controlUI.title = 'Click to recenter the map';
+//     checkBoxDiv.appendChild(controlUI);
+
+//     var controlText = document.createElement('input');
+//     controlText.style.color = 'rgb(25,25,25)';
+//     controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+//    //  controlText.style.fontSize = '16px';
+//     controlText.style.padding='2px 2px 2px 2px';
+//     controlText.style.lineHeight = '38px';
+//     controlText.style.paddingLeft = '5px';
+//     controlText.style.paddingRight = '5px';
+//    //  controlText.innerHTML = 'Search';
+//     controlUI.appendChild(controlText);
+
+//  }

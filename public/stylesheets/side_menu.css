@@ -1,14 +1,15 @@
 .sideNav{
-    height: 50%;
-    width: 0;
-    position: fixed;
+    height: 700px;
+    width: 350px;
+    position: absolute;
     z-index: 1;
-    top: 0;
+    top: 180px;
     left: 0;
     background-color: #4285F4;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
+    /* margin-top: 15.4%; */
 }
 
 .sideNav a{
@@ -27,15 +28,67 @@
 .sideNav .closeBtn{
     position: absolute;
     top:0;
-    right: 25px;
+    right: 10px;
     font-size: 36px;
-    margin-left: 50px;
+    /* margin-left: 50px; */
 }
 
-/* #sideMenu .sideNav span{
-    z-index: 1;
-} */
 
+/* result box css */
+/* #result_box{
+    height: 700px;
+    width: 15%;
+    overflow: hidden;
+    float: left;
+    background: #4285F4;
+  } */
+  
+  .form-group.input-group{
+    width: inherit;
+    z-index: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  /* .form-group.input-group-btn{
+      margin-right: 20px;
+  } */
+  
+  /* #sideMenu{
+    margin: 20px 10px 0 10px;
+  
+  } */
+  /* input#search-location.form-control{
+      width: 100px;
+  } */
+  
+  #sideMenu input#search_addr{
+    box-sizing: border-box;
+    width: 100%;
+    
+  }
+  
+  #sideMenu input#search_latitude{
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  #sideMenu input#search_longitude{
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  #sideMenu input#population{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100px;
+    margin-bottom: 20px;
+  }
+  
+  #sidemenu.sideNav p{
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 @media screen and (max-height: 450px) {
     .sideNav {padding-top: 15px;}
     .sideNav a {font-size: 18px;}

@@ -25,6 +25,7 @@ var map;
 var maxPopulation = 81690
 var minPopulation = 0
 var polygonArray = []
+var setPolygon;
 
 
 //Hiện thông tin polygon
@@ -32,6 +33,7 @@ var addListenersOnPolygon = function(polygon) {
     google.maps.event.addListener(polygon, 'click', function (event) {
         console.log(polygon.getPaths())
         $('#population').val(polygon.tag);
+        openNav();
         // if(polygon.getVisible() == true){
         //     polygon.setVisible(false)
         // }
@@ -108,7 +110,7 @@ function polygonCenter(poly) {
 
 // function ve polygon
 function drawPolygon(googlemap, Pathcoordinate, id){
-    var setPolygon = new google.maps.Polygon({
+    setPolygon = new google.maps.Polygon({
         paths: Pathcoordinate,
         strokeColor: 'purple',
         strokeOpacity: 10,
@@ -133,6 +135,14 @@ function drawPolygon(googlemap, Pathcoordinate, id){
     //     }
     //   });
 }
+function removePolygon(){
+    for(var i = 0; i<polygonArray.length; i++){
+        var removePolygon = polygonArray.pop(setPolygon)
+        removePolygon.setMap(null)
+
+    }
+}
+
 
 //initialize gg map on the website
 

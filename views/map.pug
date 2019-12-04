@@ -1,6 +1,7 @@
 extends layout
 block content
  div(class="content")
+    //- nav(id="filters" class="filterUI") Filter
     div(id="map")
    
     //- create a search box like side menu
@@ -25,7 +26,7 @@ block content
       p 
         | Population
         input#population(type='text')
-    span(style="font-size:30px;cursor:pointer" onclick="openNav()") &#x2630; open
+    //- span(style="font-size:30px;cursor:pointer" onclick="openNav()") &#x2630; open
          //- div(id="result_box")
     //-   div(id="search_box")
         //-search input box
