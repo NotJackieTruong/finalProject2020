@@ -1,4 +1,4 @@
-[
+let StringData = [
     {
       "City": "Ha Noi",
       "Population": 7520.7

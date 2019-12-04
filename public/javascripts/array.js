@@ -1,7 +1,10 @@
+let maxPopulation = 0
+let minPopulation = 0
+var choice = 2
+var map
 function storeCoordinate(xVal,yVal, array){
     array.push({lng: xVal, lat: yVal})
 }
-
 // lấy coordinate HN
 function getCoordinate(id){
     var CoordinateString = ObjectData[id].WardCoordinates
@@ -21,9 +24,6 @@ function getCoordinate(id){
     }
     return Coordinate
 }
-var maxPopulation = 81690
-var minPopulation = 0
-var polygonArray = []
 //Hiện thông tin polygon
 var addListenersOnPolygon = function(polygon) {
     google.maps.event.addListener(polygon, 'click', function (event) {
@@ -102,7 +102,10 @@ function polygonCenter(poly) {
 
 function dataLayer(map,choice){
     var data_layer = new google.maps.Data({map: map});
+    //Ward level layer
     if (choice == 1){
+        maxPopulation = 81690
+        minPopulation = 0
         for(var i = 0 ; i <  ObjectData.length; i++){
             var color = colorOverlay(getPopulation(ObjectData[i].Population))
             data_layer.add(
@@ -131,24 +134,55 @@ function dataLayer(map,choice){
               });
         }
     }
+    //District level layer
     else if( choice == 2){
+        maxPopulation = 8598700
+        minPopulation = 327000
         data_layer.loadGeoJson(
-            'https://00e9e64bac9543943d06b90e19f4258fa64b34b48d08941859-apidata.googleusercontent.com/download/storage/v1/b/map_population/o/citylevelBoundary.json?qk=AD5uMEsqZKU8oIgNsTdWV-6K2XjzFloQ1j05rMzYUM8qTTdv-WDPFMD8vHDV6DcAduo8tnjMAhL2gh2cmRwXan_qIUtJHD4oPRqRr2Omyw0nMkyQ7Phx16reoHTfLE2MfJeBU3ctn1euz-etCkCI2E5JvLKSaYAKsdv3HRlQmHz2xjIhBLgR_DFcBjenzpuHga8BM1vPlIG_ZR5PrhLKe31upwaRPPJYcVYjv2dnr_jIvZtBW62AoJVRsAbbaYlU7ggYGaks37VSW0DmVVOdTSWjt2k-EvzxL-mVToSeQcmQGAmCWrp29NWf8p9IkXaetjn09hqeWOEgoRDH2X0iDoZi96-akXG1Gz_yWCfelPDlAZlJtRzcNXtHRR23JtW_e1_2Zs_RbZabH8mV480uSE-_XSNN95LGxvSReC_g5vdt1EyrHOkC1iStB3wm_O1aYektnriflmgfMNaiHYv-C3mfC_cCLeSL_-hJakjWawDvb09Oml25NUjfnzTuAQSL-wZNwTmcXAtmZIiScm00MtFJQnhzqfftESvg4S_CIVhjWp2IiVi120Fqgq4ScctElwhahB4__5BQs8PeYCQ9uwO674Eg3xh39k2QsC1_if-HMVhH9CfDKKkkH6J-1a5dJ3FeIIB_YF71mHwiFXdpV1XeI2KkrKJTXWfF8l-X-Qyk2I8-IFh-8rItbkSzecDpjdP1rW3pVcaSUdgywYNE_SjxC54xVrqhpUO2b10URijo0PQZDcBZgGUKCWCjFvl54oDLH3qCvEEgMwXaXWvT3tBrULTQHyD933_icMcAKb4is25pP9ilE8I'
+            'https://storage.cloud.google.com/map_population/citylevelBoundary.json'
         )
-        data_layer.setStyle({
+        data_layer.setStyle(function(feature){
+            var cityname = feature.getProperty('Name')
+            var color
+            for( var i = 0; i< StringData.length; i++){
+                if(cityname == StringData[i].City){
+                    color = colorOverlay(StringData[i].Population*1000)
+                }
+            }
+            return{
                 strokeColor: 'purple',
                 strokeOpacity: 10,
                 strokeWeight: 0.2,
                 fillOpacity: 5,
-                fillColor: 'pink',
+                fillColor: color
+            }
+                
+        })
+    }
+    //Province level layer
+    else if( choice == 3){
+        maxPopulation = 797840
+        minPopulation = 83
+        data_layer.loadGeoJson(
+            'https://00e9e64bac3ce133168b8606b9dc5c3b092801c19804e92137-apidata.googleusercontent.com/download/storage/v1/b/map_population/o/DistrictlevelFULL.json?qk=AD5uMEtgewFeTvnYYNeMrxZ51Irg8964s9PzrVgKDRCzFBJBGdxLjSMh4KwMIdl7gamLUD4YcKuV0RORkCEGsF5wwqmUx9v7PcPlzL4WQ_fq7-yROOPgWQnsrbaF7ysd3QxOB7_7dhb8LtYHTkxeX41hks1IdvORzusz-gbwdm8S2DG2EgNEMlEmHGQHg5sXCV_hACqvGRmhmmATcmKRZDvV7ccyuvY8HPoAdvptbV2WNA1ummw0T8b67hqDwEUymk12KmJGtJNPS3NhgfvDOGkZeUyyLIcbXdlJZty_2XI8v1dr9Pi8pHyYr4kqIx7UCbmOJI8DIQdE814XfN4lRlSAfdUJEghYp6UEWSmh-tzcWne-LeCaq8s2d6-81STG3ocHcAv9dNI7YamLwBtXc1O4jX8OAK3TcewrdCUCjraBKhkksqR7Jxtj3aoNKM-NaDiiEvC3ddiVDBhn-gDQjt3uJUCrczhF7YEvkLRAnBQdU8WbMRHEEkcruN4KjW6_NFmRpb938_8rzIGW9L3x7FsgirUN0Syf87Bx-TS4RWMp0DZYC9sXX-yFAVvDqD4GQgjvWJBRQgUjelzRb1SehX4cREH81P_MfSGyP-E1U0tpOhK6qfcM05oV16xMguLg7S3CSCNn-A1KlfupIm52SV33aYd_YWfx7bLiB-dupiS0-47pXTsKhxnPT-hBd-gE3Fo17S1ecWlOVZ0UPXufk-O4Lz6doxMLsaFUGtbS-x77Dh0-QPhyn-OUwmheWM40xi7UnkFedcwKvIy02MZfrH0fMEDi-RzHahj-m9HNZB8vr7P_OKqJnLE'
+        )
+        data_layer.setStyle(function(feature){
+            var P = feature.getProperty('Dan_So')
+            var color = colorOverlay(P)
+            return{
+                strokeColor: 'purple',
+                strokeOpacity: 10,
+                strokeWeight: 0.2,
+                fillOpacity: 5,
+                fillColor: color
+            }   
         })
     }
 }
-var choice = 2
-var map
+ 
 function initMap(){
     map = new google.maps.Map(document.getElementById('map'),{
-        zoom: 9,
+        zoom: 5,
         center: {lat: 21.0453913,lng: 105.8172996} 
     });
     dataLayer(map,choice)

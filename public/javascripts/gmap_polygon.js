@@ -1,7 +1,11 @@
-// test tach string coordinate thanh array coordinate objects *OK*
+let maxPopulation = 0
+let minPopulation = 0
+var choice = 2
+var map
 function storeCoordinate(xVal,yVal, array){
     array.push({lng: xVal, lat: yVal})
 }
+// lấy coordinate HN
 function getCoordinate(id){
     var CoordinateString = ObjectData[id].WardCoordinates
     var arr = CoordinateString.split(/,| /)
@@ -20,26 +24,16 @@ function getCoordinate(id){
     }
     return Coordinate
 }
-
-var map;
-var maxPopulation = 81690
-var minPopulation = 0
-var polygonArray = []
-var setPolygon;
-
-
 //Hiện thông tin polygon
 var addListenersOnPolygon = function(polygon) {
     google.maps.event.addListener(polygon, 'click', function (event) {
-        console.log(polygon.getPaths())
-        $('#population').val(polygon.tag);
-        openNav();
-        // if(polygon.getVisible() == true){
-        //     polygon.setVisible(false)
-        // }
-        // else{
-        //     polygon.setVisible(true)
-        // }
+        alert(polygon.tag)
+        if(polygon.getVisible() == true){
+            polygon.setVisible(false)
+        }
+        else{
+            polygon.setVisible(true)
+        }
     });  
   }
 
@@ -65,9 +59,7 @@ function opacityOverlay(population){
 function colorOverlay(population){
     var heso = (population - minPopulation)/(maxPopulation-minPopulation)//dân số tăng hệ số tăng
     var colorchange = heso*510 //dân số tăng colorchange tăng
-    var red = green = 0
-    var blue = 100
-
+    var red = green = blue = 0
     if( colorchange < 100){
         red = colorchange*2.55
         green = 255
@@ -108,51 +100,88 @@ function polygonCenter(poly) {
     return (new google.maps.LatLng(centerX, centerY));
 }
 
-// function ve polygon
-function drawPolygon(googlemap, Pathcoordinate, id){
-    setPolygon = new google.maps.Polygon({
-        paths: Pathcoordinate,
-        strokeColor: 'purple',
-        strokeOpacity: 10,
-        strokeWeight: 0.2,
-        visible: true,
-        fillColor: colorOverlay(getPopulation(ObjectData[id].Population)),
-        fillOpacity: 5,
-        tag: "Phường: "+ObjectData[id].Ward+"\nThành phố: "+ ObjectData[id].City+"\nTỉnh: "+ObjectData[id].Province+"\nDân Số: "+ObjectData[id].Population ,
-    
-    });
-  
-    polygonArray.push(setPolygon);
-    setPolygon.setMap(googlemap);
-    addListenersOnPolygon(setPolygon);
-    // const marker = new google.maps.Marker({
-    //     map: map,
-    //     label: 'name',
-    //     position: polygonCenter(setPolygon),
-    //     icon: {
-    //         path: google.maps.SymbolPath.CIRCLE,
-    //         scale: 0
-    //     }
-    //   });
-}
-// remove polygon function
-function removePolygon(){
-    for(var i = 0; i<ObjectData.length; i++){
-        var removePolygon = polygonArray.pop(setPolygon)
-        removePolygon.setMap(null)
-
+function dataLayer(map,choice){
+    var data_layer = new google.maps.Data({map: map});
+    //Ward level layer
+    if (choice == 1){
+        maxPopulation = 81690
+        minPopulation = 0
+        for(var i = 0 ; i <  ObjectData.length; i++){
+            var color = colorOverlay(getPopulation(ObjectData[i].Population))
+            data_layer.add(
+                {
+                    geometry: new google.maps.Data.Polygon([getCoordinate(i)]),
+                    properties:{
+                        color: color,
+                        id: i,
+                        clickable: true
+                    }
+                }) 
+            data_layer.setStyle(function(feature) {
+                var color = feature.getProperty('color');
+                var click = feature.getProperty('clickable')
+                return ({
+                    strokeColor: 'purple',
+                    strokeOpacity: 10,
+                    strokeWeight: 0.2,
+                    fillOpacity: 5,
+                    fillColor: color,
+                    clickable: click,
+                });
+            });
+            data_layer.addListener('click', function(event) {
+                console.log(event.feature.getProperty('id'))
+              });
+        }
+    }
+    //District level layer
+    else if( choice == 2){
+        maxPopulation = 8598700
+        minPopulation = 327000
+        data_layer.loadGeoJson(
+            'https://storage.googleapis.com/map_population/citylevelBoundary.json'
+        )
+        data_layer.setStyle(function(feature){
+            var cityname = feature.getProperty('Name')
+            var color
+            for( var i = 0; i< StringData.length; i++){
+                if(cityname == StringData[i].City){
+                    color = colorOverlay(StringData[i].Population*1000)
+                }
+            }
+            return{
+                strokeColor: 'purple',
+                strokeOpacity: 10,
+                strokeWeight: 0.2,
+                fillOpacity: 5,
+                fillColor: color
+            }
+                
+        })
+    }
+    //Province level layer
+    else if( choice == 3){
+        maxPopulation = 797840
+        minPopulation = 83
+        data_layer.loadGeoJson(
+            ''
+            )
+        data_layer.setStyle(function(feature){
+            var P = feature.getProperty('Dan_So')
+            var color = colorOverlay(P)
+            return{
+                strokeColor: 'purple',
+                strokeOpacity: 10,
+                strokeWeight: 0.2,
+                fillOpacity: 5,
+                fillColor: color
+            }   
+        })
+    }
+    else if(choice == 4){
+        data_layer.setStyle({visible: false})
     }
 }
-
-//draw polygon and re create polygon after remove polygon function
-function createPolygon(){
-    //ve polygon theo id cua ObjectData
-    for(var i = 0 ; i <  ObjectData.length; i++){
-        drawPolygon(map, getCoordinate(i), i)
-    }
-}
-
-
 //initialize gg map on the website
 
 function initMap() {

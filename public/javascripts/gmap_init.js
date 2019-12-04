@@ -40,9 +40,6 @@ function initialize() {
     //     })
     // })
 
-
-    createPolygon();
-
     var searchControlDiv = document.createElement('div');
     var centerControl = new CenterControl(searchControlDiv, map);
 
@@ -154,27 +151,35 @@ function CenterControl(controlDiv, map){
     //  checkbox.checked= true;
     var checkBoxText = document.createElement('div');
     checkBoxText.id = 'checkBoxTex'
-    checkBoxText.innerHTML='Polygon'
+    checkBoxText.innerHTML='Show Datalayer'
     checkBoxUI.appendChild(checkBoxText)
-    //call remove polygon function when click
+    //call show/hide polygon function when click
     checkBoxUI.addEventListener('click', function(){
-        removePolygon();
+        if(checkBoxText.innerHTML=='Hide Datalayer'){
+            checkBoxText.innerHTML='Show Datalayer'
+            dataLayer(map,4)
+        }
+        else if(checkBoxText.innerHTML=='Show Datalayer'){
+            checkBoxText.innerHTML='Hide Datalayer'
+            dataLayer(map,choice)
+        }
         
     })
 
-    // Set CSS for the check box control border
-    var checkBoxUI1 = document.createElement('div');
-    checkBoxUI1.id = 'checkBoxUI'
-    controlDiv.appendChild(checkBoxUI1);
+    // Can 1 cai box thoi
+    // // Set CSS for the check box control border
+    // var checkBoxUI1 = document.createElement('div');
+    // checkBoxUI1.id = 'checkBoxUI'
+    // controlDiv.appendChild(checkBoxUI1);
 
-    var checkBoxText1 = document.createElement('div');
-    checkBoxText1.id = 'checkBoxTex'
-    checkBoxText1.innerHTML='Polygon'
-    checkBoxUI1.appendChild(checkBoxText1)
-    //call remove polygon function when click
-    checkBoxUI1.addEventListener('click', function(){
-        createPolygon();
+    // var checkBoxText1 = document.createElement('div');
+    // checkBoxText1.id = 'checkBoxTex'
+    // checkBoxText1.innerHTML='Show'
+    // checkBoxUI1.appendChild(checkBoxText1)
+    // //call remove polygon function when click
+    // checkBoxUI1.addEventListener('click', function(){
+    //     createPolygon();
         
-    })
+    // })
 }
 
