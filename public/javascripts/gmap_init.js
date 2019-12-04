@@ -11,7 +11,7 @@ function initialize() {
     
     var LatLng = new google.maps.LatLng(initialLat, initialLong);
     var options = {
-        zoom: 9,
+        zoom: 5,
         center: LatLng,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
@@ -41,10 +41,7 @@ function initialize() {
     // })
 
 
-    //ve polygon theo id cua ObjectData
-    for(var i = 0 ; i <  ObjectData.length; i++){
-        drawPolygon(map, getCoordinate(i), i)
-    }
+    createPolygon();
 
     var searchControlDiv = document.createElement('div');
     var centerControl = new CenterControl(searchControlDiv, map);
@@ -130,7 +127,7 @@ function CenterControl(controlDiv, map){
      var searchUI = document.createElement('div');
      searchUI.id = 'searchUI';
      searchUI.title = 'Click to recenter the map';
-     controlDiv.style.clear='both'
+     
      controlDiv.appendChild(searchUI);
 
      // Set CSS for the search control interior.
@@ -162,34 +159,22 @@ function CenterControl(controlDiv, map){
     //call remove polygon function when click
     checkBoxUI.addEventListener('click', function(){
         removePolygon();
+        
+    })
+
+    // Set CSS for the check box control border
+    var checkBoxUI1 = document.createElement('div');
+    checkBoxUI1.id = 'checkBoxUI'
+    controlDiv.appendChild(checkBoxUI1);
+
+    var checkBoxText1 = document.createElement('div');
+    checkBoxText1.id = 'checkBoxTex'
+    checkBoxText1.innerHTML='Polygon'
+    checkBoxUI1.appendChild(checkBoxText1)
+    //call remove polygon function when click
+    checkBoxUI1.addEventListener('click', function(){
+        createPolygon();
+        
     })
 }
 
-// function checkBoxControl(checkBoxDiv, map){
-//     var controlUI = document.createElement('div');
-//     controlUI.style.backgroundColor = '#fff';
-//     controlUI.style.border = '0px solid #fff';
-//     controlUI.style.borderRadius = '2px';
-//     controlUI.style.boxShadow = '0 1px 4px -1px rgba(0,0,0,.3)';
-//     controlUI.style.cursor = 'pointer';
-//    //  controlUI.style.marginBottom = '22px';
-//     controlUI.style.height="40px";
-//     controlUI.style.width="40px";
-//     controlUI.style.backgroundImage='url(/images/search.svg)';
-//     controlUI.style.margin='10px';
-//     controlUI.style.textAlign = 'center';
-//     controlUI.title = 'Click to recenter the map';
-//     checkBoxDiv.appendChild(controlUI);
-
-//     var controlText = document.createElement('input');
-//     controlText.style.color = 'rgb(25,25,25)';
-//     controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-//    //  controlText.style.fontSize = '16px';
-//     controlText.style.padding='2px 2px 2px 2px';
-//     controlText.style.lineHeight = '38px';
-//     controlText.style.paddingLeft = '5px';
-//     controlText.style.paddingRight = '5px';
-//    //  controlText.innerHTML = 'Search';
-//     controlUI.appendChild(controlText);
-
-//  }

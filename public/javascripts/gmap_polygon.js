@@ -135,11 +135,20 @@ function drawPolygon(googlemap, Pathcoordinate, id){
     //     }
     //   });
 }
+// remove polygon function
 function removePolygon(){
-    for(var i = 0; i<polygonArray.length; i++){
+    for(var i = 0; i<ObjectData.length; i++){
         var removePolygon = polygonArray.pop(setPolygon)
         removePolygon.setMap(null)
 
+    }
+}
+
+//draw polygon and re create polygon after remove polygon function
+function createPolygon(){
+    //ve polygon theo id cua ObjectData
+    for(var i = 0 ; i <  ObjectData.length; i++){
+        drawPolygon(map, getCoordinate(i), i)
     }
 }
 
