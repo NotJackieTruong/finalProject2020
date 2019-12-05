@@ -1,8 +1,6 @@
 var geocoder;
 var marker;
 var map;
-
-
 function initialize() {
     var initialLat = $('.search_latitude').val();
     var initialLong = $('.search_longitude').val();
@@ -17,7 +15,7 @@ function initialize() {
     };
 
     map = new google.maps.Map(document.getElementById("map"), options);
-    
+    dataLayer(map,choice)
     geocoder = new google.maps.Geocoder();
 
     marker = new google.maps.Marker({
@@ -153,6 +151,7 @@ function CenterControl(controlDiv, map){
     checkBoxText.id = 'checkBoxTex'
     checkBoxText.innerHTML='Show Datalayer'
     checkBoxUI.appendChild(checkBoxText)
+
     //call show/hide polygon function when click
     checkBoxUI.addEventListener('click', function(){
         if(checkBoxText.innerHTML=='Hide Datalayer'){
@@ -161,25 +160,12 @@ function CenterControl(controlDiv, map){
         }
         else if(checkBoxText.innerHTML=='Show Datalayer'){
             checkBoxText.innerHTML='Hide Datalayer'
-            dataLayer(map,choice)
+            if(choice == 1){
+                removePolygon()
+            }
+            else
+                dataLayer(map,choice)   
         }
-        
     })
-
-    // Can 1 cai box thoi
-    // // Set CSS for the check box control border
-    // var checkBoxUI1 = document.createElement('div');
-    // checkBoxUI1.id = 'checkBoxUI'
-    // controlDiv.appendChild(checkBoxUI1);
-
-    // var checkBoxText1 = document.createElement('div');
-    // checkBoxText1.id = 'checkBoxTex'
-    // checkBoxText1.innerHTML='Show'
-    // checkBoxUI1.appendChild(checkBoxText1)
-    // //call remove polygon function when click
-    // checkBoxUI1.addEventListener('click', function(){
-    //     createPolygon();
-        
-    // })
 }
 

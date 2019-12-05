@@ -1,6 +1,6 @@
 let maxPopulation = 0
 let minPopulation = 0
-var choice = 2
+var choice = 1 //1: ward level -- 2: province level -- 3: district level
 var map
 function storeCoordinate(xVal,yVal, array){
     array.push({lng: xVal, lat: yVal})
@@ -27,13 +27,8 @@ function getCoordinate(id){
 //Hiện thông tin polygon
 var addListenersOnPolygon = function(polygon) {
     google.maps.event.addListener(polygon, 'click', function (event) {
-        alert(polygon.tag)
-        if(polygon.getVisible() == true){
-            polygon.setVisible(false)
-        }
-        else{
-            polygon.setVisible(true)
-        }
+        console.log(polygon.getPaths())
+        $('#population').val(polygon.tag)
     });  
   }
 
@@ -100,41 +95,46 @@ function polygonCenter(poly) {
     return (new google.maps.LatLng(centerX, centerY));
 }
 
+// Ve polygon ward level
+function drawPolygon(googlemap, Pathcoordinate, id){
+    var setPolygon = new google.maps.Polygon({
+        paths: Pathcoordinate,
+        strokeColor: 'purple',
+        strokeOpacity: 10,
+        strokeWeight: 0.2,
+        visible: true,
+        fillColor: colorOverlay(getPopulation(ObjectData[id].Population)),
+        fillOpacity: 5,
+        tag: "Phường/Xã/Thị Trấn: " + ObjectData[id].Ward 
+        +"\nQuận/Huyện/Thành Phố: "+ ObjectData[id].City
+        +"\nTỉnh/Thành Phố: "+ObjectData[id].Province
+        +"\nDân Số: "+ObjectData[id].Population,
+    });
+    setPolygon.setMap(googlemap);
+    addListenersOnPolygon(setPolygon);
+}
+
+// Xoá polygon ward level
+function removePolygon(){
+    for(var i = 0; i<ObjectData.length; i++){
+        var removePolygon = polygonArray.pop(setPolygon)
+        removePolygon.setMap(null)
+
+    }
+}
+
+// Create Data Layer
 function dataLayer(map,choice){
     var data_layer = new google.maps.Data({map: map});
     //Ward level layer
     if (choice == 1){
         maxPopulation = 81690
         minPopulation = 0
-        for(var i = 0 ; i <  ObjectData.length; i++){
-            var color = colorOverlay(getPopulation(ObjectData[i].Population))
-            data_layer.add(
-                {
-                    geometry: new google.maps.Data.Polygon([getCoordinate(i)]),
-                    properties:{
-                        color: color,
-                        id: i,
-                        clickable: true
-                    }
-                }) 
-            data_layer.setStyle(function(feature) {
-                var color = feature.getProperty('color');
-                var click = feature.getProperty('clickable')
-                return ({
-                    strokeColor: 'purple',
-                    strokeOpacity: 10,
-                    strokeWeight: 0.2,
-                    fillOpacity: 5,
-                    fillColor: color,
-                    clickable: click,
-                });
-            });
-            data_layer.addListener('click', function(event) {
-                console.log(event.feature.getProperty('id'))
-              });
+        for(var i = 0 ; i < 100 /*ObjectData.length */; i++){
+            drawPolygon(map,getCoordinate(i),i)
         }
     }
-    //District level layer
+    //Province level layer
     else if( choice == 2){
         maxPopulation = 8598700
         minPopulation = 327000
@@ -159,12 +159,12 @@ function dataLayer(map,choice){
                 
         })
     }
-    //Province level layer
+    //District level layer
     else if( choice == 3){
         maxPopulation = 797840
         minPopulation = 83
         data_layer.loadGeoJson(
-            ''
+            'https://storage.googleapis.com/map_population/DistrictlevelFULL.json'
             )
         data_layer.setStyle(function(feature){
             var P = feature.getProperty('Dan_So')

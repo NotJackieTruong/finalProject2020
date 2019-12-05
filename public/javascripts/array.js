@@ -139,7 +139,7 @@ function dataLayer(map,choice){
         maxPopulation = 8598700
         minPopulation = 327000
         data_layer.loadGeoJson(
-            'https://storage.cloud.google.com/map_population/citylevelBoundary.json'
+            'https://storage.googleapis.com/map_population/citylevelBoundary.json'
         )
         data_layer.setStyle(function(feature){
             var cityname = feature.getProperty('Name')
