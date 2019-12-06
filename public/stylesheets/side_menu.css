@@ -35,32 +35,12 @@
 
 
 /* result box css */
-/* #result_box{
-    height: 700px;
-    width: 15%;
-    overflow: hidden;
-    float: left;
-    background: #4285F4;
-  } */
-  
   .form-group.input-group{
     width: inherit;
     z-index: 0;
     margin-left: 10px;
     margin-right: 10px;
   }
-
-  /* .form-group.input-group-btn{
-      margin-right: 20px;
-  } */
-  
-  /* #sideMenu{
-    margin: 20px 10px 0 10px;
-  
-  } */
-  /* input#search-location.form-control{
-      width: 100px;
-  } */
   
   #sideMenu input#search_addr{
     box-sizing: border-box;

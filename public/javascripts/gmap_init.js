@@ -12,7 +12,11 @@ function initialize() {
     var options = {
         zoom: 5,
         center: LatLng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControlOptions:{
+            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+            position: google.maps.ControlPosition.RIGHT_TOP
+        }
     };
 
     map = new google.maps.Map(document.getElementById("map"), options);
@@ -24,31 +28,12 @@ function initialize() {
         draggable: true,
         position: LatLng
     });
-    // google.maps.event.addListener(marker, "dragend", function(){
-    //     var point = marker.getPosition();
-    //     map.panTo(point);
-    //     geocoder.geocode({'LatLng': marker.getPosition()}, function(results, status){
-    //         if(status == google.maps.GeocoderStatus.OK){
-    //             map.setCenter(results[0].geometry.location);
-    //             marker.setPosition(results[0].geometry.location);
-    //             $('.search_addr').val(results[0].formatted_address);
-    //             $('.search_latitude').val(marker.getPosition().lat());
-    //             $('.search_longitude').val(marker.getPosition().lng());
-    //             marker.setMap(map);
-    //         }
-    //     })
-    // })
 
     var searchControlDiv = document.createElement('div');
     var centerControl = new CenterControl(searchControlDiv, map);
 
     searchControlDiv.index = 1;
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchControlDiv);
-
-    // var checkBoxDiv = document.createElement('div');
-    // var checkBoxControl = new checkBoxControl(checkBoxDiv, map);
-    // checkBoxDiv.index = 1;
-    // map.controls[google.maps.ControlPosition.TOP_RIGHT].push(checkBoxDiv);
+    map.controls[google.maps.ControlPosition.LEFT_TOP].push(searchControlDiv);
 
 
 }
@@ -57,33 +42,6 @@ $(document).ready(function(){
     initialize();
     //autocomplete search
     var PostCodeid = '#search_location';
-    // $(function(){
-    //     $(PostCodeid).autocomplete({
-    //         source: function(request, response){
-    //             geocoder.geocode({
-    //                 'address': request.term
-    //             }, function(results, status){
-    //                 response($.map(results, function(item){
-    //                     return{
-    //                         label: item.formatted_address,
-    //                         value: item.formatted_address,
-    //                         lat: item.geometry.location.lat(),
-    //                         lon: item.geometry.location.lng()
-    //                     }
-    //                 }))
-    //             })
-    //         }, 
-    //         select: function(event, ui){
-    //             $('.search_addr').val(ui.item.value);
-    //             $('.search_latitude').val(ui.item.lat);
-    //             $('.search_longitude').val(ui.item.lon);
-                
-    //             var latlng = new google.maps.LatLng(ui.item.lat, ui.item.lon);
-    //             marker.setPosition(latlng);
-    //             initialize();
-    //         }
-    //     })
-    // })
 
     $('.get_map').click(function(e){
         var address = $(PostCodeid).val();
@@ -104,21 +62,11 @@ $(document).ready(function(){
         return marker.getPosition().lat(), marker.getPosition().lng();
     })
 
-    // google.maps.event.addListener(marker, 'drag', function(){
-    //     geocoder.geocode({'latLng': marker.getPosition()}, function(results, status){
-    //         if (status == google.maps.GeocoderStatus.OK) {
-    //             if (results[0]) {
-    //                 $('#search_addr').val(results[0].formatted_address);
-    //                 $('#search_latitude').val(marker.getPosition().lat());
-    //                 $('#search_longitude').val(marker.getPosition().lng());
-    //             }
-    //         }
-    //     })
-    // })
 })
 
 //create a control on gmap
 function CenterControl(controlDiv, map){
+    controlDiv.style.clear = 'both';
      // Set CSS for the search control border.
      var searchUI = document.createElement('div');
      searchUI.id = 'searchUI';
