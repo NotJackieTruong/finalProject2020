@@ -42,35 +42,43 @@
     margin-left: 10px;
     margin-right: 10px;
   }
-  
-  #sideMenu input#search_addr{
-    box-sizing: border-box;
-    width: 100%;
+
+  #sideMenu p, h4{
+    margin-left: 10px;
+    color: white;
+  }
+
+  #sideMenu p{
+    width: 80px;
+  }
+
+  #sideMenu p, input{
+    display: inline-block;
     
   }
-  
-  #sideMenu input#search_latitude{
-    box-sizing: border-box;
-    width: 100%;
-  }
-  
-  #sideMenu input#search_longitude{
-    box-sizing: border-box;
-    width: 100%;
-  }
-  
-  #sideMenu input#population{
-    box-sizing: border-box;
-    white-space: pre-wrap;
-    width: 100%;
-    height: 300px;
+  #sideMenu .search{
     margin-bottom: 10px;
   }
+
+  #sideMenu input#search_addr, #search_latitude, #search_longitude, #population{
+    box-sizing: border-box;
+    width: 50%;
+    margin-left: 5px;
+   
+  }
   
-  #sidemenu.sideNav p{
+  /* #sideMenu input#population{
+    box-sizing: border-box;
+    white-space: pre-wrap;
+    width: 75%;
+    height: 300px;
+    margin-bottom: 10px;
+  } */
+  
+  /* #sidemenu.sideNav p{
     padding-right: 10px;
     padding-left: 10px;
-  }
+  } */
 @media screen and (max-height: 450px) {
     .sideNav {padding-top: 15px;}
     .sideNav a {font-size: 18px;}
