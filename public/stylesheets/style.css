@@ -43,7 +43,7 @@ body {
 /* search box UI border css */
 #searchUI{
   background-color: #fff;
-  border: 5px solid #fff;
+  border: 10px solid #fff;
   border-radius: 2px;
   box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
   cursor: pointer;
@@ -54,7 +54,11 @@ body {
   text-align: center;
   
 }
-
+/* #drop-down-box{
+  background-color: #fff;
+  position: relative;
+  display: inline-block;
+} */
 #searchText{
   color:rgb(25, 25, 25);
   font-family: Roboto, Arial, sans-serif;
@@ -67,22 +71,14 @@ body {
 /* CheckBox UI border CSS */
 #checkBoxUI{
   background-color: #fff;
-  border: 0px solid #fff;
+  border: 10px solid #fff;
   border-radius: 2px;
   box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   height: 40px;
   width: 40px;
-  background-image: url(/images/tick-blank.svg);
+  background-image: url(/images/tick.svg);
   margin: 10px;
   text-align: center;
   
-}
-#checkBoxText{
-  color:rgb(25, 25, 25);
-  font-family: Roboto, Arial, sans-serif;
-  padding: 2px 2px 2px 2px;
-  line-height: 38px;
-  padding-left: 5px;
-  padding-right: 5px;
 }

@@ -2,6 +2,7 @@ var geocoder;
 var marker;
 var map;
 var data_layer;
+var infowindow;
 function initialize() {
     var initialLat = $('.search_latitude').val();
     var initialLong = $('.search_longitude').val();
@@ -10,15 +11,15 @@ function initialize() {
     
     var LatLng = new google.maps.LatLng(initialLat, initialLong);
     var options = {
-        zoom: 5,
+        zoom: 9,
         center: LatLng,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-
     map = new google.maps.Map(document.getElementById("map"), options);
     geocoder = new google.maps.Geocoder();
     data_layer = new google.maps.Data({map: map});
-    dataLayer(map,choice,data_layer)
+    infowindow = new google.maps.InfoWindow();
+    dataLayer(2,data_layer,infowindow)
     marker = new google.maps.Marker({
         map: map,
         draggable: true,
@@ -134,7 +135,6 @@ function CenterControl(controlDiv, map){
      searchUI.addEventListener('click', function(){
         openNav();
      })
-
      // Set CSS for the check box control border
      var checkBoxUI = document.createElement('div');
      checkBoxUI.id = 'checkBoxUI'
@@ -151,19 +151,18 @@ function CenterControl(controlDiv, map){
     var checkBoxText = document.createElement('div');
     checkBoxText.id = 'checkBoxTex'
     checkBoxText.innerHTML='Hide'
-    checkBoxUI.appendChild(checkBoxText)
 
     //call show/hide polygon function when click
     checkBoxUI.addEventListener('click', function(){
         if(checkBoxText.innerHTML=='Hide'){
             checkBoxText.innerHTML='Show';
-            $('#checkBoxUI').css("background-image","url(/images/tick.svg)")
-            dataLayer(map,4,data_layer)
+            $('#checkBoxUI').css("background-image","url(/images/tick-blank.svg)")
+            dataLayer(4,data_layer,infowindow)
         }
         else if(checkBoxText.innerHTML=='Show'){
             checkBoxText.innerHTML='Hide'
-            $('#checkBoxUI').css("background-image","url(/images/tick-blank.svg)")
-            dataLayer(map,choice,data_layer) 
+            $('#checkBoxUI').css("background-image","url(/images/tick.svg)")
+            dataLayer(choice,data_layer,infowindow) 
         }
     })
 }
