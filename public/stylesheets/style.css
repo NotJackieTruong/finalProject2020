@@ -43,7 +43,7 @@ body {
 /* search box UI border css */
 #searchUI{
   background-color: #fff;
-  border: 0px solid #fff;
+  border: 5px solid #fff;
   border-radius: 2px;
   box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
   cursor: pointer;
@@ -73,7 +73,7 @@ body {
   cursor: pointer;
   height: 40px;
   width: 40px;
-  /* background-image: url(/images/search.svg); */
+  background-image: url(/images/tick-blank.svg);
   margin: 10px;
   text-align: center;
   

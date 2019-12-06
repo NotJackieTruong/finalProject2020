@@ -1,6 +1,7 @@
 let maxPopulation = 0
 let minPopulation = 0
-var choice = 2
+var polygonArray = []
+var choice = 1 //1: ward level -- 2: province level -- 3: district level
 var map
 function storeCoordinate(xVal,yVal, array){
     array.push({lng: xVal, lat: yVal})
@@ -28,12 +29,6 @@ function getCoordinate(id){
 var addListenersOnPolygon = function(polygon) {
     google.maps.event.addListener(polygon, 'click', function (event) {
         alert(polygon.tag)
-        if(polygon.getVisible() == true){
-            polygon.setVisible(false)
-        }
-        else{
-            polygon.setVisible(true)
-        }
     });  
   }
 
@@ -100,41 +95,38 @@ function polygonCenter(poly) {
     return (new google.maps.LatLng(centerX, centerY));
 }
 
+// Ve polygon ward level
+function drawPolygon(googlemap, Pathcoordinate, id){
+    var setPolygon = new google.maps.Polygon({
+        paths: Pathcoordinate,
+        strokeColor: 'purple',
+        strokeOpacity: 10,
+        strokeWeight: 0.2,
+        visible: true,
+        fillColor: colorOverlay(getPopulation(ObjectData[id].Population)),
+        fillOpacity: 5,
+        tag: "Phường/Xã/Thị Trấn: " + ObjectData[id].Ward 
+        +"\nQuận/Huyện/Thành Phố: "+ ObjectData[id].City
+        +"\nTỉnh/Thành Phố: "+ObjectData[id].Province
+        +"\nDân Số: "+ObjectData[id].Population,
+    });
+   console.log(setPolygon)
+    setPolygon.setMap(googlemap);
+    addListenersOnPolygon(setPolygon);
+}
+
+// Create Data Layer
 function dataLayer(map,choice){
     var data_layer = new google.maps.Data({map: map});
     //Ward level layer
     if (choice == 1){
         maxPopulation = 81690
         minPopulation = 0
-        for(var i = 0 ; i <  ObjectData.length; i++){
-            var color = colorOverlay(getPopulation(ObjectData[i].Population))
-            data_layer.add(
-                {
-                    geometry: new google.maps.Data.Polygon([getCoordinate(i)]),
-                    properties:{
-                        color: color,
-                        id: i,
-                        clickable: true
-                    }
-                }) 
-            data_layer.setStyle(function(feature) {
-                var color = feature.getProperty('color');
-                var click = feature.getProperty('clickable')
-                return ({
-                    strokeColor: 'purple',
-                    strokeOpacity: 10,
-                    strokeWeight: 0.2,
-                    fillOpacity: 5,
-                    fillColor: color,
-                    clickable: click,
-                });
-            });
-            data_layer.addListener('click', function(event) {
-                console.log(event.feature.getProperty('id'))
-              });
+        for(var i = 0 ; i < 2 /*ObjectData.length */; i++){
+            drawPolygon(map,getCoordinate(i),i)
         }
     }
-    //District level layer
+    //Province level layer
     else if( choice == 2){
         maxPopulation = 8598700
         minPopulation = 327000
@@ -159,13 +151,13 @@ function dataLayer(map,choice){
                 
         })
     }
-    //Province level layer
+    //District level layer
     else if( choice == 3){
         maxPopulation = 797840
         minPopulation = 83
         data_layer.loadGeoJson(
-            'https://00e9e64bac3ce133168b8606b9dc5c3b092801c19804e92137-apidata.googleusercontent.com/download/storage/v1/b/map_population/o/DistrictlevelFULL.json?qk=AD5uMEtgewFeTvnYYNeMrxZ51Irg8964s9PzrVgKDRCzFBJBGdxLjSMh4KwMIdl7gamLUD4YcKuV0RORkCEGsF5wwqmUx9v7PcPlzL4WQ_fq7-yROOPgWQnsrbaF7ysd3QxOB7_7dhb8LtYHTkxeX41hks1IdvORzusz-gbwdm8S2DG2EgNEMlEmHGQHg5sXCV_hACqvGRmhmmATcmKRZDvV7ccyuvY8HPoAdvptbV2WNA1ummw0T8b67hqDwEUymk12KmJGtJNPS3NhgfvDOGkZeUyyLIcbXdlJZty_2XI8v1dr9Pi8pHyYr4kqIx7UCbmOJI8DIQdE814XfN4lRlSAfdUJEghYp6UEWSmh-tzcWne-LeCaq8s2d6-81STG3ocHcAv9dNI7YamLwBtXc1O4jX8OAK3TcewrdCUCjraBKhkksqR7Jxtj3aoNKM-NaDiiEvC3ddiVDBhn-gDQjt3uJUCrczhF7YEvkLRAnBQdU8WbMRHEEkcruN4KjW6_NFmRpb938_8rzIGW9L3x7FsgirUN0Syf87Bx-TS4RWMp0DZYC9sXX-yFAVvDqD4GQgjvWJBRQgUjelzRb1SehX4cREH81P_MfSGyP-E1U0tpOhK6qfcM05oV16xMguLg7S3CSCNn-A1KlfupIm52SV33aYd_YWfx7bLiB-dupiS0-47pXTsKhxnPT-hBd-gE3Fo17S1ecWlOVZ0UPXufk-O4Lz6doxMLsaFUGtbS-x77Dh0-QPhyn-OUwmheWM40xi7UnkFedcwKvIy02MZfrH0fMEDi-RzHahj-m9HNZB8vr7P_OKqJnLE'
-        )
+            'https://storage.googleapis.com/map_population/DistrictlevelFULL.json'
+            )
         data_layer.setStyle(function(feature){
             var P = feature.getProperty('Dan_So')
             var color = colorOverlay(P)
@@ -178,8 +170,18 @@ function dataLayer(map,choice){
             }   
         })
     }
+    else if(choice == 4){
+        data_layer.setStyle({visible: false})
+    }
 }
- 
+console.log(polygonArray.length)
+//initialize gg map on the website
+
+function clearMap() {
+    if ($scope.map.overlay) {
+        $scope.map.overlay.setMap(null);
+    }
+}
 function initMap(){
     map = new google.maps.Map(document.getElementById('map'),{
         zoom: 5,
@@ -187,3 +189,5 @@ function initMap(){
     });
     dataLayer(map,choice)
 }
+
+

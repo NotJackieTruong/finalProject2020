@@ -1,6 +1,7 @@
 let maxPopulation = 0
 let minPopulation = 0
-var choice = 1 //1: ward level -- 2: province level -- 3: district level
+var polygonArray = []
+var choice = 2 //1: ward level -- 2: province level -- 3: district level
 var map
 function storeCoordinate(xVal,yVal, array){
     array.push({lng: xVal, lat: yVal})
@@ -28,7 +29,8 @@ function getCoordinate(id){
 var addListenersOnPolygon = function(polygon) {
     google.maps.event.addListener(polygon, 'click', function (event) {
         console.log(polygon.getPaths())
-        $('#population').val(polygon.tag)
+        $('#population').val("this\n doesn't\n work")
+        $('#population').css("white-space", "pre-line")
     });  
   }
 
@@ -110,22 +112,12 @@ function drawPolygon(googlemap, Pathcoordinate, id){
         +"\nTỉnh/Thành Phố: "+ObjectData[id].Province
         +"\nDân Số: "+ObjectData[id].Population,
     });
+    polygonArray.push(setPolygon);
     setPolygon.setMap(googlemap);
     addListenersOnPolygon(setPolygon);
 }
-
-// Xoá polygon ward level
-function removePolygon(){
-    for(var i = 0; i<ObjectData.length; i++){
-        var removePolygon = polygonArray.pop(setPolygon)
-        removePolygon.setMap(null)
-
-    }
-}
-
 // Create Data Layer
-function dataLayer(map,choice){
-    var data_layer = new google.maps.Data({map: map});
+function dataLayer(map,choice,data_layer){
     //Ward level layer
     if (choice == 1){
         maxPopulation = 81690

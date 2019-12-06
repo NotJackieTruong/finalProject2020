@@ -1,6 +1,7 @@
 var geocoder;
 var marker;
 var map;
+var data_layer;
 function initialize() {
     var initialLat = $('.search_latitude').val();
     var initialLong = $('.search_longitude').val();
@@ -15,9 +16,9 @@ function initialize() {
     };
 
     map = new google.maps.Map(document.getElementById("map"), options);
-    dataLayer(map,choice)
     geocoder = new google.maps.Geocoder();
-
+    data_layer = new google.maps.Data({map: map});
+    dataLayer(map,choice,data_layer)
     marker = new google.maps.Marker({
         map: map,
         draggable: true,
@@ -149,22 +150,20 @@ function CenterControl(controlDiv, map){
     //  checkbox.checked= true;
     var checkBoxText = document.createElement('div');
     checkBoxText.id = 'checkBoxTex'
-    checkBoxText.innerHTML='Show Datalayer'
+    checkBoxText.innerHTML='Hide'
     checkBoxUI.appendChild(checkBoxText)
 
     //call show/hide polygon function when click
     checkBoxUI.addEventListener('click', function(){
-        if(checkBoxText.innerHTML=='Hide Datalayer'){
-            checkBoxText.innerHTML='Show Datalayer'
-            dataLayer(map,4)
+        if(checkBoxText.innerHTML=='Hide'){
+            checkBoxText.innerHTML='Show';
+            $('#checkBoxUI').css("background-image","url(/images/tick.svg)")
+            dataLayer(map,4,data_layer)
         }
-        else if(checkBoxText.innerHTML=='Show Datalayer'){
-            checkBoxText.innerHTML='Hide Datalayer'
-            if(choice == 1){
-                removePolygon()
-            }
-            else
-                dataLayer(map,choice)   
+        else if(checkBoxText.innerHTML=='Show'){
+            checkBoxText.innerHTML='Hide'
+            $('#checkBoxUI').css("background-image","url(/images/tick-blank.svg)")
+            dataLayer(map,choice,data_layer) 
         }
     })
 }
