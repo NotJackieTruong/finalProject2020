@@ -53,7 +53,7 @@
   }
   
   .dropDownItemDiv{
-      color: black;
+      color: rgb(86, 86, 86);
       font-family: Roboto, Arial, sans-serif;
       user-select: none;
       font-size: 18px;
@@ -64,6 +64,9 @@
   .dropDownItemDiv:hover, .checkboxContainer:hover{
       background-color: rgb(235, 235, 235);       
   
+  }
+  .dropDownItemDiv:hover{
+      color: black;
   }
   .dropDownControl:hover{
       background: rgb(235, 235, 235);
@@ -78,18 +81,16 @@
       border-top-color: rgb(235, 235, 235); 
   }
   .checkboxContainer{
-      font-family: Arial, sans-serif; 
-      -webkit-user-select: none; 
-      font-size: 11px; 
-      padding-top: 1px; 
-      padding-bottom: 3px; 
-      padding-left: 5px; 
+      color: black;
+      font-family: Roboto, Arial, sans-serif;
+      user-select: none;
+      font-size: 18px;
+      background-color: rgb(255, 255, 255); 
+      padding: 5px 8px 5px 5px;
       direction: ltr; 
       text-align: left; 
-      background-color: rgb(255, 255, 255); 
       white-space: nowrap; 
-      padding-right: 8px; 
-      color: rgb(0, 0, 0); 
+      
   }       
   .checkboxSpan{
       box-sizing: border-box; 
@@ -136,7 +137,7 @@
       top: -44px; 
       -webkit-user-select: none; 
       border-width: 0px; 
-      border-style: initial; 
+      border: 3px; 
       border-color: initial; 
       border-image: initial; 
       padding: 0px; 
@@ -149,5 +150,6 @@
   .checkboxLabel{
       vertical-align: middle; 
       cursor: pointer;
+      font-weight: 400;
   }
   

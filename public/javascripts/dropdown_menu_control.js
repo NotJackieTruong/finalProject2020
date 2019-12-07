@@ -20,6 +20,9 @@ function createDropdown(){
                 '    </div>          '+
                 '    </div>'+
                 '</div>';
+
+                var checkbox = document.getElementById("terrainCheck");
+                checkbox.getAttribute("onclick", "")
     control.topCenter.add(html1)
 	
 }
