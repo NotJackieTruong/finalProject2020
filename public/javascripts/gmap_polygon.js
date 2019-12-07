@@ -2,7 +2,21 @@ let maxPopulation = 0
 let minPopulation = 0
 var polygonArray = []
 var choice = 2 //1: ward level -- 2: province level -- 3: district level
+var currentmap_level
 var map
+let nameSearch = 'null'
+
+function getFixedName(name){
+    var result;
+    if(name == 'Hà Nội')
+        result = 'Ha Noi'
+    else if( name == 'Thái Nguyên')
+        result = 'Thai Nguyen'
+    else {
+        result =  name
+    }
+    return result
+}
 
 function storeCoordinate(xVal,yVal, array){
     array.push({lng: xVal, lat: yVal})
@@ -26,15 +40,6 @@ function getCoordinate(id){
     }
     return Coordinate
 }
-//Hiện thông tin polygon
-var addListenersOnPolygon = function(polygon) {
-    google.maps.event.addListener(polygon, 'click', function (event) {
-        console.log(polygon.getPaths())
-        $('#population').val("this\n doesn't\n work")
-        $('#population').css("white-space", "pre-line")
-    });  
-  }
-
 //lấy population từ database
 function getPopulation(P){
     if(isNaN(P)){
@@ -172,74 +177,86 @@ function dataLayer(choice,data_layer,inforwindow){
             inforwindow.open(map);
          });
     }
-    //Province level layer
-    else if( choice == 2){
-        maxPopulation = 8598700
-        minPopulation = 327000
-        data_layer.loadGeoJson(
-            'https://storage.googleapis.com/map_population/citylevelBoundary.json'
+}
+
+//Data Layer with current level : District
+function DistrictLevelMap(map,name){
+    currentmap_level = 'District'
+    maxPopulation = 797840
+    minPopulation = 83
+    infowindow.close()
+    console.log(nameSearch)
+    data_layer.loadGeoJson(
+        'https://storage.googleapis.com/map_population/DistrictlevelFULL.json'
         )
-        data_layer.setStyle(function(feature){
-            var cityname = feature.getProperty('Name')
-            var color,p
-            for( var i = 0; i< StringData.length; i++){
-                if(cityname == StringData[i].City){
-                    color = colorOverlay(StringData[i].Population*1000)
-                    p = StringData[i].Population*1000
-                    feature.setProperty("population", p)
-                }
-            }
-            return{
-                strokeColor: 'purple',
-                strokeOpacity: 10,
-                strokeWeight: 0.2,
-                fillOpacity: 5,
-                fillColor: color,
-            }   
-        })
-        data_layer.addListener('click', function(event) {
-            var feat = event.feature;
-            var html = "<b>"+feat.getProperty("Name")+"</b><br>"+feat.getProperty("population");
-            inforwindow.setContent(html);
-            inforwindow.setPosition(event.latLng);
-            inforwindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
-            inforwindow.open(map);
-         });
-    }
-    //District level layer
-    else if( choice == 3){
-        maxPopulation = 797840
-        minPopulation = 83
-        data_layer.loadGeoJson(
-            'https://storage.googleapis.com/map_population/DistrictlevelFULL.json'
-            )
-        data_layer.setStyle(function(feature){
-            var P = feature.getProperty('Dan_So')
-            var color = colorOverlay(P)
-            return{
-                strokeColor: 'purple',
-                strokeOpacity: 10,
-                strokeWeight: 0.2,
-                fillOpacity: 5,
-                fillColor: color
-            }   
-        })
-        data_layer.addListener('click', function(event) {
-            var feat = event.feature;
-            var html = "<b>"+feat.getProperty("Ten_Tinh")+"</b><br>"+feat.getProperty("Ten_Huyen")+"</b><br>"+feat.getProperty("Dan_So");
-            inforwindow.setContent(html);
-            inforwindow.setPosition(event.latLng);
-            inforwindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
-            inforwindow.open(map);
-         });
-    }
-    else if(choice == 4){
-        data_layer.setStyle({visible: false})
-        inforwindow.close()
-    }
+    data_layer.setStyle(function(feature){
+        var P = feature.getProperty('Dan_So')
+        var provinceName = feature.getProperty('Ten_Tinh')
+        var color = colorOverlay(P)
+        var visibleState
+        if(name == getFixedName(provinceName))
+            visibleState =  true
+        else
+            visibleState = false
+        return{
+            strokeColor: 'purple',
+            strokeOpacity: 10,
+            strokeWeight: 0.2,
+            fillOpacity: 5,
+            fillColor: color,
+            visible: visibleState
+        }   
+    })
+    data_layer.addListener('click', function(event) {
+        var feat = event.feature;
+        var html = "<b>"+feat.getProperty("Ten_Tinh")+"</b><br>"+feat.getProperty("Ten_Huyen")+"</b><br>"+feat.getProperty("Dan_So");
+        infowindow.setContent(html);
+        infowindow.setPosition(event.latLng);
+        infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
+        });
 }
 //initialize gg map on the website
-
+function ProvinceLevelMap(map){
+    // option = show or hide
+    currentmap_level = 'Province'
+    maxPopulation = 8598700
+    minPopulation = 327000
+    data_layer.loadGeoJson(
+        'https://storage.googleapis.com/map_population/citylevelBoundary.json'
+    )
+    data_layer.setStyle(function(feature){
+        var cityname = feature.getProperty('Name')
+        var color,p
+        for( var i = 0; i< StringData.length; i++){
+            if(cityname == StringData[i].City){
+                color = colorOverlay(StringData[i].Population*1000)
+                p = StringData[i].Population*1000
+                feature.setProperty("population", p)
+            }
+        }
+        return{
+            strokeColor: 'purple',
+            strokeOpacity: 10,
+            strokeWeight: 0.2,
+            fillOpacity: 5,
+            fillColor: color,
+        }   
+    })
+    data_layer.addListener('click', function(event) {
+        var feat = event.feature;
+        var html = "<b>"+feat.getProperty("Name")+"</b><br>"+feat.getProperty("population");
+        infowindow.setContent(html);
+        infowindow.setPosition(event.latLng);
+        infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
+        infowindow.open(map);
+        });
+    data_layer.addListener('dblclick', function(event){
+        var feat = event.feature;
+        nameSearch= feat.getProperty("Name")
+        DistrictLevelMap(map,nameSearch)
+        console.log(nameSearch)
+    })
+}
 function initMap() {
     initialize();
 }

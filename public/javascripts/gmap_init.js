@@ -32,6 +32,7 @@ function initialize() {
     dataLayer(2,data_layer,infowindow)
 
     //create marker
+    ProvinceLevelMap(map)
     marker = new google.maps.Marker({
         map: map,
         draggable: true,
@@ -108,12 +109,20 @@ function CenterControl(controlDiv, map){
         if(checkBoxText.innerHTML=='Hide'){
             checkBoxText.innerHTML='Show';
             $('#checkBoxUI').css("background-image","url(/images/tick-blank.svg)")
-            dataLayer(4,data_layer,infowindow)
+            data_layer.setStyle({visible: false})
+            infowindow.close()
         }
         else if(checkBoxText.innerHTML=='Show'){
             checkBoxText.innerHTML='Hide'
             $('#checkBoxUI').css("background-image","url(/images/tick.svg)")
-            dataLayer(choice,data_layer,infowindow) 
+            console.log(currentmap_level)
+            console.log(nameSearch)
+            if(currentmap_level == 'Province'){
+                ProvinceLevelMap(map)
+            }   
+            if(currentmap_level == 'District'){
+                DistrictLevelMap(map, nameSearch)
+            }
         }
     })
 }
