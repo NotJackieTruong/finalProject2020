@@ -4,23 +4,20 @@ html
     link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='https://code.jquery.com/jquery-2.2.4.min.js')
+
     //-inilialize gg map
     script(src= "https://storage.googleapis.com/map_population/HNward.js" )
     script(src="https://storage.googleapis.com/map_population/CityLevelData.js" )
     script(src='/javascripts/gmap_polygon.js' )
-    //- script(src='/javascripts/array.js')
     script(src='/javascripts/gmap_init.js')
+
     //-navbar
     script(src='/javascripts/navbar.js')
     link(rel="stylesheet", href="/stylesheets/navbar.css")
-    //-footer
-    //- link(rel="stylesheet", href="/stylesheets/footer.css")
-    //- script(src='/javascript/footer.js')
-    //-gg font
+
+    //-gg font for the title
     link(href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700&display=swap" rel="stylesheet")
     link(href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet")
-    //-search box
-  
 
     //-search function
     link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
@@ -35,42 +32,16 @@ html
 
     //-control dropdown menu
     link(rel='stylesheet' href='/stylesheets/dropdown_menu_control.css')
+    script(src="/javascripts/dropdown_menu_control.js")
     //-load control api
     script(src="https://rack.pub/control.min.js")
  
   body
     block header
+      //- title
       div(class="title")
         h1(class="title") Title
-      //- nav.navbar
-      //-   ul.nav
-        
-      //-     a#Home(href='/catalog') Home
-
-          
-      //-     li
-      //-       | About Us
-      //-       ul.dropdown
-      //-         li Menu 1
-      //-         li Menu 2
-        
-      //-     li
-      //-       | Pricing
-      //-       ul.dropdown
-      //-         li Menu 1
-      //-         li Menu 2
-      //-         li Menu 3
-      //-     li
-      //-       | Docs
-      //-       ul.dropdown
-      //-         li Menu 1
-      //-         li Menu 2
-      //-     li
-      //-       | Contact
-      //-       ul.dropdown
-      //-         li Menu 1
-      //-         li Menu 2
-
+      //-nav bar
       nav.menu
         ul.menu__list
           li.menu__group
@@ -79,11 +50,6 @@ html
             a.menu__link(href='/catalog/map') Map
           li.menu__group
             a.menu__link(href='/catalog/about') About us
-
-        //- #sideMenu.sideNav
-        //-   a.closeBtn(href='javascript:void(0)' onclick='closeNav()') &times;
-        //-   a(href="#") Something
-        //-   a(href="#") Something
     block content
     
     //-khanh gg map api: AIzaSyAECzjHT9kMSFcH8AIMQdDtPsXzkWuZmCQ

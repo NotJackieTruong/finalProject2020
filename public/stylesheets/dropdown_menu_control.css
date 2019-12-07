@@ -1,66 +1,48 @@
 .container{
-    width: 85px; 
-    z-index: 2; 
-    margin: 5px;
+    font-family: Roboto, Arial, sans-serif; 
+    user-select: none;
+    width: 120px; 
+    height: 44px;
+    margin: 10px;
+    padding: 0;
     cursor: pointer;
     text-align: left;
     z-index: 0;
+
+    
+  }
+
+  #text{
+      width: 35.64px;
   }
   
   .dropDownControl{
+      width: 120px;
+      height: 44px;
       direction: ltr; 
-      overflow-x: hidden; 
-      overflow-y: hidden; 
+      overflow: hidden;
       text-align: left; 
       position: relative; 
-      font-family: Arial, sans-serif; 
-      -webkit-user-select: none; 
-      font-size: 13px; 
-      padding-top: 1px; 
-      padding-right: 6px; 
-      padding-bottom: 1px; 
-      border-top-width: 1px; 
-      border-right-width: 1px; 
-      border-bottom-width: 1px; 
-      border-left-width: 1px; 
-      border-top-style: solid; 
-      border-right-style: solid; 
-      border-bottom-style: solid; 
-      border-left-style: solid; 
-      border-top-color: rgb(113, 123, 135); 
-      border-right-color: rgb(113, 123, 135); 
-      border-bottom-color: rgb(113, 123, 135); 
-      border-left-color: rgb(113, 123, 135); 
-      border-image: initial; 
-      -webkit-box-shadow: rgba(0, 0, 0, 0.398438) 0px 2px 4px; 
-      box-shadow: rgba(0, 0, 0, 0.398438) 0px 2px 4px; 
-      color: rgb(0, 0, 0); 
-      padding-left: 6px; 
-      font-weight: bold; 
-      background-image: initial; 
-      background-attachment: initial; 
-      background-origin: initial; 
-      background-clip: initial; 
+      font-size: 18px; 
+      padding: 11px 23px;
+      border: 10px solid #fff;
+      border-radius: 2px;
+      box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+      color: black;
       background-color: rgb(255, 255, 255); 
-      background-position: initial initial; 
-      background-repeat: initial initial;     
-      z-index: 2;
+      background-clip: padding-box;
+      font-weight: 500;
+      z-index: 1;
   }   
   
   .dropDownArrow{
-      -webkit-user-select: none; 
-      border-width: 0px; 
-      border-style: initial; 
-      border-color: initial; 
-      border-image: initial; 
+      user-select: none;
+      border: 0px; 
       padding: 0px; 
-      margin-right: 0px; 
-      margin-bottom: 0px; 
-      margin-left: 0px; 
+      margin: -2px 0px 0px;
       position: absolute; 
       right: 6px; 
       top: 50%;
-      margin-top: -2px; 
       width: 7px; 
       height: 4px; 
   }
