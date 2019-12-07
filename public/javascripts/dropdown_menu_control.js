@@ -10,20 +10,33 @@ function createDropdown(){
                 '        <div class = "dropDownItemDiv" id="mapOpt"  title="This acts like a button or click event" onClick="alert(\'option1\')">Option 1</div>'+
                 '        <div class = "dropDownItemDiv" id="satelliteOpt" title="This acts like a button or click event" onClick="alert(\'option2\')">Option 2</div>'+
                 '        <div class="separatorDiv"></div>'+
-                '        <div class="checkboxContainer" title="This allows for multiple selection/toggling on/off" onclick="(document.getElementById(\'terrainCheck\').style.display == \'block\') ? document.getElementById(\'terrainCheck\').style.display = \'none\' : document.getElementById(\'terrainCheck\').style.display = \'block\';">'+
+                '        <div class="checkboxContainer" title="Turn on/off Polygon Layer" onclick="(document.getElementById(\'terrainCheck\').style.display == \'none\') ? document.getElementById(\'terrainCheck\').style.display = \'block\' : document.getElementById(\'terrainCheck\').style.display = \'none\'; show_hide_polygon(); ">'+
                 '        <span role="checkbox" class="checkboxSpan ">'+
                 '            <div class="blankDiv" id="terrainCheck">'+
-                '                <img class="blankImg" src="http://maps.gstatic.com/mapfiles/mv/imgs8.png" />'+
+                '                <img class="blankImg" src="/images/check_mark.jpg"/>'+
                 '            </div>'+
                 '        </span>             '+
-                '        <label class="checkboxLabel">On/Off</label>             '+
+                '        <label class="checkboxLabel">Polygon</label>             '+
                 '    </div>          '+
                 '    </div>'+
                 '</div>';
 
-                var checkbox = document.getElementById("terrainCheck");
-                checkbox.getAttribute("onclick", "")
+        
     control.topCenter.add(html1)
 	
 }
-
+var checkbox = document.getElementById('terrainCheck')
+function show_hide_polygon(){
+    if(document.getElementById('terrainCheck').style.display == 'none'){
+ 
+        data_layer.setStyle({visible: false})
+    } else if(document.getElementById('terrainCheck').style.display == 'block'){
+        if(currentmap_level == 'Province'){
+            ProvinceLevelMap(map)
+        }   
+        if(currentmap_level == 'District'){
+            DistrictLevelMap(map, nameSearch)
+        }
+    }
+}
+       

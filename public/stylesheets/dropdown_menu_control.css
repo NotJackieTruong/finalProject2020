@@ -121,31 +121,26 @@
   }
   
   
-  .blankDiv{
-      position: absolute; 
-      left: 1px; 
-      top: -2px; 
+  .blankDiv #terrainCheck{
+      position: relative;  
+      /* left: 1px; 
+      top: -2px;  */
       width: 13px; 
-      height: 11px; 
+      height: 13px; 
       overflow-x: hidden; 
       overflow-y: hidden; 
-      display: none; /*when = block -> this is the "check" symbol*/ 
+      display: block; /*when = block -> this is the "check" symbol*/ 
+
   }
   
   .blankImg{
-      position: absolute; 
-      left: -52px; 
-      top: -44px; 
+      position: relative;
       -webkit-user-select: none; 
-      border-width: 0px; 
-      border: 3px; 
-      border-color: initial; 
-      border-image: initial; 
       padding: 0px; 
       margin: 0px; 
       -webkit-user-drag: none; 
-      width: 68px; 
-      height: 67px; 
+      width: 13px; 
+      height: 13px; 
   }
   
   .checkboxLabel{
