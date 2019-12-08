@@ -22,7 +22,7 @@ function createDropdown(){
                 '</div>';
 
         
-    control.topCenter.add(html1)
+    control.rightTop.add(html1)
 	
 }
 var checkbox = document.getElementById('terrainCheck')

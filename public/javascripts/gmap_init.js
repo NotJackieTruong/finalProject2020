@@ -82,7 +82,7 @@ function initialize() {
     var searchControlDiv = document.createElement('div');
     var centerControl = new CenterControl(searchControlDiv, map);
     searchControlDiv.index = 1;
-    map.controls[google.maps.ControlPosition.LEFT_TOP].push(searchControlDiv);
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(searchControlDiv);
     marker.setMap(map);
     map.panTo(marker.position)
 }
