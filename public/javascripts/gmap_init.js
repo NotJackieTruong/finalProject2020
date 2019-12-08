@@ -46,7 +46,7 @@ function initialize() {
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(searchControlDiv);
     marker.setMap(map);
     map.panTo(marker.position)
-
+    infowindow.open(map, marker)
 }
 
 //get lat long when searching
@@ -57,6 +57,7 @@ $(document).ready(function(){
 
     $('.get_map').click(function(e){
         var address = $(PostCodeid).val();
+        console.log(address)
         geocoder.geocode({'address': address}, function(results, status){
             if (status == google.maps.GeocoderStatus.OK) {
                 map.setCenter(results[0].geometry.location);
@@ -64,13 +65,15 @@ $(document).ready(function(){
                 $('#search_addr').val(results[0].formatted_address);
                 $('#search_latitude').val(marker.getPosition().lat());
                 $('#search_longitude').val(marker.getPosition().lng());
-            
-        
+                var search_addr = '<b>'+results[0].formatted_address + '</b>'
+                infowindow.setContent(search_addr)
+                infowindow.setPosition(marker.getPosition())
             } else {
                 alert("Geocode was not successful for the following reason: " + status);
             }
         });
         e.preventDefault();
+        
         return marker.getPosition().lat(), marker.getPosition().lng();
     })
 
