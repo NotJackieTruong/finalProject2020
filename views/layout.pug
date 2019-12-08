@@ -7,7 +7,7 @@ html
     link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")
 
     //-inilialize gg map
-    script(src= "https://storage.googleapis.com/map_population/HNward.js" )
+    script(src='/javascripts/HNward.js' )
     script(src="https://storage.googleapis.com/map_population/CityLevelData.js" )
     script(src='/javascripts/gmap_polygon.js' )
     script(src='/javascripts/gmap_init.js')
@@ -41,8 +41,36 @@ html
     block header
       //- title
       div(class="title")
-        h1(class="title") Title
-      //-nav bar
+        h1(class="title" style="text-align: center") Visualizing Data<br/>Google Maps Javascript API
+      //- nav.navbar
+      //-   ul.nav
+        
+      //-     a#Home(href='/catalog') Home
+
+          
+      //-     li
+      //-       | About Us
+      //-       ul.dropdown
+      //-         li Menu 1
+      //-         li Menu 2
+        
+      //-     li
+      //-       | Pricing
+      //-       ul.dropdown
+      //-         li Menu 1
+      //-         li Menu 2
+      //-         li Menu 3
+      //-     li
+      //-       | Docs
+      //-       ul.dropdown
+      //-         li Menu 1
+      //-         li Menu 2
+      //-     li
+      //-       | Contact
+      //-       ul.dropdown
+      //-         li Menu 1
+      //-         li Menu 2
+
       nav.menu
         ul.menu__list
           li.menu__group

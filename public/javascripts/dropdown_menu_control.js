@@ -7,8 +7,8 @@ function createDropdown(){
                 '        <img class="dropDownArrow" src="http://maps.gstatic.com/mapfiles/arrow-down.png"/>'+
                 '    </div>'+
                 '    <div class = "dropDownOptionsDiv" id="myddOptsDiv">'+
-                '        <div class = "dropDownItemDiv" id="mapOpt"  title="This acts like a button or click event" onClick="alert(\'option1\')">Option 1</div>'+
-                '        <div class = "dropDownItemDiv" id="satelliteOpt" title="This acts like a button or click event" onClick="alert(\'option2\')">Option 2</div>'+
+                '        <div class = "dropDownItemDiv" id="mapOpt"  title="Click to show province level boundary" onClick="initMap()">Show Province</div>'+
+                '        <div class = "dropDownItemDiv" id="satelliteOpt" title="Click to show province level boundary" onClick="initMap();DistrictLevelMap(nameSearch)">Show District</div>'+
                 '        <div class="separatorDiv"></div>'+
                 '        <div class="checkboxContainer" title="Turn on/off Polygon Layer" onclick="(document.getElementById(\'terrainCheck\').style.display == \'none\') ? document.getElementById(\'terrainCheck\').style.display = \'block\' : document.getElementById(\'terrainCheck\').style.display = \'none\'; show_hide_polygon(); ">'+
                 '        <span role="checkbox" class="checkboxSpan ">'+
@@ -28,14 +28,20 @@ function createDropdown(){
 var checkbox = document.getElementById('terrainCheck')
 function show_hide_polygon(){
     if(document.getElementById('terrainCheck').style.display == 'none'){
- 
+        infowindow.close()
         data_layer.setStyle({visible: false})
     } else if(document.getElementById('terrainCheck').style.display == 'block'){
         if(currentmap_level == 'Province'){
-            ProvinceLevelMap(map)
+            infowindow.close()
+            ProvinceLevelMap()
         }   
         if(currentmap_level == 'District'){
-            DistrictLevelMap(map, nameSearch)
+            infowindow.close()
+            DistrictLevelMap(nameSearch)
+        }
+        if(currentmap_level == 'Ward'){
+            infowindow.close()
+            WardLevelMap(nameSearch,nameSearch2)
         }
     }
 }
