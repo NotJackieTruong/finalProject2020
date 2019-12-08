@@ -249,6 +249,8 @@ function ProvinceLevelMap(map){
         infowindow.setPosition(event.latLng);
         infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
         infowindow.open(map);
+        marker.setPosition(event.latLng);
+        map.panTo(event.latLng);
         });
     data_layer.addListener('dblclick', function(event){
         var feat = event.feature;

@@ -35,7 +35,6 @@ function initialize() {
     ProvinceLevelMap(map)
     marker = new google.maps.Marker({
         map: map,
-        draggable: true,
         position: LatLng
     });
 
@@ -45,7 +44,8 @@ function initialize() {
     var centerControl = new CenterControl(searchControlDiv, map);
     searchControlDiv.index = 1;
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(searchControlDiv);
-
+    marker.setMap(map);
+    map.panTo(marker.position)
 
 }
 
