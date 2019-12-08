@@ -1,6 +1,5 @@
 var geocoder;
 var marker;
-var map;
 var data_layer;
 var infowindow;
  
@@ -29,7 +28,6 @@ function initialize() {
     //create data layer and infowindow
     data_layer = new google.maps.Data({map: map});
     infowindow = new google.maps.InfoWindow();
-    dataLayer(2,data_layer,infowindow)
 
     //create marker
     ProvinceLevelMap(map)
@@ -37,6 +35,35 @@ function initialize() {
         map: map,
         position: LatLng
     });
+
+    // listener
+    data_layer.addListener('click',function(event){
+        var feat = event.feature;
+        var html
+        if(currentmap_level == 'Province'){
+            html = "<b>"+feat.getProperty("Name")+"</b><br>"+feat.getProperty("population");
+            infowindow.setContent(html);
+            infowindow.setPosition(event.latLng);
+            infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
+            infowindow.open(map);
+        }
+        else if(currentmap_level == 'District'){
+            html = "<b>"+feat.getProperty("Ten_Tinh")+"</b><br>"+feat.getProperty("Ten_Huyen")+"</b><br>"+feat.getProperty("Dan_So");
+            infowindow.setContent(html);
+            infowindow.setPosition(event.latLng);
+            infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
+            infowindow.open(map);
+        }
+    })
+    
+    data_layer.addListener('dblclick',function(event){
+        console.log('level of data layer is: ' +currentmap_level)
+        if(currentmap_level == 'Province'){
+            var feat = event.feature;
+            nameSearch= feat.getProperty("Name")
+            DistrictLevelMap(nameSearch)
+        }
+    })
 
     //dropdown menu as a custom control in map
     createDropdown();
@@ -46,7 +73,6 @@ function initialize() {
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(searchControlDiv);
     marker.setMap(map);
     map.panTo(marker.position)
-    infowindow.open(map, marker)
 }
 
 //get lat long when searching

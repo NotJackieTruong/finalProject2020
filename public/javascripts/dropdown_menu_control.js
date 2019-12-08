@@ -28,14 +28,16 @@ function createDropdown(){
 var checkbox = document.getElementById('terrainCheck')
 function show_hide_polygon(){
     if(document.getElementById('terrainCheck').style.display == 'none'){
- 
+        infowindow.close()
         data_layer.setStyle({visible: false})
     } else if(document.getElementById('terrainCheck').style.display == 'block'){
         if(currentmap_level == 'Province'){
-            ProvinceLevelMap(map)
+            infowindow.close()
+            ProvinceLevelMap()
         }   
         if(currentmap_level == 'District'){
-            DistrictLevelMap(map, nameSearch)
+            infowindow.close()
+            DistrictLevelMap(nameSearch)
         }
     }
 }

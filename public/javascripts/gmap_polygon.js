@@ -5,7 +5,6 @@ var choice = 2 //1: ward level -- 2: province level -- 3: district level
 var currentmap_level
 var map
 let nameSearch = 'null'
-var html
 
 //bỏ dấu tiếng việt
 function getFixedName(str) {
@@ -139,7 +138,6 @@ function dataLayer(choice,data_layer,inforwindow){
                             Population: ObjectData[i].Population
                         }
                     }) 
-                console.log(getCoordinate(i))
                 data_layer.setStyle(function(feature) {
                     var color = feature.getProperty('color');
                     var click = feature.getProperty('clickable')
@@ -162,7 +160,7 @@ function dataLayer(choice,data_layer,inforwindow){
         }
         data_layer.addListener('click', function(event) {
             var feat = event.feature;
-            html = "<b>"+feat.getProperty('Province')+"</b><br>"+feat.getProperty('City')+"</b><br>"+feat.getProperty('Ward')+"</b><br>"+feat.getProperty('Population');
+            var html = "<b>"+feat.getProperty('Province')+"</b><br>"+feat.getProperty('City')+"</b><br>"+feat.getProperty('Ward')+"</b><br>"+feat.getProperty('Population');
             inforwindow.setContent(html);
             inforwindow.setPosition(event.latLng);
             inforwindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
@@ -171,7 +169,7 @@ function dataLayer(choice,data_layer,inforwindow){
     }
 }
 //Data Layer with current level : District
-function DistrictLevelMap(map,name){
+function DistrictLevelMap(name){
     currentmap_level = 'District'
     maxPopulation = 797840
     minPopulation = 83
@@ -198,16 +196,9 @@ function DistrictLevelMap(map,name){
             visible: visibleState
         }   
     })
-    data_layer.addListener('click', function(event) {
-        var feat = event.feature;
-        html = "<b>"+feat.getProperty("Ten_Tinh")+"</b><br>"+feat.getProperty("Ten_Huyen")+"</b><br>"+feat.getProperty("Dan_So");
-        infowindow.setContent(html);
-        infowindow.setPosition(event.latLng);
-        infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
-        });
 }
 //initialize gg map on the website
-function ProvinceLevelMap(map){
+function ProvinceLevelMap(){
     // option = show or hide
     currentmap_level = 'Province'
     maxPopulation = 8598700
@@ -233,28 +224,9 @@ function ProvinceLevelMap(map){
             fillColor: color,
         }   
     })
-    data_layer.addListener('click', function(event) {
-        var feat = event.feature;
-        html = "<b>"+feat.getProperty("Name")+"</b><br>"+feat.getProperty("population");
-        infowindow.setContent(html);
-        infowindow.setPosition(event.latLng);
-        infowindow.setOptions({pixelOffset: new google.maps.Size(0,-44)});
-        infowindow.open(map);
-        //change marker location
-        marker.setPosition(event.latLng);
-        map.panTo(event.latLng);
-        $('#search_addr').val(feat.getProperty("Name"));
-        $('#search_latitude').val(event.latLng.lat())
-        $('#search_longitude').val(event.latLng.lng())
-        $('#population').val(feat.getProperty("population"))
-        // return event.latLng.lat(), event.latLng.lng()
-        });
-    data_layer.addListener('dblclick', function(event){
-        var feat = event.feature;
-        nameSearch= feat.getProperty("Name")
-        DistrictLevelMap(map,nameSearch)
-    })
+    
 }
+
 function initMap() {
     initialize();
 }
