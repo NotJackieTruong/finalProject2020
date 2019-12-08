@@ -1,11 +1,12 @@
 /* general css */
-body {
+html, body {
   /* padding: 50px; */
   /* display: flex;
   flex-direction: column; */
 	height: 100%;
   background: white;
   font-family: 'Open Sans', sans-serif ;
+  overflow-y: scroll;
 }
 
 .title h1.title{
@@ -18,17 +19,41 @@ body {
   margin: 0;
 }
 .content{
+  min-height: 85%;
   margin-top: 40px;
 }
 
 /* map css */
 #map{
+  
   height: 700px;
   width: 100%;
   overflow: hidden;
   float: right;
   
 }
+
+/* footer */
+.footer{
+  background: blueviolet;
+  color: white;
+  width: 100%;
+  height: 400px;
+  position: relative;
+  
+}
+.footer .footer_content{
+  border: 1px solid white;
+  height: 350px;
+  display: flex;
+}
+
+.footer .footer_content .footer_section{
+  flex: 1;
+  border: 1px solid white;
+  padding: 25px;
+}
+
 
 /* @media (max-width:960px){
   #map{
