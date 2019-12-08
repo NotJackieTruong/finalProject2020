@@ -6,18 +6,31 @@ var currentmap_level
 var map
 let nameSearch = 'null'
 
-function getFixedName(name){
-    var result;
-    if(name == 'Hà Nội')
-        result = 'Ha Noi'
-    else if( name == 'Thái Nguyên')
-        result = 'Thai Nguyen'
-    else {
-        result =  name
+//bỏ dấu tiếng việt
+function getFixedName(str) {
+    if(str == undefined)
+    {
+        return undefined
     }
-    return result
+    else{
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+        str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+        str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+        str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+        str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+        str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+        str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+        str = str.replace(/Đ/g, "D");
+        return str;
+    }
+    
 }
-
 function storeCoordinate(xVal,yVal, array){
     array.push({lng: xVal, lat: yVal})
 }
@@ -51,13 +64,11 @@ function getPopulation(P){
         return P
     }
 }
-
 //đổi độ đậm nhạt
 function opacityOverlay(population){
     var opacity = (population - minPopulation)/(maxPopulation-minPopulation)
     return opacity;
 }
-
 //Đổi màu polygon
 function colorOverlay(population){
     var heso = (population - minPopulation)/(maxPopulation-minPopulation)//dân số tăng hệ số tăng
@@ -77,7 +88,6 @@ function colorOverlay(population){
 
     return ["rgb(",red,",",green,",",blue,")"].join("")
 }
-
 //Lẩy center polygon
 function polygonCenter(poly) {
     var latitudes = [];
@@ -105,26 +115,6 @@ function polygonCenter(poly) {
     var centerY = lowy + ((highy - lowy) / 2);
 
     return (new google.maps.LatLng(centerX, centerY));
-}
-
-// Ve polygon ward level
-function drawPolygon(googlemap, Pathcoordinate, id){
-    var setPolygon = new google.maps.Polygon({
-        paths: Pathcoordinate,
-        strokeColor: 'purple',
-        strokeOpacity: 10,
-        strokeWeight: 0.2,
-        visible: true,
-        fillColor: colorOverlay(getPopulation(ObjectData[id].Population)),
-        fillOpacity: 5,
-        tag: "Phường/Xã/Thị Trấn: " + ObjectData[id].Ward 
-        +"\nQuận/Huyện/Thành Phố: "+ ObjectData[id].City
-        +"\nTỉnh/Thành Phố: "+ObjectData[id].Province
-        +"\nDân Số: "+ObjectData[id].Population,
-    });
-    polygonArray.push(setPolygon);
-    setPolygon.setMap(googlemap);
-    addListenersOnPolygon(setPolygon);
 }
 // Create Data Layer
 function dataLayer(choice,data_layer,inforwindow){
@@ -178,7 +168,6 @@ function dataLayer(choice,data_layer,inforwindow){
          });
     }
 }
-
 //Data Layer with current level : District
 function DistrictLevelMap(map,name){
     currentmap_level = 'District'
@@ -254,7 +243,6 @@ function ProvinceLevelMap(map){
         var feat = event.feature;
         nameSearch= feat.getProperty("Name")
         DistrictLevelMap(map,nameSearch)
-        console.log(nameSearch)
     })
 }
 function initMap() {
