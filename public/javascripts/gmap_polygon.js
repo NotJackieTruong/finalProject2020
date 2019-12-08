@@ -5,7 +5,7 @@ var choice = 2 //1: ward level -- 2: province level -- 3: district level
 var currentmap_level
 var map
 let nameSearch = 'null'
-
+let nameSearch2 = 'null'
 //bỏ dấu tiếng việt
 function getFixedName(str) {
     if(str == undefined)
@@ -36,7 +36,7 @@ function storeCoordinate(xVal,yVal, array){
 }
 // lấy coordinate HN
 function getCoordinate(id){
-    var CoordinateString = ObjectData[id].WardCoordinates
+    var CoordinateString = ObjectData[id].Coordinates
     var arr = CoordinateString.split(/,| /)
     for( var i = 0; i < arr.length; i++){ 
         arr[i] = arr[i]*1 
@@ -117,90 +117,84 @@ function polygonCenter(poly) {
     return (new google.maps.LatLng(centerX, centerY));
 }
 // Create Data Layer
-function dataLayer(choice,data_layer,inforwindow){
-    //Ward level layer
-    if (choice == 1){
-        maxPopulation = 81690
-        minPopulation = 0
-        for(var i = 0 ; i <  ObjectData.length; i++){
-            if(ObjectData[i].Province == "Hà Nội"){
-                var color = colorOverlay(getPopulation(ObjectData[i].Population))
-                data_layer.add(
-                    {
-                        geometry: new google.maps.Data.Polygon([getCoordinate(i)]),
-                        properties:{
-                            color: color,
-                            id: i,
-                            clickable: true,
-                            Province: ObjectData[i].Province,
-                            City: ObjectData[i].City,
-                            Ward: ObjectData[i].Ward,
-                            Population: ObjectData[i].Population
-                        }
-                    }) 
-                data_layer.setStyle(function(feature) {
-                    var color = feature.getProperty('color');
-                    var click = feature.getProperty('clickable')
-                    return ({
-                        strokeColor: 'purple',
-                        strokeOpacity: 10,
-                        strokeWeight: 0.2,
-                        fillOpacity: 5,
-                        fillColor: color,
-                        clickable: click,
-                    });
+function WardLevelMap(name1,name2){
+    currentmap_level ='Ward'
+    console.log('Ward level drawn')
+    data_layer.forEach(function(feature) {
+        // If you want, check here for some constraints.
+        data_layer.remove(feature);
+    });
+    maxPopulation = 81690
+    minPopulation = 0
+    for(var i = 0 ; i <  ObjectData.length; i++){
+        if(getFixedName(ObjectData[i].Province) == name1 && getFixedName(ObjectData[i].District) == name2 ){
+            var color = colorOverlay(getPopulation(ObjectData[i].Population))
+            data_layer.add(
+                {
+                    geometry: new google.maps.Data.Polygon([getCoordinate(i)]),
+                    properties:{
+                        color: color,
+                        id: i,
+                        clickable: true,
+                        Province: ObjectData[i].Province,
+                        District: ObjectData[i].District,
+                        Ward: ObjectData[i].Ward,
+                        Population: ObjectData[i].Population
+                    }
+                }) 
+            data_layer.setStyle(function(feature) {
+                var color = feature.getProperty('color');
+                return ({
+                    strokeColor: 'purple',
+                    strokeOpacity: 10,
+                    strokeWeight: 0.2,
+                    fillOpacity: 5,
+                    fillColor: color,
                 });
-                data_layer.addListener('click', function(event) {
-                console.log(event.feature.getProperty('id'))
-                  });     
-            // }
+            });
         }
-        // for(var i = 0 ; i < 100 /*ObjectData.length */; i++){
-        //     drawPolygon(map,getCoordinate(i),i)
-        }
-        data_layer.addListener('click', function(event) {
-            var feat = event.feature;
-            var html = "<b>"+feat.getProperty('Province')+"</b><br>"+feat.getProperty('City')+"</b><br>"+feat.getProperty('Ward')+"</b><br>"+feat.getProperty('Population');
-            inforwindow.setContent(html);
-            inforwindow.setPosition(event.latLng);
-            inforwindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
-            inforwindow.open(map);
-         });
     }
+        
 }
 //Data Layer with current level : District
 function DistrictLevelMap(name){
     currentmap_level = 'District'
-    maxPopulation = 797840
-    minPopulation = 83
-    infowindow.close()
-    console.log(nameSearch)
-    data_layer.loadGeoJson(
-        'https://storage.googleapis.com/map_population/DistrictlevelFULL.json'
-        )
-    data_layer.setStyle(function(feature){
-        var P = feature.getProperty('Dan_So')
-        var provinceName = feature.getProperty('Ten_Tinh')
-        var color = colorOverlay(P)
-        var visibleState
-        if(name == getFixedName(provinceName))
-            visibleState =  true
-        else
-            visibleState = false
-        return{
-            strokeColor: 'purple',
-            strokeOpacity: 10,
-            strokeWeight: 0.2,
-            fillOpacity: 5,
-            fillColor: color,
-            visible: visibleState
-        }   
-    })
+    console.log('District level drawn')
+    if(name == 'null'){
+        alert('No city or province selected')
+    }
+    else{
+        maxPopulation = 797840
+        minPopulation = 83
+        infowindow.close()
+        data_layer.loadGeoJson(
+            'https://storage.googleapis.com/map_population/DistrictlevelFULL.json'
+            )
+        data_layer.setStyle(function(feature){
+            var P = feature.getProperty('Dan_So')
+            var provinceName = feature.getProperty('Ten_Tinh')
+            var color = colorOverlay(P)
+            var visibleState
+            if(name == getFixedName(provinceName))
+                visibleState =  true
+            else
+                visibleState = false
+            return{
+                strokeColor: 'purple',
+                strokeOpacity: 10,
+                strokeWeight: 0.2,
+                fillOpacity: 5,
+                fillColor: color,
+                visible: visibleState
+            }   
+        })
+    }
 }
 //initialize gg map on the website
 function ProvinceLevelMap(){
     // option = show or hide
     currentmap_level = 'Province'
+    console.log('Province level drawn')
     maxPopulation = 8598700
     minPopulation = 327000
     data_layer.loadGeoJson(

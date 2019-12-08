@@ -26,11 +26,11 @@ function initialize() {
     //create geocoding map
     geocoder = new google.maps.Geocoder();
     //create data layer and infowindow
+    infowindow =new google.maps.InfoWindow()
     data_layer = new google.maps.Data({map: map});
-    infowindow = new google.maps.InfoWindow();
 
     //create marker
-    ProvinceLevelMap(map)
+    ProvinceLevelMap()
     marker = new google.maps.Marker({
         map: map,
         position: LatLng
@@ -54,14 +54,26 @@ function initialize() {
             infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
             infowindow.open(map);
         }
+        else if (currentmap_level == 'Ward'){
+            html = "<b>"+feat.getProperty('Province')+"</b><br>"+feat.getProperty('District')+"</b><br>"+feat.getProperty('Ward')+"</b><br>"+feat.getProperty('Population');
+            infowindow.setContent(html);
+            infowindow.setPosition(event.latLng);
+            infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
+            infowindow.open(map);
+        }
     })
     
     data_layer.addListener('dblclick',function(event){
         console.log('level of data layer is: ' +currentmap_level)
+        var feat = event.feature;
+        infowindow.close()
         if(currentmap_level == 'Province'){
-            var feat = event.feature;
-            nameSearch= feat.getProperty("Name")
+            nameSearch = getFixedName(feat.getProperty("Name"))
             DistrictLevelMap(nameSearch)
+        }
+        else if(currentmap_level == 'District'){
+            nameSearch2 = getFixedName(feat.getProperty("Ten_Huyen"))
+            WardLevelMap(nameSearch,nameSearch2)
         }
     })
 
