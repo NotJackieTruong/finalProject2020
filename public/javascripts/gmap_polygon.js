@@ -53,6 +53,38 @@ function getCoordinate(id){
     }
     return Coordinate
 }
+function drawSearch(resultString){
+    var arr = resultString.split('')
+    var commasCount = 0
+    for(var i = 0; i< arr.length; i ++){
+        if(arr[i] == "," && arr[i+1] == ' '){
+            arr.splice(i+1, 1); 
+            commasCount = commasCount + 1
+            
+        }    
+    }
+    console.log(arr)
+    var str = arr.join('')
+    console.log(str)
+    arr  = str.split(',')
+    if(commasCount == 3){
+        currentmap_level = 'Ward'
+        console.log(arr)
+        nameSearch2 = getFixedName(arr[1])
+        nameSearch = getFixedName(arr[2])
+        console.log(nameSearch,nameSearch2)
+        WardLevelMap(nameSearch,nameSearch2)
+    }
+    else if (commasCount == 2){
+        currentmap_level = 'District'
+        nameSearch = getFixedName(arr[1])
+        DistrictLevelMap(nameSearch)
+    }
+    else if (commasCount == 1){
+        currentmap_level = 'Province'
+    }
+}
+
 //lấy population từ database
 function getPopulation(P){
     if(isNaN(P)){
@@ -116,7 +148,7 @@ function polygonCenter(poly) {
 
     return (new google.maps.LatLng(centerX, centerY));
 }
-// Create Data Layer
+// Data Layer with current level : Ward
 function WardLevelMap(name1,name2){
     currentmap_level ='Ward'
     console.log('Ward level drawn')
@@ -219,8 +251,4 @@ function ProvinceLevelMap(){
         }   
     })
     
-}
-
-function initMap() {
-    initialize();
 }
