@@ -2,8 +2,7 @@ var geocoder;
 var marker;
 var data_layer;
 var infowindow;
- 
-function initialize() {
+function initMap() {
     // initialize the center
     var initialLat = $('.search_latitude').val();
     var initialLong = $('.search_longitude').val();
@@ -39,7 +38,7 @@ function initialize() {
     });
 
     // listener
-    data_layer.addListener('click',function(event){
+    data_layer.addListener('mouseover',function(event){
         var feat = event.feature;
         var html
         if(currentmap_level == 'Province'){
@@ -67,9 +66,10 @@ function initialize() {
         map.setZoom(8)
     })
     
-    data_layer.addListener('dblclick',function(event){
-        console.log('level of data layer is: ' +currentmap_level)
+    data_layer.addListener('click',function(event){
         var feat = event.feature;
+        var a = feat.getGeometry('coordinates')
+        console.log(a)
         infowindow.close()
         if(currentmap_level == 'Province'){
             nameSearch = getFixedName(feat.getProperty("Name"))
@@ -93,7 +93,6 @@ function initialize() {
 
 //get lat long when searching
 $(document).ready(function(){
-    initialize();
     //autocomplete search
     var PostCodeid = '#search_location';
 
@@ -109,6 +108,7 @@ $(document).ready(function(){
                 var search_addr = '<b>'+results[0].formatted_address + '</b>'
                 infowindow.setContent(search_addr)
                 infowindow.setPosition(marker.getPosition())
+                drawSearch(results[0].formatted_address)
             } else {
                 alert("Geocode was not successful for the following reason: " + status);
             }
@@ -119,7 +119,6 @@ $(document).ready(function(){
         
         return marker.getPosition().lat(), marker.getPosition().lng();
     })
-
 })
 
 //create a control on gmap
