@@ -75,12 +75,11 @@ html, body {
   cursor: pointer;
   height: 40px;
   width: 40px;
-  background-image: url(/images/search.svg);
   margin: 10px;
-
-  float: right;
   text-align: center;
-  
+  background-image: url(/images/iconfinder-icon.svg);
+  background-size: cover;
+ 
 }
 /* #drop-down-box{
   background-color: #fff;
@@ -94,6 +93,7 @@ html, body {
   line-height: 38px;
   padding-left: 5px;
   padding-right: 5px;
+
 }
 
 /* CheckBox UI border CSS */

@@ -7,19 +7,21 @@ function initialize() {
     // initialize the center
     var initialLat = $('.search_latitude').val();
     var initialLong = $('.search_longitude').val();
-    initialLat = initialLat?initialLat:21.0453913;
-    initialLong = initialLong?initialLong:105.8172996;
+    //Thua thien hue lat lng
+    initialLat = initialLat?initialLat:16.467397;
+    initialLong = initialLong?initialLong:107.59053259999996;
     var LatLng = new google.maps.LatLng(initialLat, initialLong);
 
     // create options for the map
     var options = {
-        zoom: 9,
+        zoom: 6,
         center: LatLng,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         mapTypeControlOptions:{
             style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
             position: google.maps.ControlPosition.RIGHT_TOP
         },
+        zoomControl: true,
     };
     //create map
     map = new google.maps.Map(document.getElementById("map"), options);
@@ -61,6 +63,8 @@ function initialize() {
             infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
             infowindow.open(map);
         }
+        map.setCenter(event.latLng)
+        map.setZoom(8)
     })
     
     data_layer.addListener('dblclick',function(event){
@@ -95,7 +99,6 @@ $(document).ready(function(){
 
     $('.get_map').click(function(e){
         var address = $(PostCodeid).val();
-        console.log(address)
         geocoder.geocode({'address': address}, function(results, status){
             if (status == google.maps.GeocoderStatus.OK) {
                 map.setCenter(results[0].geometry.location);
@@ -109,7 +112,9 @@ $(document).ready(function(){
             } else {
                 alert("Geocode was not successful for the following reason: " + status);
             }
+            console.log(results[0].geometry.location)
         });
+        map.setZoom(9)
         e.preventDefault();
         
         return marker.getPosition().lat(), marker.getPosition().lng();
@@ -130,6 +135,7 @@ function CenterControl(controlDiv, map){
      // Set CSS for the search control interior.
      var searchControlText = document.createElement('div');
      searchControlText.id= 'searchText';
+     
      searchUI.appendChild(searchControlText);
 
      searchUI.addEventListener('click', function(){
