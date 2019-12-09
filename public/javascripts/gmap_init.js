@@ -2,6 +2,7 @@ var geocoder;
 var marker;
 var data_layer;
 var infowindow;
+
 function initMap() {
     // initialize the center
     var initialLat = $('.search_latitude').val();
@@ -24,28 +25,35 @@ function initMap() {
     };
     //create map
     map = new google.maps.Map(document.getElementById("map"), options);
+
     //create geocoding map
     geocoder = new google.maps.Geocoder();
+
     //create data layer and infowindow
     infowindow =new google.maps.InfoWindow()
     data_layer = new google.maps.Data({map: map});
+    // ProvinceLevelMap()
+    
+    var heatmap = new google.maps.visualization.HeatmapLayer({
+        data: HeatMapDensity()
+      });
+    heatmap.setMap(map);
 
     //create marker
-    ProvinceLevelMap()
     marker = new google.maps.Marker({
         map: map,
         position: LatLng
     });
 
     // listener
-    data_layer.addListener('mouseover',function(event){
+    data_layer.addListener('click',function(event){
         var feat = event.feature;
         var html
         if(currentmap_level == 'Province'){
             html = "<b>"+feat.getProperty("Name")+"</b><br>"+feat.getProperty("population");
             infowindow.setContent(html);
             infowindow.setPosition(event.latLng);
-            infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
+            infowindow.setOptions({pixelOffset: new google.maps.Size(0,-60)});
             infowindow.open(map);
         }
         else if(currentmap_level == 'District'){
@@ -66,7 +74,7 @@ function initMap() {
         map.setZoom(8)
     })
     
-    data_layer.addListener('click',function(event){
+    data_layer.addListener('dblclick',function(event){
         var feat = event.feature;
         var a = feat.getGeometry('coordinates')
         console.log(a)
@@ -108,7 +116,7 @@ $(document).ready(function(){
                 var search_addr = '<b>'+results[0].formatted_address + '</b>'
                 infowindow.setContent(search_addr)
                 infowindow.setPosition(marker.getPosition())
-                drawSearch(results[0].formatted_address)
+                drawSearch(results[0].address_components)
             } else {
                 alert("Geocode was not successful for the following reason: " + status);
             }

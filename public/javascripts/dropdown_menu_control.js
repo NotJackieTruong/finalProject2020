@@ -7,8 +7,8 @@ function createDropdown(){
                 '        <img class="dropDownArrow" src="http://maps.gstatic.com/mapfiles/arrow-down.png"/>'+
                 '    </div>'+
                 '    <div class = "dropDownOptionsDiv" id="myddOptsDiv">'+
-                '        <div class = "dropDownItemDiv" id="mapOpt"  title="Click to show province level boundary" onClick="initMap()">Show Province</div>'+
-                '        <div class = "dropDownItemDiv" id="satelliteOpt" title="Click to show province level boundary" onClick="initMap();DistrictLevelMap(nameSearch)">Show District</div>'+
+                '        <div class = "dropDownItemDiv" id="mapOpt"  title="Click to show province level boundary" onClick="ProvinceLevelMap()">Show Province</div>'+
+                '        <div class = "dropDownItemDiv" id="satelliteOpt" title="Click to show province level boundary" onClick="DistrictLevelMap(nameSearch)">Show District</div>'+
                 '        <div class="separatorDiv"></div>'+
                 '        <div class="checkboxContainer" title="Turn on/off Polygon Layer" onclick="(document.getElementById(\'terrainCheck\').style.display == \'none\') ? document.getElementById(\'terrainCheck\').style.display = \'block\' : document.getElementById(\'terrainCheck\').style.display = \'none\'; show_hide_polygon(); ">'+
                 '        <span role="checkbox" class="checkboxSpan ">'+
