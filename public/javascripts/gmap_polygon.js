@@ -91,18 +91,17 @@ function colorOverlay(population){
     var heso = (population - minPopulation)/(maxPopulation-minPopulation)//dân số tăng hệ số tăng
     var colorchange = heso*510 //dân số tăng colorchange tăng
     var red = green = blue = 0
-    if( colorchange < 70){
+    if( colorchange < 50){
         red = colorchange*2.55
-        green = colorchange*1.2+130
+        green = colorchange*2.55 + 127.5
     }
     else{
         red = 255
-        green = (-51/88)*colorchange+13005/44
+        green = (3/21160)*colorchange*colorchange+(-1341/2116)*colorchange+(151470/529)
     }
     if (population == 'null'){
         red= green = blue = 0
     }
-
     return ["rgb(",red,",",green,",",blue,")"].join("")
 }
 //Lẩy center polygon
@@ -185,8 +184,12 @@ function DistrictLevelMap(name){
         alert('No city or province selected')
     }
     else{
-        maxPopulation = 797840
-        minPopulation = 83
+        for(var i =0; i<districtLevel.length; i++){
+            if(name == districtLevel[i].Province){
+                maxPopulation = districtLevel[i].Max
+                minPopulation = districtLevel[i].Min
+            }
+        }
         infowindow.close()
         data_layer.loadGeoJson(
             'https://storage.googleapis.com/map_population/DistrictlevelFULL.json'

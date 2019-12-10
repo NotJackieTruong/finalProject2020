@@ -49,21 +49,21 @@ function initMap() {
             html = "<b>"+feat.getProperty("Name")+"</b><br>"+feat.getProperty("population");
             infowindow.setContent(html);
             infowindow.setPosition(event.latLng);
-            infowindow.setOptions({pixelOffset: new google.maps.Size(0,-60)});
+            infowindow.setOptions({pixelOffset: new google.maps.Size(10,-10)});
             infowindow.open(map);
         }
         else if(currentmap_level == 'District'){
             html = "<b>"+feat.getProperty("Ten_Tinh")+"</b><br>"+feat.getProperty("Ten_Huyen")+"</b><br>"+feat.getProperty("Dan_So");
             infowindow.setContent(html);
             infowindow.setPosition(event.latLng);
-            infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
+            infowindow.setOptions({pixelOffset: new google.maps.Size(10,-10)});
             infowindow.open(map);
         }
         else if (currentmap_level == 'Ward'){
             html = "<b>"+feat.getProperty('Province')+"</b><br>"+feat.getProperty('District')+"</b><br>"+feat.getProperty('Ward')+"</b><br>"+feat.getProperty('Population');
             infowindow.setContent(html);
             infowindow.setPosition(event.latLng);
-            infowindow.setOptions({pixelOffset: new google.maps.Size(0,-34)});
+            infowindow.setOptions({pixelOffset: new google.maps.Size(10,-10)});
             infowindow.open(map);
         }
         map.setCenter(event.latLng)
