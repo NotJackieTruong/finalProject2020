@@ -91,13 +91,13 @@ function colorOverlay(population){
     var heso = (population - minPopulation)/(maxPopulation-minPopulation)//dân số tăng hệ số tăng
     var colorchange = heso*510 //dân số tăng colorchange tăng
     var red = green = blue = 0
-    if( colorchange < 100){
+    if( colorchange < 70){
         red = colorchange*2.55
-        blue = 255
+        green = colorchange*1.2+130
     }
     else{
         red = 255
-        blue = (-51/82)*colorchange+13005/41
+        green = (-51/88)*colorchange+13005/44
     }
     if (population == 'null'){
         red= green = blue = 0
@@ -146,15 +146,12 @@ function WardLevelMap(name1,name2){
     for(var i = 0 ; i <  ObjectData.length; i++){
         if(getFixedName(ObjectData[i].Province) == name1 && getFixedName(ObjectData[i].District) == name2 ){
             var color = colorOverlay(getPopulation(ObjectData[i].Population))
-            var opacity = opacityOverlay(getPopulation(ObjectData[i].Population))
             data_layer.add(
                 {
                     geometry: new google.maps.Data.Polygon([getCoordinate(i)]),
                     properties:{
                         color: color,
-                        fillOpacity: opacity,
                         id: i,
-                        clickable: true,
                         Province: ObjectData[i].Province,
                         District: ObjectData[i].District,
                         Ward: ObjectData[i].Ward,
@@ -168,7 +165,7 @@ function WardLevelMap(name1,name2){
                     strokeColor: 'purple',
                     strokeOpacity: 1,
                     strokeWeight: 0.2,
-                    fillOpacity: opacity,
+                    fillOpacity: 1,
                     fillColor: color,
                 });
             });
@@ -198,7 +195,6 @@ function DistrictLevelMap(name){
             var P = feature.getProperty('Dan_So')
             var provinceName = feature.getProperty('Ten_Tinh')
             var color = colorOverlay(P)
-            var opacity = opacityOverlay(P)
             var visibleState
             if(name == getFixedName(provinceName))
                 visibleState =  true
@@ -208,7 +204,7 @@ function DistrictLevelMap(name){
                 strokeColor: 'purple',
                 strokeOpacity: 1,
                 strokeWeight: 0.2,
-                fillOpacity: opacity,
+                fillOpacity: 1,
                 fillColor: color,
                 visible: visibleState
             }   
@@ -231,11 +227,10 @@ function ProvinceLevelMap(){
     )
     data_layer.setStyle(function(feature){
         var cityname = feature.getProperty('Name')
-        var color,p,opacity
+        var color,p
         for( var i = 0; i< StringData.length; i++){
             if(cityname == StringData[i].City){
                 color = colorOverlay(StringData[i].Population*1000)
-                opacity = opacityOverlay(StringData[i].Population*1000)
                 p = StringData[i].Population*1000
                 feature.setProperty("population", p)
             }
@@ -243,11 +238,27 @@ function ProvinceLevelMap(){
         return{
             strokeColor: 'purple',
             strokeOpacity: 1,
-            strokeWeight: 0.2,
-            fillOpacity: opacity,
+            strokeWeight: 0.4,
+            fillOpacity: 1,
             fillColor: color,
 
         }   
     })
-    
+    // maxPopulation = 797840
+    //     minPopulation = 83
+    //     infowindow.close()
+    //     data_layer.loadGeoJson(
+    //         'https://storage.googleapis.com/map_population/DistrictlevelFULL.json'
+    //         )
+    //     data_layer.setStyle(function(feature){
+    //         var P = feature.getProperty('Dan_So')
+    //         var color = colorOverlay(P)
+    //         return{
+    //             strokeColor: 'purple',
+    //             strokeOpacity: 1,
+    //             strokeWeight: 0.2,
+    //             fillOpacity: 1,
+    //             fillColor: color,
+    //         }   
+    //     })
 }

@@ -7,8 +7,9 @@ function createDropdown(){
                 '        <img class="dropDownArrow" src="http://maps.gstatic.com/mapfiles/arrow-down.png"/>'+
                 '    </div>'+
                 '    <div class = "dropDownOptionsDiv" id="myddOptsDiv">'+
-                '        <div class = "dropDownItemDiv" id="mapOpt"  title="Click to show province level boundary" onClick="ProvinceLevelMap()">Show Province</div>'+
-                '        <div class = "dropDownItemDiv" id="satelliteOpt" title="Click to show province level boundary" onClick="DistrictLevelMap(nameSearch)">Show District</div>'+
+                '        <div class = "dropDownItemDiv" id="option1"  title="Click to show province level boundary" onClick="ProvinceLevelMap()">Show Province</div>'+
+                '        <div class = "dropDownItemDiv" id="option2" title="Click to show province level boundary" onClick="DistrictLevelMap(nameSearch)">Show District</div>'+
+                '        <div class = "dropDownItemDiv" id="option3" title="Open Heatmap" onClick="HeatMapDensity(map,true)">Show HeatMap</div>'+
                 '        <div class="separatorDiv"></div>'+
                 '        <div class="checkboxContainer" title="Turn on/off Polygon Layer" onclick="(document.getElementById(\'terrainCheck\').style.display == \'none\') ? document.getElementById(\'terrainCheck\').style.display = \'block\' : document.getElementById(\'terrainCheck\').style.display = \'none\'; show_hide_polygon(); ">'+
                 '        <span role="checkbox" class="checkboxSpan ">'+
@@ -16,7 +17,7 @@ function createDropdown(){
                 '                <img class="blankImg" src="/images/check_mark.jpg"/>'+
                 '            </div>'+
                 '        </span>             '+
-                '        <label class="checkboxLabel">Polygon</label>             '+
+                '        <label class="checkboxLabel">On/Off</label>             '+
                 '    </div>          '+
                 '    </div>'+
                 '</div>';
@@ -30,6 +31,7 @@ function show_hide_polygon(){
     if(document.getElementById('terrainCheck').style.display == 'none'){
         infowindow.close()
         data_layer.setStyle({visible: false})
+        HeatMapDensity(map,false)
     } else if(document.getElementById('terrainCheck').style.display == 'block'){
         if(currentmap_level == 'Province'){
             infowindow.close()
@@ -42,6 +44,9 @@ function show_hide_polygon(){
         if(currentmap_level == 'Ward'){
             infowindow.close()
             WardLevelMap(nameSearch,nameSearch2)
+        }
+        if(currentmap_level == 'heatmap'){
+            HeatMapDensity(map,true)
         }
     }
 }

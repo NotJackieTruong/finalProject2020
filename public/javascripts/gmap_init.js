@@ -2,6 +2,7 @@ var geocoder;
 var marker;
 var data_layer;
 var infowindow;
+var heatmap
 
 function initMap() {
     // initialize the center
@@ -32,12 +33,7 @@ function initMap() {
     //create data layer and infowindow
     infowindow =new google.maps.InfoWindow()
     data_layer = new google.maps.Data({map: map});
-    // ProvinceLevelMap()
-    
-    var heatmap = new google.maps.visualization.HeatmapLayer({
-        data: HeatMapDensity()
-      });
-    heatmap.setMap(map);
+    ProvinceLevelMap()
 
     //create marker
     marker = new google.maps.Marker({
