@@ -12,7 +12,7 @@ html, body {
 
 .title h1.title{
   font-family: 'Josefin Sans', sans-serif;
-  font-size: 350%;
+  font-size: 300%;
   line-height: 80px;
   color: #F4B400;
 }
@@ -21,13 +21,13 @@ html, body {
 }
 .content{
   min-height: 85%;
-  margin-top: 40px;
+  /* margin-top: 40px; */
 }
 
 /* map css */
 #map{
   
-  height: 700px;
+  height: 600px;
   width: 100%;
   overflow: hidden;
   float: right;
