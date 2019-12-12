@@ -9,9 +9,7 @@ var usersRouter = require('./routes/users');
 var catalogRouter = require('./routes/catalog');
 var cors = require('cors');
 var app = express();
-app.use(cors({
-  credentials: true,
-}));
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -44,5 +42,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.listen(3000, '0.0.0.0', function() {
+  console.log('Listening to port:  ' + 3000);
+});
 
 module.exports = app;
