@@ -33,13 +33,15 @@ function initMap() {
     //create data layer and infowindow
     infowindow =new google.maps.InfoWindow()
     data_layer = new google.maps.Data({map: map});
-    ProvinceLevelMap()
+    // ProvinceLevelMap()
+    HeatMapDensity(map,true)
 
     //create marker
     marker = new google.maps.Marker({
         map: map,
         position: LatLng
     });
+
 
     // listener
     data_layer.addListener('click',function(event){
