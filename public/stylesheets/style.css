@@ -10,15 +10,40 @@ html, body {
   overflow-y: scroll;
 }
 
-.title h1.title{
-  font-family: 'Josefin Sans', sans-serif;
-  font-size: 300%;
-  line-height: 80px;
-  color: #F4B400;
+/* title css */
+.head_title{
+  align-items: center;
+  height: 36px;
+  margin: 6px 0;
+  /* font-family: 'Josefin Sans', sans-serif;
+  font-size: 300%; */
 }
-.title h1{
+#title_name{
   margin: 0;
+  padding: 0;
+  vertical-align: middle;
+
+  font: 400 22px/32px Google Sans, Noto Sans, Noto SansJP, Noto Sans KR, Noto Naskh Arabic, Noto Sans Thai, Noto Sans hebrew, Noto Sans Bengail, sans-serif;
+  letter-spacing: 0;
+
+  max-height: 32px;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: color .2s;
+
+  cursor: pointer;
 }
+
+#title_name a{
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.65);
+}
+#title_name a:hover{
+  color: black;
+}
+
+
+
 .content{
   min-height: 85%;
   /* margin-top: 40px; */

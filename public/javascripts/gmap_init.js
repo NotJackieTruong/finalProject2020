@@ -142,37 +142,7 @@ function CenterControl(controlDiv, map) {
     searchUI.addEventListener('click', function () {
         openNav();
     })
-    // Set CSS for the check box control border
-    //  var checkBoxUI = document.createElement('div');
-    //  checkBoxUI.id = 'checkBoxUI'
-    //  controlDiv.appendChild(checkBoxUI);
 
-    // // Set CSS for the checkbox control interior
-    // var checkBoxText = document.createElement('div');
-    // checkBoxText.id = 'checkBoxTex'
-    // checkBoxText.innerHTML='Hide'
-
-    // //call show/hide polygon function when click
-    // checkBoxUI.addEventListener('click', function(){
-    //     if(checkBoxText.innerHTML=='Hide'){
-    //         checkBoxText.innerHTML='Show';
-    //         $('#checkBoxUI').css("background-image","url(/images/tick-blank.svg)")
-    //         data_layer.setStyle({visible: false})
-    //         infowindow.close()
-    //     }
-    //     else if(checkBoxText.innerHTML=='Show'){
-    //         checkBoxText.innerHTML='Hide'
-    //         $('#checkBoxUI').css("background-image","url(/images/tick.svg)")
-    //         console.log(currentmap_level)
-    //         console.log(nameSearch)
-    //         if(currentmap_level == 'Province'){
-    //             ProvinceLevelMap(map)
-    //         }   
-    //         if(currentmap_level == 'District'){
-    //             DistrictLevelMap(map, nameSearch)
-    //         }
-    //     }
-    // })
 }
 
 
