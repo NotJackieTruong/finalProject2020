@@ -7,10 +7,35 @@
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
+        div.result{
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        div.btn{
+            margin-top: 5px;
+        }
     </style>
   </head>
   <body>
-    <div ></div>
+    <div class="input">
+        <p>Input</p>
+        <input type="text" placeholder="Enter input">
+        <div class="btn">
+            <button type="submit">Enter</button>
+        </div>    
+    
+        
+    </div>
+    <div class="results">
+        <p>Results: </p>
+        <div class="result">
+            <input type="text">
+        </div>
+        <div class="result">
+            <input type="text">
+        </div>
+    </div>
+    
     <script>
         var matrix = [["","CH","B","NY","W","P","CI","A","ME","NO","MI"],["CH",0,1,1,0,1,1,0,1,0,0],["B",1,0,1,0,0,0,0,0,0,0],["NY",1,1,0,1,1,0,0,0,0,0],["W",0,0,1,0,1,0,1,0,0,1],["P",1,0,1,1,0,1,1,0,0,0],["CI",1,0,0,1,1,0,1,0,0,0],["A",0,0,0,1,1,1,0,1,1,1],["ME",1,0,0,0,0,0,1,0,1,0],["NO",0,0,0,0,0,0,1,1,0,0],["MI",0,0,0,1,0,0,1,0,0,0]]
         function Degree(a){
