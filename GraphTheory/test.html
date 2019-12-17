@@ -1,74 +1,284 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>
-        Test 
+        Test
     </title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
-        div.result{
+        div.result {
             margin-top: 10px;
             margin-bottom: 10px;
         }
-        div.btn{
+
+        div.btn {
             margin-top: 5px;
         }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="input">
-        <p>Input</p>
-        <input type="text" placeholder="Enter input">
+        <p>Input (allowed key word: CH, B, NY, W, P, CI, A, ME, NO, MI )</p>
+        <input id='node_name' type="text" placeholder="Enter node">
         <div class="btn">
-            <button type="submit">Enter</button>
-        </div>    
-    
-        
+            <button type="submit" onclick="getNodeText()">Enter</button>
+        </div>
     </div>
     <div class="results">
         <p>Results: </p>
         <div class="result">
-            <input type="text">
+            <p> Degree of the node</p>
+            <input id='degree' type="text">
         </div>
         <div class="result">
-            <input type="text">
+            <p> Adjacencies of the node</p>
+            <input id='Adj' type="text">
         </div>
     </div>
-    
+    <div class ="input-path">
+        <p>Input Starting Node and Target Node</p>
+        <input id='start' type="text" placeholder="Start node">
+        <input id='end' type="text" placeholder="Target node">
+        <div class="btn">
+            <button type="submit" onclick="getPathNode()">Enter</button>
+        </div>
+    </div>
+    <div class="results">
+        <p>Results: </p>
+        <div class="result">
+            <p> Path between 2 nodes</p>
+            <input id='path' type="text">
+        </div>
+    </div>
+
     <script>
-        var matrix = [["","CH","B","NY","W","P","CI","A","ME","NO","MI"],["CH",0,1,1,0,1,1,0,1,0,0],["B",1,0,1,0,0,0,0,0,0,0],["NY",1,1,0,1,1,0,0,0,0,0],["W",0,0,1,0,1,0,1,0,0,1],["P",1,0,1,1,0,1,1,0,0,0],["CI",1,0,0,1,1,0,1,0,0,0],["A",0,0,0,1,1,1,0,1,1,1],["ME",1,0,0,0,0,0,1,0,1,0],["NO",0,0,0,0,0,0,1,1,0,0],["MI",0,0,0,1,0,0,1,0,0,0]]
-        function Degree(a){
-            var result = 0
-            for(var i = 0 ; i < 10; i++){
-                if(matrix[0][i+1] == a){
-                    for(var j = 0; j < 10; j++){
-                        if(matrix[j+1][i+1] == 1){
-                            result = result + 1
-                            console.log(matrix[j+1][0])
-                        }
-                        }
-                    }
-            
-                }
-                return result
+        var path = []
+        // Queue class 
+        class Queue {
+            // Array is used to implement a Queue 
+            constructor() {
+                this.items = [];
             }
-        function InAdj(a){
-            var node = []
-            for(var i = 0 ; i < 10; i++){
-                if(matrix[0][i+1] == a){
-                    for(var j = 0; j < 10; j++){
-                        if(matrix[j+1][i+1] == 1){
-                            node.push(matrix[j+1][0])
+            // enqueue function 
+            enqueue(element) {
+                // adding element to the queue 
+                this.items.push(element);
+            }
+            // dequeue function 
+            dequeue() {
+                // removing element from the queue 
+                // returns underflow when called 
+                // on empty queue 
+                if (this.isEmpty())
+                    return "Underflow";
+                return this.items.shift();
+            }
+            // front function 
+            front() {
+                // returns the Front element of 
+                // the queue without removing it. 
+                if (this.isEmpty())
+                    return "No elements in Queue";
+                return this.items[0];
+            }
+            // isEmpty function 
+            isEmpty() {
+                // return true if the queue is empty. 
+                return this.items.length == 0;
+            }
+            // printQueue function 
+            printQueue() {
+                var str = "";
+                for (var i = 0; i < this.items.length; i++)
+                    str += this.items[i] + " ";
+                return str;
+            }
+
+        }
+        // create a graph class 
+        class Graph {
+            // defining vertex array and 
+            // adjacent list 
+            constructor(noOfVertices) {
+                this.noOfVertices = noOfVertices;
+                this.AdjList = new Map();
+            }
+            // add vertex to the graph 
+            addVertex(v) {
+                // initialize the adjacent list with a 
+                // null array 
+                this.AdjList.set(v, []);
+            }
+            // add edge to the graph 
+            addEdge(v, w) {
+                // get the list for vertex v and put the 
+                // vertex w denoting edge between v and w 
+                this.AdjList.get(v).push(w);
+
+                // Since graph is undirected, 
+                // add an edge from w to v also 
+                this.AdjList.get(w).push(v);
+            }
+            checkifExist(user_input) {
+                var get_keys = this.AdjList.keys();
+
+                // iterate over the vertices 
+                for (var i of get_keys) {
+                    // great the corresponding adjacency list 
+                    // for the vertex 
+                    var get_values = this.AdjList.get(i);
+                    var message;
+
+                    // iterate over the adjacency list 
+                    // concatenate the values into a string 
+                    for (var j of get_values)
+                        if (user_input == j) {
+                            console.log(user_input)
+                            message = 'found'
+                            console.log(message)
                         }
+                }
+                if(message != 'found'){
+                    message = 'not found'
+                alert(message)
+                }
+                
+            }
+            AdjOfVertice(node) {
+                var get_keys = this.AdjList.keys();
+                for (var i of get_keys) {
+                    // great the corresponding adjacency list 
+                    // for the vertex 
+                    if (i == node) {
+                        var get_values = this.AdjList.get(i);
+                        var conc = [];
+                        // console.log(get_values)
+                        // iterate over the adjacency list 
+                        // concatenate the values into a string 
+                        for (var j of get_values) {
+                            conc.push(j)
+                        }
+                        console.log("Incoming/OutComing Adjacency of " + i + " -> " + conc);
+                    }
+
+                    // print the vertex and its adjacency list 
+
+                }
+                return conc
+            }
+            degreeOfVertice(node) {
+                var get_keys = this.AdjList.keys();
+                for (var i of get_keys) {
+                    // great the corresponding adjacency list 
+                    // for the vertex 
+                    if (i == node) {
+                        var get_values = this.AdjList.get(i);
+                        var conc = 0;
+                        // iterate over the adjacency list 
+                        // concatenate the values into a string 
+                        for (var j of get_values) {
+                            conc += 1
+                        }
+                        console.log("Degree of " + i + " is: " + conc);
+                    }
+
+                    // print the vertex and its adjacency list 
+
+                }
+                return conc
+            }
+            // function to performs BFS 
+            bfs(s, f) {
+                var startingNode, finishingNode
+                if (this.degreeOfVertice(s) < this.degreeOfVertice(f)) {
+                    startingNode = s
+                    finishingNode = f
+                }
+                else {
+                    startingNode = f
+                    finishingNode = s
+                }
+                console.log("The peferred path is from " + startingNode + " to " + finishingNode)
+                // create a visited array 
+                var visited = [];
+                for (var i = 0; i < this.noOfVertices; i++)
+                    visited[i] = false;
+
+                // Create an object for queue 
+                var q = new Queue();
+
+                // add the starting node to the queue 
+                visited[startingNode] = true;
+                q.enqueue(startingNode);
+                var getQueueElement
+                // loop until queue is element 
+                while (getQueueElement != finishingNode) {
+                    // get the element from the queue 
+                    getQueueElement = q.dequeue();
+                    console.log(getQueueElement);
+                    path.push(getQueueElement)
+
+                    // passing the current vertex to callback funtion
+                    // get the adjacent list for current vertex 
+                    var get_List = this.AdjList.get(getQueueElement);
+
+                    // loop through the list and add the element to the 
+                    // queue if it is not processed yet 
+                    for (var i in get_List) {
+                        var neigh = get_List[i];
+                        if (!visited[neigh]) {
+                            if (neigh != finishingNode) {
+                                visited[neigh] = true;
+                                q.enqueue(neigh);
+                            }
+                            else {
+                                getQueueElement = finishingNode
+                                console.log(finishingNode)
+                                path.push(finishingNode)
+                            }
                         }
                     }
-            
+
                 }
-                return node
-            
+                return path
+            }
+
+
         }
-        console.log(InAdj("A"))
+        var matrix = [["", "CH", "B", "NY", "W", "P", "CI", "A", "ME", "NO", "MI"], ["CH", 0, 1, 1, 0, 1, 1, 0, 1, 0, 0], ["B", 1, 0, 1, 0, 0, 0, 0, 0, 0, 0], ["NY", 1, 1, 0, 1, 1, 0, 0, 0, 0, 0], ["W", 0, 0, 1, 0, 1, 0, 1, 0, 0, 1], ["P", 1, 0, 1, 1, 0, 1, 1, 0, 0, 0], ["CI", 1, 0, 0, 1, 1, 0, 1, 0, 0, 0], ["A", 0, 0, 0, 1, 1, 1, 0, 1, 1, 1], ["ME", 1, 0, 0, 0, 0, 0, 1, 0, 1, 0], ["NO", 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], ["MI", 0, 0, 0, 1, 0, 0, 1, 0, 0, 0]]
+        console.log(matrix)
+        var g = new Graph(10);
+            for (var v = 0; v < 10; v++) {
+                g.addVertex(matrix[0][v + 1]);
+            }
+            for (var v = 0; v < 10; v++) {
+                for (var j = v; j < 10; j++) {
+                    if (matrix[j + 1][v + 1] == 1) {
+                        // console.log(matrix[0][v + 1], matrix[j + 1][0])
+                        g.addEdge(matrix[0][v + 1], matrix[j + 1][0])
+                    }
+                }
+            }
+        function getPathNode(){
+            var start_input = document.getElementById('start').value
+            var end_input = document.getElementById('end').value
+            g.checkifExist(start_input)
+            g.checkifExist(end_input)
+            document.getElementById('path').value = g.bfs(start_input,end_input)
+
+        }
+        function getNodeText() {
+            var text_input = document.getElementById('node_name').value
+            g.checkifExist(text_input)
+            document.getElementById('degree').value = g.degreeOfVertice(text_input)
+            
+            document.getElementById('Adj').value = g.AdjOfVertice(text_input)
+
+        }
     </script>
-  </body>
+</body>
+
 </html>
