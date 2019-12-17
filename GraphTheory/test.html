@@ -55,7 +55,6 @@
     </div>
 
     <script>
-        var path = []
         // Queue class 
         class Queue {
             // Array is used to implement a Queue 
@@ -192,6 +191,7 @@
             }
             // function to performs BFS 
             bfs(s, f) {
+                var path = []
                 var startingNode, finishingNode
                 if (this.degreeOfVertice(s) < this.degreeOfVertice(f)) {
                     startingNode = s
