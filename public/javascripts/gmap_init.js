@@ -28,6 +28,9 @@ function initMap() {
     infowindow = new google.maps.InfoWindow()
     data_layer = new google.maps.Data({ map: map });
     heatmap = new google.maps.visualization.HeatmapLayer();
+    trafficLayer = new google.maps.TrafficLayer();
+    transitLayer = new google.maps.TransitLayer();
+    transitLayer = new google.maps.BicyclingLayer();
     ProvinceLevelMap()
 
     //create marker
@@ -102,21 +105,23 @@ $(document).ready(function () {
         var address = $(PostCodeid).val();
         geocoder.geocode({ 'address': address }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
+                marker.setPosition(results[0].geometry.location)
                 map.setCenter(results[0].geometry.location);
-                // marker.setPosition(results[0].geometry.location);
+                map.fitBounds(results[0].geometry.viewport);
                 $('#search_addr').val(results[0].formatted_address);
                 $('#search_latitude').val(marker.getPosition().lat());
                 $('#search_longitude').val(marker.getPosition().lng());
                 var search_addr = '<b>' + results[0].formatted_address + '</b>'
                 infowindow.setContent(search_addr)
-                infowindow.setPosition(marker.getPosition())
+                infowindow.setPosition(results[0].geometry.location)
                 drawSearch(results[0].address_components)
                 console.log(results[0].address_components)
             } else {
                 alert("Geocode was not successful for the following reason: " + status);
             }
         });
-        map.setZoom(9)
+        // map.setZoom(9)
+        marker.setMap(map)
         e.preventDefault();
 
         // return marker.getPosition().lat(), marker.getPosition().lng();

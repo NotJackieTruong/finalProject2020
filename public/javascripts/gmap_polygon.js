@@ -9,6 +9,9 @@ var marker;
 var data_layer;
 var infowindow;
 var heatmap;
+var trafficLayer;
+var transitLayer;
+var bikeLayer;
 var visible = 'on'
 //bỏ dấu tiếng việt
 function getFixedName(str) {
@@ -59,15 +62,26 @@ function getCoordinate(id) {
 // draw layer from search result
 function drawSearch(arrString) {
     switch (arrString[1].types[0]) {
-        case "administrative_area_level_1": // result is a district => draw district level map
-            nameSearch = getFixedName(arrString[1].long_name)
-            DistrictLevelMap(nameSearch)
-            break;
-        case "administrative_area_level_2": // result is a ward => draw ward level map
+        case "administrative_area_level_2":
             nameSearch2 = getFixedName(arrString[1].long_name)
             nameSearch = getFixedName(arrString[2].long_name)
-            WardLevelMap(nameSearch, nameSearch2)
-
+            WardLevelMap(nameSearch,nameSearch2)
+            break;
+        case "administrative_area_level_1":
+            if(arrString[0].types[0] == 'locality'){
+                nameSearch = getFixedName(arrString[1].long_name)
+                DistrictLevelMap(nameSearch)
+            }
+            else{
+                nameSearch2 = getFixedName(arrString[0].long_name)
+                nameSearch = getFixedName(arrString[1].long_name)
+                WardLevelMap(nameSearch, nameSearch2)
+            }
+            break;
+        case "country":
+            nameSearch = getFixedName(arrString[0].long_name)
+            DistrictLevelMap(nameSearch)
+            break;
     }
 }
 //lấy population từ database
@@ -158,7 +172,7 @@ function WardLevelMap(name1, name2) {
                         }
                     })
                 data_layer.setStyle(function (feature) {
-                    console.log('Ward  level drawn, current map level is: ' + currentmap_level)
+                    console.log('Ward  level drawn, current map level is: ' + currentmap_level +'of district: '+ nameSearch2 + ' city: '+nameSearch)
                     var color = feature.getProperty('color');
                     var opacity = feature.getProperty('fillOpacity')
                     return ({
@@ -197,7 +211,7 @@ function DistrictLevelMap(name) {
                 'https://storage.googleapis.com/map_population/DistrictlevelFULL.json'
             )
             data_layer.setStyle(function (feature) {
-                console.log('District level drawn, current map level is: ' + currentmap_level)
+                console.log('District level drawn, current map level is: ' + currentmap_level +' of '+ nameSearch)
                 var P = feature.getProperty('Dan_So')
                 var provinceName = feature.getProperty('Ten_Tinh')
                 var color = colorOverlay(P)
@@ -285,4 +299,7 @@ function HeatMapDensity() {
 }
 function toggleHeatmap() {
     heatmap.setMap(heatmap.getMap() ? null : map);
-  }
+}
+function TrafficMap(){
+    trafficLayer.setMap(map);
+}
