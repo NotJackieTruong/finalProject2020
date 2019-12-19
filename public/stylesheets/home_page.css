@@ -1,0 +1,18 @@
+.main_content{
+    margin: 24px 0;
+    max-width: 936px;
+    min-width: 0;
+    z-index: 1;
+}
+
+.main_content .devsite_article{
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .3, green, blue, alpha),
+    0 1px 3px 1px rgba(60, 64, 67, .15, green, blue, alpha);
+    border-radius: 2px;
+    background: #fff;
+    padding: 40px;
+}
+
+.main_content .devsite_article .devsite_article_inner{
+    display: block;
+}
