@@ -65,14 +65,14 @@ function drawSearch(arrString) {
         case "administrative_area_level_2":
             nameSearch2 = getFixedName(arrString[1].long_name)
             nameSearch = getFixedName(arrString[2].long_name)
-            WardLevelMap(nameSearch,nameSearch2)
+            WardLevelMap(nameSearch, nameSearch2)
             break;
         case "administrative_area_level_1":
-            if(arrString[0].types[0] == 'locality'){
+            if (arrString[0].types[0] == 'locality') {
                 nameSearch = getFixedName(arrString[1].long_name)
                 DistrictLevelMap(nameSearch)
             }
-            else{
+            else {
                 nameSearch2 = getFixedName(arrString[0].long_name)
                 nameSearch = getFixedName(arrString[1].long_name)
                 WardLevelMap(nameSearch, nameSearch2)
@@ -156,6 +156,8 @@ function WardLevelMap(name1, name2) {
         });
         maxPopulation = 81690
         minPopulation = 0
+        // var url = 'https://storage.googleapis.com/map_population/'+name1+'.json'
+        // console.log(url)
         for (var i = 0; i < ObjectData.length; i++) {
             if (getFixedName(ObjectData[i].Province) == name1 && getFixedName(ObjectData[i].District) == name2) {
                 var color = colorOverlay(getPopulation(ObjectData[i].Population))
@@ -172,7 +174,7 @@ function WardLevelMap(name1, name2) {
                         }
                     })
                 data_layer.setStyle(function (feature) {
-                    console.log('Ward  level drawn, current map level is: ' + currentmap_level +'of district: '+ nameSearch2 + ' city: '+nameSearch)
+                    console.log('Ward  level drawn, current map level is: ' + currentmap_level + 'of district: ' + nameSearch2 + ' city: ' + nameSearch)
                     var color = feature.getProperty('color');
                     var opacity = feature.getProperty('fillOpacity')
                     return ({
@@ -211,7 +213,7 @@ function DistrictLevelMap(name) {
                 'https://storage.googleapis.com/map_population/DistrictlevelFULL.json'
             )
             data_layer.setStyle(function (feature) {
-                console.log('District level drawn, current map level is: ' + currentmap_level +' of '+ nameSearch)
+                console.log('District level drawn, current map level is: ' + currentmap_level + ' of ' + nameSearch)
                 var P = feature.getProperty('Dan_So')
                 var provinceName = feature.getProperty('Ten_Tinh')
                 var color = colorOverlay(P)
@@ -268,16 +270,33 @@ function ProvinceLevelMap() {
         })
     }
 }
-function geocoderFunction(address){
-    geocoder.geocode( { address: address}, function(results, status) {
+function geocoderFunction(address) {
+    geocoder.geocode({ address: address }, function (results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-          map.setCenter(results[0].geometry.location);
-          map.fitBounds(results[0].geometry.viewport);
+            map.setCenter(results[0].geometry.location);
+            map.fitBounds(results[0].geometry.viewport);
         }
-      });
+    });
+}
+function marker(address) {
+    console.log(address)
+    geocoder.geocode({ 'address': address }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            var m = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+              });
+            map.setZoom(10)
+            map.setCenter(results[0].geometry.location)
+            console.log(results[0].formatted_address)
+        }
+        else{
+            throw('No results found: ' + status);
+        }
+    });
 }
 function HeatMapDensity() {
-    if(currentmap_level != 'heatmap' && visible == 'on'){
+    if (currentmap_level != 'heatmap' && visible == 'on') {
         var zoom = map.getZoom()
         currentmap_level = 'heatmap'
         data_layer.forEach(function (feature) {
@@ -287,7 +306,7 @@ function HeatMapDensity() {
         var centerPath
         for (var i = 0; i < ObjectData.length; i++) {
             centerPath = polygonCenter(getCoordinate(i))
-            weight = getPopulation(i)*zoom
+            weight = getPopulation(i) * zoom
             heatmapData.push({ location: centerPath, weight: weight })
         }
         heatmap.setOptions({
@@ -300,6 +319,17 @@ function HeatMapDensity() {
 function toggleHeatmap() {
     heatmap.setMap(heatmap.getMap() ? null : map);
 }
-function TrafficMap(){
+function TrafficMap() {
     trafficLayer.setMap(map);
 }
+function BDSBadinh() {
+    currentmap_level = 'bds'
+    data_layer.forEach(function (feature) {
+        data_layer.remove(feature);
+    });
+    heatmap.setMap(null)
+    for (var i = 0; i < Badinh.length; i++) {
+       setTimeout(marker(Badinh[i].Address),200) 
+    }
+}
+

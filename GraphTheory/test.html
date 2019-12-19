@@ -16,13 +16,17 @@
         div.btn {
             margin-top: 5px;
         }
+        .text-box{
+            width: 300px;
+            height: 30px;
+        }
     </style>
 </head>
 
 <body>
     <div class="input">
         <p>Input (allowed key word: CH, B, NY, W, P, CI, A, ME, NO, MI )</p>
-        <input id='node_name' type="text" placeholder="Enter node">
+        <input class='text-box' id='node_name' type="text" placeholder="Enter node">
         <div class="btn">
             <button type="submit" onclick="getNodeText()">Enter</button>
         </div>
@@ -31,17 +35,17 @@
         <p>Results: </p>
         <div class="result">
             <p> Degree of the node</p>
-            <input id='degree' type="text">
+            <input class='text-box' id='degree' type="text">
         </div>
         <div class="result">
             <p> Adjacencies of the node</p>
-            <input id='Adj' type="text">
+            <input class='text-box' id='Adj' type="text">
         </div>
     </div>
     <div class ="input-path">
         <p>Input Starting Node and Target Node</p>
-        <input id='start' type="text" placeholder="Start node">
-        <input id='end' type="text" placeholder="Target node">
+        <input class='text-box' id='start' type="text" placeholder="Start node">
+        <input class='text-box' id='end' type="text" placeholder="Target node">
         <div class="btn">
             <button type="submit" onclick="getPathNode()">Enter</button>
         </div>
@@ -50,7 +54,7 @@
         <p>Results: </p>
         <div class="result">
             <p> Path between 2 nodes</p>
-            <input id='path' type="text">
+            <input class='text-box' id='path' type="text">
         </div>
     </div>
 
@@ -249,7 +253,7 @@
 
         }
         var matrix = [["", "CH", "B", "NY", "W", "P", "CI", "A", "ME", "NO", "MI"], ["CH", 0, 1, 1, 0, 1, 1, 0, 1, 0, 0], ["B", 1, 0, 1, 0, 0, 0, 0, 0, 0, 0], ["NY", 1, 1, 0, 1, 1, 0, 0, 0, 0, 0], ["W", 0, 0, 1, 0, 1, 0, 1, 0, 0, 1], ["P", 1, 0, 1, 1, 0, 1, 1, 0, 0, 0], ["CI", 1, 0, 0, 1, 1, 0, 1, 0, 0, 0], ["A", 0, 0, 0, 1, 1, 1, 0, 1, 1, 1], ["ME", 1, 0, 0, 0, 0, 0, 1, 0, 1, 0], ["NO", 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], ["MI", 0, 0, 0, 1, 0, 0, 1, 0, 0, 0]]
-        console.log(matrix)
+        // console.log(matrix)
         var g = new Graph(10);
             for (var v = 0; v < 10; v++) {
                 g.addVertex(matrix[0][v + 1]);
