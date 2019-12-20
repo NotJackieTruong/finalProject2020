@@ -42,13 +42,10 @@ html, body {
 }
 
 
-
 main.content{
-
+  height: 100%;
   width: 100%;
-  height: 840px;
-  margin-bottom: 36px;
-  position: relative;
+  margin: auto;
 
   /* margin-top: 40px; */
 }
@@ -87,8 +84,6 @@ main.content{
   color: white;
 }
 
-
-
 .footer .footer_content .footer_section.contacts div.socials img{
   width: 25px;
   height: 25px;
@@ -99,16 +94,6 @@ main.content{
   height: 25px;
   margin: 5px;
 }
-
-
-/* @media (max-width:960px){
-  #map{
-    width: 80%;
-  }
-  #result_box{
-    width: 20%;
-  }
-} */
 
 /* Control css */
 /* search box UI border css */
@@ -163,4 +148,15 @@ main.content{
   padding-left: 5px;
   padding-right: 5px;
   text-align: center;
+}
+
+
+@media screen and (max-width: 1024px) {
+ #map{
+   height: 600px;
+ }
+ div#sideMenu.sideNav{
+   height: 600px;
+ }
+
 }

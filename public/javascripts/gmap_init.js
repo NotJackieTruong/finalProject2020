@@ -110,8 +110,9 @@ $(document).ready(function () {
                 map.setCenter(results[0].geometry.location);
                 map.fitBounds(results[0].geometry.viewport);
                 $('#search_addr').val(results[0].formatted_address);
-                // $('#search_latitude').val(marker.getPosition().lat());
-                // $('#search_longitude').val(marker.getPosition().lng());
+                $('#search_latitude').val(marker.getPosition().lat());
+                $('#search_longitude').val(marker.getPosition().lng());
+                addStreetView(marker.getPosition().lat(), marker.getPosition().lng())
                 var search_addr = '<b>' + results[0].formatted_address + '</b>'
                 infowindow.setContent(search_addr)
                 infowindow.setPosition(results[0].geometry.location)
@@ -129,6 +130,21 @@ $(document).ready(function () {
     })
 })
 
+function addStreetView(lat, lng){
+    var point = {lat: lat, lng: lng}
+    console.log("address for image: "+point)
+    var panoramaOptions = {
+        position: point,
+        pov:{
+            heading: 34,
+            pitch: 10
+        }
+    }
+    var panorama = new google.maps.StreetViewPanorama(
+        document.getElementById('pano'), panoramaOptions
+    )
+    map.setStreetView(panorama)
+}
 //create a control on gmap
 function CenterControl(controlDiv, map) {
     controlDiv.style.clear = 'both';

@@ -57,24 +57,28 @@
     width: 70px;
   }
 
-  #sideMenu div.search{
-    width: 350px;
-    margin-bottom: 10px;
+  #search_results{
+    display: flex;
+    flex-direction: column;
   }
-  #sideMenu input#search_addr.form-control{
-    display: inline-block;
+  #sideMenu div.search{
+    width: 380px;
+    margin:0px 10px 10px 10px;
+    display: flex;
+    flex-direction: row;
+  }
+  #sideMenu input#search_addr.form-control, input#search_latitude, input#search_longitude{
     box-sizing: border-box;
-    width: 200px;
+    width: 100px;
     height: 30px;
     margin-left: 2px;
     box-sizing: border-box;
     border-radius: 8px;
     border: 1px solid #DADCE0;
     background-color: white;
+    flex-grow: 1;
   }
-  div.search p{
-    display: inline-block;
-  }
+
   .btn.btn-default.get_map{
     height: 34px;
     width: 34px;
@@ -83,7 +87,9 @@
     background-repeat: no-repeat;
   }
   
-@media screen and (max-height: 450px) {
-    .sideNav {padding-top: 15px;}
-    .sideNav a {font-size: 18px;}
-  }
+#pano{
+  width: 380px;
+  height: 400px;
+  margin: 20px 10px;
+  flex-grow: 1;
+}
