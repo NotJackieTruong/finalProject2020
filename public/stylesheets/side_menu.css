@@ -11,30 +11,20 @@
     /* margin-top: 15.4%; */
 }
 
-.sideNav a{
+.sideNav a.closeBtn{
     padding:8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
     color: white;
     display: block;
     transition: 0.3s;
-}
 
-/* .sideNav a:hover{
-    color: red;
-} */
-
-
-
-.sideNav .closeBtn{
     color: black;
     position: absolute;
     top:0;
     right: 10px;
     font-size: 36px;
-    /* margin-left: 50px; */
 }
-
 
 /* search box css */
   .form-group.input-group{
@@ -42,8 +32,6 @@
     margin-left: 10px;
     margin-right: 10px;
     background: #fff;
-    
-
   }
 
   #search_location .form-control{
@@ -59,31 +47,33 @@
   #sideMenu p, h4{
     margin-left: 10px;
     color: black;
-  }
+    text-align: left;
 
+  }
+  #sideMenu h4{
+    width: 150px;
+  }
   #sideMenu p{
-    width: 80px;
+    width: 70px;
   }
 
-  #sideMenu p, input{
-    display: inline-block;
-    
-  }
-
-
-  #sideMenu .search{
+  #sideMenu div.search{
+    width: 350px;
     margin-bottom: 10px;
   }
-
-  #sideMenu input#search_addr, #search_latitude, #search_longitude, #population{
+  #sideMenu input#search_addr.form-control{
+    display: inline-block;
     box-sizing: border-box;
-    width: 50%;
+    width: 200px;
     height: 30px;
-    margin-left: 5px;
+    margin-left: 2px;
     box-sizing: border-box;
     border-radius: 8px;
     border: 1px solid #DADCE0;
-   
+    background-color: white;
+  }
+  div.search p{
+    display: inline-block;
   }
   .btn.btn-default.get_map{
     height: 34px;
@@ -93,18 +83,6 @@
     background-repeat: no-repeat;
   }
   
-  /* #sideMenu input#population{
-    box-sizing: border-box;
-    white-space: pre-wrap;
-    width: 75%;
-    height: 300px;
-    margin-bottom: 10px;
-  } */
-  
-  /* #sidemenu.sideNav p{
-    padding-right: 10px;
-    padding-left: 10px;
-  } */
 @media screen and (max-height: 450px) {
     .sideNav {padding-top: 15px;}
     .sideNav a {font-size: 18px;}

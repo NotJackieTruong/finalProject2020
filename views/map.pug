@@ -14,19 +14,19 @@ block content
           input#search_location.form-control(type='text' placeholder='Search location')
           .input-group-btn
             button.btn.btn-default.get_map(type='submit')
-      
+
       h4 Location Details
       div(class="search")
         p Address:
-        input#search_addr(type='text')
+        input#search_addr.form-control(type='text' readonly="readonly")
 
-      div(class="search")
-        p Latitude:
-        input#search_latitude(type='text')
+      //- div(class="search")
+      //-   p Latitude:
+      //-   input#search_latitude(type='text')
 
-      div(class="search")
-        p Longitude:
-        input#search_longitude(type='text')
+      //- div(class="search")
+      //-   p Longitude:
+      //-   input#search_longitude(type='text')
 
       //- div(class="population")
       //-   p Population:

@@ -110,8 +110,8 @@ $(document).ready(function () {
                 map.setCenter(results[0].geometry.location);
                 map.fitBounds(results[0].geometry.viewport);
                 $('#search_addr').val(results[0].formatted_address);
-                $('#search_latitude').val(marker.getPosition().lat());
-                $('#search_longitude').val(marker.getPosition().lng());
+                // $('#search_latitude').val(marker.getPosition().lat());
+                // $('#search_longitude').val(marker.getPosition().lng());
                 var search_addr = '<b>' + results[0].formatted_address + '</b>'
                 infowindow.setContent(search_addr)
                 infowindow.setPosition(results[0].geometry.location)
