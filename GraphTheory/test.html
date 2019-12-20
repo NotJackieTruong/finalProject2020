@@ -135,7 +135,7 @@
             <div class="results">
                 <div class="result">
                     <p>Results: </p>
-                    <input style="width: 240px; height: 240px;" class='text-box' id='spanning-tree' type="text">
+                    <textarea style="width: 240px; height: 240px;" class='text-box' id='spanning-tree' type="text"></textarea>
                 </div>
             </div>
         </div>
@@ -406,7 +406,7 @@
                 }
                 var textLine = ''
                 for (var j = 0; j < checkArray.length; j++) {
-                    textLine = textLine + "From " + checkArray[j].node1 + ' to ' + checkArray[j].node2 + "<br>"
+                    textLine = textLine +'From '+ checkArray[j].node1+ ' to ' + checkArray[j].node2+ '\n'
                 }
                 console.log(textLine)
                 console.log(checkArray, weight)
