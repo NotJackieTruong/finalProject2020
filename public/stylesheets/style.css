@@ -71,8 +71,6 @@ main.content{
   position: relative;
 }
 .footer .footer_content{
-  
-  border: 1px solid white;
   height: inherit;
   display: flex;
 }
@@ -81,7 +79,6 @@ main.content{
   font: 500 14px/20px Google Sans, Noto Sans, Noto Sans JP, Noto Sans KR , Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew, Noto Sans Bengali, sans-serif;
   font-weight: 500;
   flex: 1;
-  border: 1px solid white;
   padding: 25px;
 }
 
