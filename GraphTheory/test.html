@@ -135,7 +135,8 @@
             <div class="results">
                 <div class="result">
                     <p>Results: </p>
-                    <textarea style="width: 240px; height: 240px;" class='text-box' id='spanning-tree' type="text"></textarea>
+                    <textarea style="width: 240px; height: 240px;" class='text-box' id='spanning-tree'
+                        type="text"></textarea>
                 </div>
             </div>
         </div>
@@ -297,10 +298,8 @@
                 var visited = [];
                 for (var i = 0; i < this.noOfVertices; i++)
                     visited[i] = false;
-
                 // Create an object for queue 
                 var q = new Queue();
-
                 // add the starting node to the queue 
                 visited[startingNode] = true;
                 q.enqueue(startingNode);
@@ -310,11 +309,9 @@
                     // get the element from the queue 
                     getQueueElement = q.dequeue();
                     path.push(getQueueElement)
-
                     // passing the current vertex to callback funtion
                     // get the adjacent list for current vertex 
                     var get_List = this.AdjList.get(getQueueElement);
-
                     // loop through the list and add the element to the 
                     // queue if it is not processed yet 
                     for (var i in get_List) {
@@ -359,6 +356,7 @@
                         }
                     }
                 }
+                edge = edge.sort(function (a, b) { return a.weighted - b.weighted })
                 console.log(edge)
                 return edge
             }
@@ -383,7 +381,7 @@
                 //         }
                 //     }
                 // }
-                // console.log(edge)
+                console.log(edge)
                 return edge
             }
             MNStree() {
@@ -394,9 +392,9 @@
                 var visited = [];
                 var checkArray = []
                 var weight = 0
-                for (var i = 0; i < this.noOfVertices; i++)
+                for (var i = 0; i < this.noOfVertices*(this.noOfVertices-1); i++)
                     visited[i] = false;
-                for (var i = 0; i < sortedEdge.length; i++) {
+                    for (var i = 0; i < sortedEdge.length; i++) {
                     if (!visited[sortedEdge[i].node1] || !visited[sortedEdge[i].node2]) {
                         checkArray.push(sortedEdge[i])
                         visited[sortedEdge[i].node1] = true
@@ -406,7 +404,7 @@
                 }
                 var textLine = ''
                 for (var j = 0; j < checkArray.length; j++) {
-                    textLine = textLine +'From '+ checkArray[j].node1+ ' to ' + checkArray[j].node2+ '\n'
+                    textLine = textLine + 'From ' + checkArray[j].node1 + ' to ' + checkArray[j].node2 + '\n'
                 }
                 console.log(textLine)
                 console.log(checkArray, weight)
@@ -415,7 +413,7 @@
             }
             EulerCircuit() {
                 var edgeList = this.listEdge2()
-                console.log(edgeList)
+                // console.log(edgeList)
                 var startV = null
                 var path = []
                 for (var i = 0; i < edgeList.length; i++) {
@@ -435,13 +433,14 @@
                         }
                     }
                 }
-                console.log(path)
+                // console.log(path)
 
             }
             // function to performs BFS 
             bfs(startingNode) {
 
                 // create a visited array 
+                var path = []
                 var visited = [];
                 for (var i = 0; i < this.noOfVertices; i++)
                     visited[i] = false;
@@ -452,18 +451,16 @@
                 // add the starting node to the queue 
                 visited[startingNode] = true;
                 q.enqueue(startingNode);
-                var count = 0
                 // loop until queue is element 
                 while (!q.isEmpty()) {
                     // get the element from the queue 
                     var getQueueElement = q.dequeue();
 
                     // passing the current vertex to callback funtion 
-                    console.log(getQueueElement);
-                    count ++
+                    // console.log(getQueueElement);
+                    path.push(getQueueElement)
                     // get the adjacent list for current vertex 
                     var get_List = this.AdjList.get(getQueueElement);
-                    console.log(get_List)
                     // loop through the list and add the element to the 
                     // queue if it is not processed yet 
                     for (var i in get_List) {
@@ -475,39 +472,31 @@
                         }
                     }
                 }
-                if(count == (matrix.length -1))
-                return true
-                else
-                return false
+                console.log(path)
+                console.log(path.length,matrix.length - 1,"all node are connected")
+                if (path.length == (matrix.length - 1))
+                    return true
+                
             }
-        
-            isEulerCircus(){
-                var get_keys = this.AdjList.keys();
 
+            isEulerCircus() {
+                var get_keys = this.AdjList.keys();
+                var count = 0
                 // iterate over the vertices 
                 for (var i of get_keys) {
-                    // great the corresponding adjacency list 
-                    // for the vertex 
-                    var get_values = this.AdjList.get(i);
-                    var message;
-                    // iterate over the adjacency list 
-                    // concatenate the values into a string 
-                    var count = 0
-                    for (var j of get_values){
-                        if(this.degreeOfVertice(j.Node) % 2 == 0){
-                            count ++
+                    // console.log(i)
+                        if (this.degreeOfVertice(i) % 2 == 0) {
+                            count = count +1
                         }
-                    }
-                    if(count == (matrix.length -1))
-                return true
-                else
-                return false
+                    
                 }
+                // console.log('count for degree is: ' + count)
+                console.log(count,matrix.length - 1,"all degrees are even number")
+                    // if (count == (matrix.length - 1))
+                    //     return true
 
             }
         }
-        // var matrix = [["", "CH", "B", "NY", "W", "P", "CI", "A", "ME", "NO", "MI"], ["CH", 0, 1, 1, 0, 1, 1, 0, 1, 0, 0], ["B", 1, 0, 1, 0, 0, 0, 0, 0, 0, 0], ["NY", 1, 1, 0, 1, 1, 0, 0, 0, 0, 0], ["W", 0, 0, 1, 0, 1, 0, 1, 0, 0, 1], ["P", 1, 0, 1, 1, 0, 1, 1, 0, 0, 0], ["CI", 1, 0, 0, 1, 1, 0, 1, 0, 0, 0], ["A", 0, 0, 0, 1, 1, 1, 0, 1, 1, 1], ["ME", 1, 0, 0, 0, 0, 0, 1, 0, 1, 0], ["NO", 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], ["MI", 0, 0, 0, 1, 0, 0, 1, 0, 0, 0]]
-        // console.log(matrix)
         var g
         function initGraph(matrix) {
             g = new Graph(matrix.length - 1)
@@ -525,7 +514,9 @@
             g.printTest()
             g.EulerCircuit()
             g.bfs(matrix[0][1])
-            if(!(g.isEulerCircus()) && !(g.bfs())){
+            console.log(!(g.isEulerCircus()),!(g.bfs(matrix[0][1])))
+            if (g.EulerCircuit == true && g.bfs(matrix[0][1]) == true) {
+                console.log(g.isEulerCircus(),g.bfs(matrix[0][1]))
                 console.log("Euler Circus")
             }
             // g.EulerCircuit()

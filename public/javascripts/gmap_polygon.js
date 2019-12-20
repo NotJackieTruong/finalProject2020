@@ -77,8 +77,8 @@ function drawSearch(arrString) {
             break;
         case "administrative_area_level_1":
             if (arrString[0].types[0] == 'locality' || arrString[0].types[0] == 'establishment') {
-                nameSearch =  getFixedName(arrString[1].short_name)
-                nameSearch2 = getFixedName(arrString[0].short_name)
+                nameSearch =  getFixedName(arrString[0].short_name)
+                nameSearch2 = getFixedName(arrString[1].short_name)
             }
             else {
                 nameSearch2 = getFixedName(arrString[0].short_name)
