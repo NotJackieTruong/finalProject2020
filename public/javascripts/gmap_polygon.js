@@ -33,9 +33,11 @@ function getFixedName(str) {
         str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
         str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
         str = str.replace(/Đ/g, "D");
+        str = str.replace('Tp. ','')
+        str = str.replace('Tx. ','')
+        // str = str.replace(/ /g, '')
         return str;
     }
-
 }
 function storeCoordinate(xVal, yVal, array) {
     array.push({ lng: xVal, lat: yVal })
@@ -63,26 +65,33 @@ function getCoordinate(id) {
 function drawSearch(arrString) {
     switch (arrString[1].types[0]) {
         case "administrative_area_level_2":
-            nameSearch2 = getFixedName(arrString[1].long_name)
-            nameSearch = getFixedName(arrString[2].long_name)
-            WardLevelMap(nameSearch, nameSearch2)
-            break;
-        case "administrative_area_level_1":
             if (arrString[0].types[0] == 'locality') {
-                nameSearch = getFixedName(arrString[1].long_name)
+                nameSearch = getFixedName(arrString[0].short_name)
                 DistrictLevelMap(nameSearch)
             }
             else {
-                nameSearch2 = getFixedName(arrString[0].long_name)
-                nameSearch = getFixedName(arrString[1].long_name)
+                nameSearch2 = getFixedName(arrString[1].short_name)
+                nameSearch = getFixedName(arrString[2].short_name)
                 WardLevelMap(nameSearch, nameSearch2)
             }
             break;
+        case "administrative_area_level_1":
+            if (arrString[0].types[0] == 'locality' || arrString[0].types[0] == 'establishment') {
+                nameSearch =  getFixedName(arrString[1].short_name)
+                nameSearch2 = getFixedName(arrString[0].short_name)
+            }
+            else {
+                nameSearch2 = getFixedName(arrString[0].short_name)
+                nameSearch = getFixedName(arrString[1].short_name)  
+            }
+            WardLevelMap(nameSearch, nameSearch2)
+            break;
         case "country":
-            nameSearch = getFixedName(arrString[0].long_name)
+            nameSearch = getFixedName(arrString[0].short_name)
             DistrictLevelMap(nameSearch)
             break;
     }
+    console.log(nameSearch,nameSearch2)
 }
 //lấy population từ database
 function getPopulation(P) {
@@ -279,21 +288,22 @@ function geocoderFunction(address) {
     });
 }
 function marker(address) {
-    console.log(address)
-    geocoder.geocode({ 'address': address }, function (results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            var m = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location
-              });
-            map.setZoom(10)
-            map.setCenter(results[0].geometry.location)
-            console.log(results[0].formatted_address)
-        }
-        else{
-            throw('No results found: ' + status);
-        }
-    });
+    // console.log(address)
+    // setTimeout(geocoder.geocode({ 'address': address }, function (results, status) {
+    //     if (status == google.maps.GeocoderStatus.OK) {
+    //         var m = new google.maps.Marker({
+    //             map: map,
+    //             position: results[0].geometry.location
+    //           });
+    //         map.setZoom(10)
+    //         map.setCenter(results[0].geometry.location)
+    //         console.log(results[0].formatted_address)
+    //     }
+    //     else{
+    //         throw('No results found: ' + status);
+    //     }
+    // }), 200)
+
 }
 function HeatMapDensity() {
     if (currentmap_level != 'heatmap' && visible == 'on') {
@@ -329,7 +339,7 @@ function BDSBadinh() {
     });
     heatmap.setMap(null)
     for (var i = 0; i < Badinh.length; i++) {
-       setTimeout(marker(Badinh[i].Address),200) 
+        setTimeout(marker(Badinh[i].Address), 200)
     }
 }
 

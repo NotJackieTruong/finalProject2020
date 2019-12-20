@@ -1,13 +1,35 @@
+
 <!DOCTYPE html>
 <html>
 
 <head>
+    <script src="jquery-3.4.1.js"></script>
     <title>
         Test
     </title>
-    <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        .header {
+            background-color: #5c5c5c;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .bottom {
+            background-color: #5c5656;
+            padding: 20px;
+            text-align: center;
+        }
+
         div.result {
             margin-top: 10px;
             margin-bottom: 10px;
@@ -16,49 +38,117 @@
         div.btn {
             margin-top: 5px;
         }
-        .text-box{
+
+        .text-box {
             width: 300px;
             height: 30px;
+        }
+
+        #input {
+            height: 200px;
+            width: 500px;
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        .column {
+            float: left;
+            width: 50%;
+            padding: 15px;
+            height: 600px;
+            /* text-align: center; */
+            background-color: whitesmoke;
+            border: 1px solid gray;
+
+        }
+
+        .column2 {
+            float: left;
+            width: 50%;
+            padding: 15px;
+            height: 600px;
+            /* text-align: center; */
+            background-color: whitesmoke;
+            border: 1px solid gray;
+
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        @media screen and (max-width:600px) {
+            .column {
+                width: 100%;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="input">
-        <p>Input (allowed key word: CH, B, NY, W, P, CI, A, ME, NO, MI )</p>
-        <input class='text-box' id='node_name' type="text" placeholder="Enter node">
-        <div class="btn">
-            <button type="submit" onclick="getNodeText()">Enter</button>
+    <textarea id="input" class="u-full-width" placeholder="Input your matrix here"></textarea>
+    <input id="go" class="button-primary" type="submit" value="Create Graph">
+
+    <div class="row">
+        <div class="column">
+            <div class="input-node">
+                <p>Input</p>
+                <input class='text-box' id='node_name' type="text" placeholder="Enter node">
+                <div class="btn">
+                    <button type="submit" onclick="getNodeText()">Enter</button>
+                </div>
+            </div>
+            <div class="results">
+                <p>Results: </p>
+                <div class="result">
+                    <p> Degree of the node</p>
+                    <input class='text-box' id='degree' type="text">
+                </div>
+                <div class="result">
+                    <p> Adjacencies of the node</p>
+                    <input class='text-box' id='Adj' type="text">
+                </div>
+            </div>
+            <div class="input-path">
+                <p>Input Starting Node and Target Node</p>
+                <input class='text-box' id='start' type="text" placeholder="Start node">
+                <input class='text-box' id='end' type="text" placeholder="Target node">
+                <div class="btn">
+                    <button type="submit" onclick="getPathNode()">Enter</button>
+                </div>
+            </div>
+            <div class="results">
+                <p>Results: </p>
+                <div class="result">
+                    <p> Path between 2 nodes</p>
+                    <input class='text-box' id='path' type="text">
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="results">
-        <p>Results: </p>
-        <div class="result">
-            <p> Degree of the node</p>
-            <input class='text-box' id='degree' type="text">
-        </div>
-        <div class="result">
-            <p> Adjacencies of the node</p>
-            <input class='text-box' id='Adj' type="text">
-        </div>
-    </div>
-    <div class ="input-path">
-        <p>Input Starting Node and Target Node</p>
-        <input class='text-box' id='start' type="text" placeholder="Start node">
-        <input class='text-box' id='end' type="text" placeholder="Target node">
-        <div class="btn">
-            <button type="submit" onclick="getPathNode()">Enter</button>
-        </div>
-    </div>
-    <div class="results">
-        <p>Results: </p>
-        <div class="result">
-            <p> Path between 2 nodes</p>
-            <input class='text-box' id='path' type="text">
+
+        <div class="column2">
+            <div class="input-path">
+                <div class="btn">
+                    <button type="submit" onclick="miniSpanTree()">Minimum Spanning tree</button>
+                </div>
+            </div>
+            <div class="results">
+                <div class="result">
+                    <p>Results: </p>
+                    <input style="width: 240px; height: 240px;" class='text-box' id='spanning-tree' type="text">
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
+        /* * 1 2 3 4 
+1 0 1 1 0
+2 1 0 1 0
+3 1 1 0 1
+4 0 0 1 0*/
+        var matrix = [];
         // Queue class 
         class Queue {
             // Array is used to implement a Queue 
@@ -115,16 +205,16 @@
                 // null array 
                 this.AdjList.set(v, []);
             }
-            // add edge to the graph 
-            addEdge(v, w) {
+            addEdgeWeighted(v, w, weight) {
                 // get the list for vertex v and put the 
                 // vertex w denoting edge between v and w 
-                this.AdjList.get(v).push(w);
+                this.AdjList.get(v).push({ Node: w, weighted: weight });
 
                 // Since graph is undirected, 
                 // add an edge from w to v also 
-                this.AdjList.get(w).push(v);
+                this.AdjList.get(w).push({ Node: v, weighted: weight });
             }
+
             checkifExist(user_input) {
                 var get_keys = this.AdjList.keys();
 
@@ -134,22 +224,21 @@
                     // for the vertex 
                     var get_values = this.AdjList.get(i);
                     var message;
-
                     // iterate over the adjacency list 
                     // concatenate the values into a string 
                     for (var j of get_values)
-                        if (user_input == j) {
+                        if (user_input == j.Node) {
                             console.log(user_input)
                             message = 'found'
                             console.log(message)
                         }
                 }
-                if(message != 'found'){
+                if (message != 'found') {
                     message = 'not found'
-                alert(message)
+                    alert(message)
                 }
-                
             }
+
             AdjOfVertice(node) {
                 var get_keys = this.AdjList.keys();
                 for (var i of get_keys) {
@@ -162,7 +251,7 @@
                         // iterate over the adjacency list 
                         // concatenate the values into a string 
                         for (var j of get_values) {
-                            conc.push(j)
+                            conc.push(j.Node)
                         }
                         console.log("Incoming/OutComing Adjacency of " + i + " -> " + conc);
                     }
@@ -193,8 +282,8 @@
                 }
                 return conc
             }
-            // function to performs BFS 
-            bfs(s, f) {
+            // function to search path between node applying BFS
+            searchPath(s, f) {
                 var path = []
                 var startingNode, finishingNode
                 if (this.degreeOfVertice(s) < this.degreeOfVertice(f)) {
@@ -232,8 +321,9 @@
                     // loop through the list and add the element to the 
                     // queue if it is not processed yet 
                     for (var i in get_List) {
-                        var neigh = get_List[i];
+                        var neigh = get_List[i].Node;
                         if (!visited[neigh]) {
+                            console.log(visited[neigh])
                             if (neigh != finishingNode) {
                                 visited[neigh] = true;
                                 q.enqueue(neigh);
@@ -249,39 +339,171 @@
                 }
                 return path
             }
+            printTest() {
+                console.log(this.AdjList)
+            }
+            listEdge() {
+                var edge = []
+                var get_keys = this.AdjList.keys();
+                for (var i of get_keys) {
+                    // great the corresponding adjacency list 
+                    // for the vertex 
+                    var get_values = this.AdjList.get(i);
+                    // iterate over the adjacency list 
+                    // console.log(edge,get_values)
+                    for (var j of get_values) {
+                        edge.push({ node1: i, node2: j.Node, weighted: j.weighted })
+                        // console.log(i,j.Node,j.weighted)
+                    } 
+                }
+                for (var i = 0; i < edge.length; i++) {
+                    for (var j = 0; j < edge.length; j++) {
+                        if (edge[i].node1 == edge[j].node2 && edge[i].node2 == edge[j].node1) {
+                            edge.splice(j, 1)
+                        }
+                    }
+                }
+                console.log(edge)
+                return edge
+            }
+            listEdge2() {
+                var edge = []
+                var get_keys = this.AdjList.keys();
+                for (var i of get_keys) {
+                    // great the corresponding adjacency list 
+                    // for the vertex 
+                    var get_values = this.AdjList.get(i);
+                    // iterate over the adjacency list 
+                    // console.log(edge,get_values)
+                    for (var j of get_values) {
+                        edge.push({ node1: i, node2: j.Node, weighted: j.weighted })
+                        // console.log(i,j.Node,j.weighted)
+                    } 
+                }
+                // for (var i = 0; i < edge.length; i++) {
+                //     for (var j = 0; j < edge.length; j++) {
+                //         if (edge[i].node1 == edge[j].node2 && edge[i].node2 == edge[j].node1) {
+                //             edge.splice(j, 1)
+                //         }
+                //     }
+                // }
+                // console.log(edge)
+                return edge
+            }
+            MNStree() {
 
+                // sort all edges by weight
+                var sortedEdge = this.listEdge()
+                sortedEdge = sortedEdge.sort(function (a, b) { return a.weighted - b.weighted })
+                var visited = [];
+                var checkArray = []
+                var weight = 0
+                for (var i = 0; i < this.noOfVertices; i++)
+                    visited[i] = false;
+                for (var i = 0; i < sortedEdge.length; i++) {
+                    if (!visited[sortedEdge[i].node1] || !visited[sortedEdge[i].node2]) {
+                        checkArray.push(sortedEdge[i])
+                        visited[sortedEdge[i].node1] = true
+                        visited[sortedEdge[i].node2] = true
+                        weight += sortedEdge[i].weighted
+                    }
+                }
+                var textLine = ''
+                for (var j = 0; j < checkArray.length; j++) {
+                    textLine = textLine + "From " +checkArray[j].node1 + ' to ' + checkArray[j].node2 + "<br>"
+                }
+                console.log(textLine)
+                console.log(checkArray,weight)
+                return String(textLine)
 
+            }
+
+            EulerCircuit(){
+                var edgeList = this.listEdge2()
+                console.log(edgeList)
+                var startV = null
+                var path = []
+                for(var i = 0; i < edgeList.length; i++){
+                    if(startV == null ){
+                        startV = edgeList[i].node2
+                        path.push(edgeList[i].node1)
+                        path.push(edgeList[i].node2)
+                        edgeList.splice(i,1)
+                    }
+                    for(var j = 0; j < edgeList.length; j++){
+                        if(edgeList[j].node1 == startV){
+                        startV = edgeList[j].node2
+                        path.push(edgeList[j].node1)
+                        path.push(edgeList[j].node2)
+                        edgeList.splice(j,1)
+                        
+                        }
+                    }
+                }
+                console.log(path)
+                
+            }
         }
-        var matrix = [["", "CH", "B", "NY", "W", "P", "CI", "A", "ME", "NO", "MI"], ["CH", 0, 1, 1, 0, 1, 1, 0, 1, 0, 0], ["B", 1, 0, 1, 0, 0, 0, 0, 0, 0, 0], ["NY", 1, 1, 0, 1, 1, 0, 0, 0, 0, 0], ["W", 0, 0, 1, 0, 1, 0, 1, 0, 0, 1], ["P", 1, 0, 1, 1, 0, 1, 1, 0, 0, 0], ["CI", 1, 0, 0, 1, 1, 0, 1, 0, 0, 0], ["A", 0, 0, 0, 1, 1, 1, 0, 1, 1, 1], ["ME", 1, 0, 0, 0, 0, 0, 1, 0, 1, 0], ["NO", 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], ["MI", 0, 0, 0, 1, 0, 0, 1, 0, 0, 0]]
+        // var matrix = [["", "CH", "B", "NY", "W", "P", "CI", "A", "ME", "NO", "MI"], ["CH", 0, 1, 1, 0, 1, 1, 0, 1, 0, 0], ["B", 1, 0, 1, 0, 0, 0, 0, 0, 0, 0], ["NY", 1, 1, 0, 1, 1, 0, 0, 0, 0, 0], ["W", 0, 0, 1, 0, 1, 0, 1, 0, 0, 1], ["P", 1, 0, 1, 1, 0, 1, 1, 0, 0, 0], ["CI", 1, 0, 0, 1, 1, 0, 1, 0, 0, 0], ["A", 0, 0, 0, 1, 1, 1, 0, 1, 1, 1], ["ME", 1, 0, 0, 0, 0, 0, 1, 0, 1, 0], ["NO", 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], ["MI", 0, 0, 0, 1, 0, 0, 1, 0, 0, 0]]
         // console.log(matrix)
-        var g = new Graph(10);
-            for (var v = 0; v < 10; v++) {
+        var g
+        function initGraph(matrix) {
+            g = new Graph(matrix.length - 1)
+            for (var v = 0; v < matrix.length - 1; v++) {
                 g.addVertex(matrix[0][v + 1]);
             }
-            for (var v = 0; v < 10; v++) {
-                for (var j = v; j < 10; j++) {
-                    if (matrix[j + 1][v + 1] == 1) {
+            for (var v = 0; v < matrix.length - 1; v++) {
+                for (var j = v; j < matrix.length - 1; j++) {
+                    if (matrix[j + 1][v + 1] != 0) {
                         // console.log(matrix[0][v + 1], matrix[j + 1][0])
-                        g.addEdge(matrix[0][v + 1], matrix[j + 1][0])
+                        g.addEdgeWeighted(matrix[0][v + 1], matrix[j + 1][0], parseInt(matrix[j + 1][v + 1]))
                     }
                 }
             }
-        function getPathNode(){
+            g.printTest()
+            g.EulerCircuit()
+            // g.EulerCircuit()
+        }
+        $('#go').click(function () {
+            matrix = []
+            var lines = $('#input').val().split(/\n/);
+            var outputText;
+            for (var i = 0; i < lines.length; i++) {
+                // only push this line if it contains a non whitespace character.
+                if (/\S/.test(lines[i])) {
+                    outputText = lines[i].split(' ')
+                    matrix.push(outputText);
+                }
+            }
+            initGraph(matrix)
+            if (matrix.length != 0)
+                alert('Graph created')
+            else alert('Insert Matrix')
+        })
+        // g.printTest()
+        function getPathNode() {
             var start_input = document.getElementById('start').value
             var end_input = document.getElementById('end').value
             g.checkifExist(start_input)
             g.checkifExist(end_input)
-            document.getElementById('path').value = g.bfs(start_input,end_input)
+            document.getElementById('path').value = g.searchPath(start_input, end_input)
 
         }
         function getNodeText() {
             var text_input = document.getElementById('node_name').value
             g.checkifExist(text_input)
             document.getElementById('degree').value = g.degreeOfVertice(text_input)
-            
+
             document.getElementById('Adj').value = g.AdjOfVertice(text_input)
 
         }
+        function miniSpanTree() {
+            
+            document.getElementById('spanning-tree').innerHTML = g.MNStree()
+            // document.getElementById("spanning-tree").insertAdjacentHTML("afterend", 
+            //     g.MNStree()); 
+        }
+
     </script>
 </body>
 

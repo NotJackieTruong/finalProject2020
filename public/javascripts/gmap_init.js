@@ -31,8 +31,8 @@ function initMap() {
     trafficLayer = new google.maps.TrafficLayer();
     transitLayer = new google.maps.TransitLayer();
     transitLayer = new google.maps.BicyclingLayer();
-    // ProvinceLevelMap()
-    BDSBadinh()
+    ProvinceLevelMap()
+    // BDSBadinh()
 
     //create marker
     marker = new google.maps.Marker({
