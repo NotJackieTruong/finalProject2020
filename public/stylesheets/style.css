@@ -2,7 +2,7 @@
 html, body {
   position: relative;
 	height: 100%;
-  background: #e8eaed;
+  background: white;
   font: 400 22px/32px Google Sans, Noto Sans, Noto SansJP, Noto Sans KR, Noto Naskh Arabic, Noto Sans Thai, Noto Sans hebrew, Noto Sans Bengail, sans-serif;
   letter-spacing: 0;
   padding: 0;
@@ -44,6 +44,7 @@ html, body {
 
 
 main.content{
+
   width: 100%;
   height: 840px;
   margin-bottom: 36px;
@@ -87,6 +88,19 @@ main.content{
 .footer .footer_content .footer_section.links a{
   text-decoration: none;
   color: white;
+}
+
+
+
+.footer .footer_content .footer_section.contacts div.socials img{
+  width: 25px;
+  height: 25px;
+  margin: 5px;
+}
+.footer .footer_content .footer_section div.contact img{
+  width: 25px;
+  height: 25px;
+  margin: 5px;
 }
 
 
