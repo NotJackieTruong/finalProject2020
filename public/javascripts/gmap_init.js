@@ -118,6 +118,10 @@ $(document).ready(function () {
                 infowindow.setPosition(results[0].geometry.location)
                 drawSearch(results[0].address_components)
                 console.log(results[0].address_components)
+                document.getElementById("results").style.height="100%";
+                document.getElementById("results").style.overflow="visible";
+                document.getElementById("results").style.transition=".5s";
+
             } else {
                 alert("Geocode was not successful for the following reason: " + status);
             }
@@ -130,6 +134,20 @@ $(document).ready(function () {
     })
 })
 
+//street view control option
+// document.getElementById('map'), {
+//     position: {lat: 42.345573, lng: -71.098326},
+//     addressControlOptions: {
+//       position: google.maps.ControlPosition.BOTTOM_CENTER
+//     },
+//     linksControl: false,
+//     panControl: false,
+//     zoomControlOptions: {
+//       style: google.maps.ZoomControlStyle.SMALL
+//     },
+//     enableCloseButton: false
+// }
+
 function addStreetView(lat, lng){
     var point = {lat: lat, lng: lng}
     console.log("address for image: "+point)
@@ -138,7 +156,11 @@ function addStreetView(lat, lng){
         pov:{
             heading: 34,
             pitch: 10
-        }
+        },
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.SMALL
+        },
+        disableDefaultUI: true
     }
     var panorama = new google.maps.StreetViewPanorama(
         document.getElementById('pano'), panoramaOptions

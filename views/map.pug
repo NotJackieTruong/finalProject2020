@@ -14,20 +14,22 @@ block content
           input#search_location.form-control(type='text' placeholder='Search location')
           .input-group-btn
             button.btn.btn-default.get_map(type='submit')
-
-      h4 Location Details
-      div#search_results
-        div(class="search")
-          p Address:
-          input#search_addr.form-control(type='text' readonly="readonly")
-        div(class="search")
-          p Latitude:
-          input#search_latitude.form-control(type='text' readonly="readonly")
-        div(class="search")
-          p Longitude:
-          input#search_longitude.form-control(type='text' readonly="readonly")
-        div#pano
-    
+      div#results
+        h4 Location Details
+        div#search_results
+          div(class="search")
+            p Address:
+            input#search_addr.form-control(type='text' readonly="readonly")
+          div(class="search")
+            p Latitude:
+            input#search_latitude.form-control(type='text' readonly="readonly")
+          div(class="search")
+            p Longitude:
+            input#search_longitude.form-control(type='text' readonly="readonly")
+          div(class="image_result")
+            h4 Image
+            div#pano
+      
 
       //- div(class="population")
       //-   p Population:

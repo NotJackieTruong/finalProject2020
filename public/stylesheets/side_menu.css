@@ -1,4 +1,4 @@
-.sideNav{
+div#sideMenu.sideNav{
     height: 800px;
     width: 0;
     position: absolute;
@@ -9,6 +9,9 @@
     padding-top: 60px;
     display: block;
     /* margin-top: 15.4%; */
+}
+div#sideMenu.sideNav::-webkit-scrollbar{
+  display: none;
 }
 
 .sideNav a.closeBtn{
@@ -26,6 +29,10 @@
     font-size: 36px;
 }
 
+div#results{
+  height: 0;
+  overflow: hidden;
+}
 /* search box css */
   .form-group.input-group{
     width: inherit;
