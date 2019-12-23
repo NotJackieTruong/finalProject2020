@@ -64,24 +64,48 @@ main.content{
   background: #0F9D58;
   color: white;
   width: 100%;
-  height: 250px;
+  height: 200px;
   position: relative;
 }
 .footer .footer_content{
   height: inherit;
   display: flex;
+  margin: 0% 8%;
 }
 
 .footer .footer_content .footer_section{
   font: 500 14px/20px Google Sans, Noto Sans, Noto Sans JP, Noto Sans KR , Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew, Noto Sans Bengali, sans-serif;
   font-weight: 500;
-  flex: 1;
+  width: 360px;
   padding: 25px;
 }
 
-.footer .footer_content .footer_section.links a{
+.footer .footer_content .footer_section.about{
+  flex-grow: 1;
+}
+
+.footer .footer_content .footer_section ul{
+  margin-top: 16px;
+}
+.footer .footer_content .footer_section ul a{
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.2em;
   text-decoration: none;
+}
+
+.footer .footer_content .footer_section li.link{
   color: white;
+  font: 500 14px/20px Google Sans, Noto Sans, Noto Sans JP, Noto Sans KR , Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew, Noto Sans Bengali, sans-serif;
+  font-weight: 500;
+  transition: all .5s;
+  
+}
+
+.footer .footer_content .footer_section li.link:hover{
+  text-decoration: none;
+  font-weight: 600;
+  transition: all .5s;
 }
 
 .footer .footer_content .footer_section.contacts div.socials img{
@@ -89,11 +113,11 @@ main.content{
   height: 25px;
   margin: 5px;
 }
-.footer .footer_content .footer_section div.contact img{
+/* .footer .footer_content .footer_section div.contact img{
   width: 25px;
   height: 25px;
   margin: 5px;
-}
+} */
 
 /* Control css */
 /* search box UI border css */
@@ -153,9 +177,6 @@ main.content{
 
 @media screen and (max-width: 1024px) {
  #map{
-   height: 600px;
- }
- div#sideMenu.sideNav{
    height: 600px;
  }
 

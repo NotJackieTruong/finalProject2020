@@ -84,6 +84,7 @@ div#results{
     border: 1px solid #DADCE0;
     background-color: white;
     flex-grow: 1;
+    text-overflow: ellipsis;
   }
 
   .btn.btn-default.get_map{
@@ -100,3 +101,20 @@ div#results{
   margin: 20px 10px;
   flex-grow: 1;
 }
+
+@media screen and (max-width: 1024px) {
+  div#sideMenu.sideNav{
+    height: 600px;
+  }
+
+  #sideMenu div.search{
+    width: auto;
+ 
+  }
+
+  #pano{
+    width: auto;
+    height: 280px;
+  }
+ 
+ }
