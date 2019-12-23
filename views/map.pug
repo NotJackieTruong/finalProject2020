@@ -1,11 +1,8 @@
 extends layout
 block content
- main(class="content")
+ main.content
     //- nav(id="filters" class="filterUI") Filter
-    div(id="map")
-      
-
-   
+    #map
     //- create a search box like side menu
     #sideMenu.sideNav
       a.closeBtn(href='javascript:void(0)' onclick='closeNav()') &times;
