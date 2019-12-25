@@ -76,6 +76,14 @@ function initMap() {
 
     data_layer.addListener('dblclick', function (event) {
         var feat = event.feature;
+        var html
+        var bounds = new google.maps.LatLngBounds();
+        data_layer.forEach(function (feature) {
+            feat.getGeometry().forEachLatLng(function (latlng) {
+                bounds.extend(latlng);
+            });
+        });
+        map.fitBounds(bounds);
         infowindow.close()
         if (currentmap_level == 'Province') {
             nameSearch = getFixedName(feat.getProperty("Name"))

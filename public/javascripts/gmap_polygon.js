@@ -262,6 +262,8 @@ function ProvinceLevelMap() {
         heatmap.setMap(null)
         maxPopulation = 8598700
         minPopulation = 327000
+        map.setZoom(6)
+        map.setCenter({ lat:16.467397, lng: 107.59053259999996})
         data_layer.loadGeoJson(
             'https://storage.googleapis.com/map_population/citylevelBoundary.json'
         )
