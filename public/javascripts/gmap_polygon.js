@@ -42,10 +42,17 @@ function getFixedName(str) {
 function storeCoordinate(xVal, yVal, array) {
     array.push({ lng: xVal, lat: yVal })
 }
+function getWardArray(url){
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", url, false ); // false for synchronous request
+    xmlHttp.send( null );
+    var arr = xmlHttp.responseText;
+    var jsonarr = JSON.parse(arr)
+    return jsonarr
+}
 // lấy coordinate HN
-function getCoordinate(id) {
-    var CoordinateString = ObjectData[id].WardCoordinates
-    var arr = CoordinateString.split(/,| /)
+function getCoordinate(str) {
+    var arr = str.split(/,| /)
     for (var i = 0; i < arr.length; i++) {
         arr[i] = arr[i] * 1
     }
@@ -165,27 +172,27 @@ function WardLevelMap(name1, name2) {
         });
         maxPopulation = 81690
         minPopulation = 0
-        // var url = 'https://storage.googleapis.com/map_population/'+name1+'.json'
-        // console.log(url)
-        for (var i = 0; i < ObjectData.length; i++) {
-            if (getFixedName(ObjectData[i].Province) == name1 && getFixedName(ObjectData[i].District) == name2) {
-                var color = colorOverlay(getPopulation(ObjectData[i].Population))
+        var link = 'https://storage.googleapis.com/map_population/'+name1.replace(/\s+/g, '')+'/'+name2.replace(/\s+/g, '') + '.json'
+        console.log(link)
+        var WardData = getWardArray(link)
+        for(var i = 0; i < WardData.length; i++){
+            if(getFixedName(WardData[i].District) == name2){
+                var color = colorOverlay(getPopulation(WardData[i].Population*1000))
                 data_layer.add(
                     {
-                        geometry: new google.maps.Data.Polygon([getCoordinate(i)]),
+                        geometry: new google.maps.Data.Polygon([getCoordinate(WardData[i].WardCoordinates)]),
                         properties: {
                             color: color,
                             id: i,
-                            Province: ObjectData[i].Province,
-                            District: ObjectData[i].District,
-                            Ward: ObjectData[i].Ward,
-                            Population: ObjectData[i].Population
+                            Province: WardData[i].Province,
+                            District: WardData[i].District,
+                            Ward: WardData[i].Ward,
+                            Population: WardData[i].Population
                         }
                     })
                 data_layer.setStyle(function (feature) {
                     console.log('Ward  level drawn, current map level is: ' + currentmap_level + 'of district: ' + nameSearch2 + ' city: ' + nameSearch)
                     var color = feature.getProperty('color');
-                    var opacity = feature.getProperty('fillOpacity')
                     return ({
                         strokeColor: 'purple',
                         strokeOpacity: 1,
@@ -194,6 +201,11 @@ function WardLevelMap(name1, name2) {
                         fillColor: color,
                     });
                 });
+            }
+        }
+        for (var i = 0; i < ObjectData.length; i++) {
+            if (getFixedName(ObjectData[i].Province) == name1 && getFixedName(ObjectData[i].District) == name2) {
+                
             }
         }
     }
@@ -218,26 +230,21 @@ function DistrictLevelMap(name) {
                 }
             }
             infowindow.close()
-            data_layer.loadGeoJson(
-                'https://storage.googleapis.com/map_population/DistrictlevelFULL.json'
-            )
+            name = name.replace(/\s+/g, '');
+            console.log(name)
+            var link = 'https://storage.googleapis.com/map_population/'+name+'.json'
+            console.log(link)
+            data_layer.loadGeoJson(link)
             data_layer.setStyle(function (feature) {
                 console.log('District level drawn, current map level is: ' + currentmap_level + ' of ' + nameSearch)
                 var P = feature.getProperty('Dan_So')
-                var provinceName = feature.getProperty('Ten_Tinh')
                 var color = colorOverlay(P)
-                var visibleState
-                if (name == getFixedName(provinceName))
-                    visibleState = true
-                else
-                    visibleState = false
                 return {
                     strokeColor: 'purple',
                     strokeOpacity: 1,
                     strokeWeight: 0.2,
                     fillOpacity: 1,
-                    fillColor: color,
-                    visible: visibleState
+                    fillColor: color
                 }
             })
         }

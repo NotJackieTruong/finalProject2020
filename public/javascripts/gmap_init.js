@@ -40,7 +40,6 @@ function initMap() {
     });
 
 
-    // listener
     data_layer.addListener('click', function (event) {
         var feat = event.feature;
         var html
