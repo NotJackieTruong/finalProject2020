@@ -1,0 +1,33 @@
+test.html:232 Degree of A is: 9
+test.html:232 Degree of B is: 9
+test.html:232 Degree of C is: 9
+test.html:232 Degree of D is: 9
+test.html:232 Degree of E is: 8
+test.html:232 Degree of F is: 9
+test.html:232 Degree of G is: 9
+test.html:232 Degree of H is: 9
+test.html:232 Degree of I is: 9
+test.html:232 Degree of J is: 8
+test.html:270 Vertice A has adjacencies: B-96,C-46,D-96,E-5,F-36,G-19,H-82,I-11,J-81
+test.html:270 Vertice B has adjacencies: A-96,C-1,D-87,E-47,F-48,G-76,H-12,I-12,J-50
+test.html:270 Vertice C has adjacencies: A-46,B-1,D-93,E-80,F-89,G-45,H-46,I-16,J-72
+test.html:270 Vertice D has adjacencies: A-96,B-87,C-93,E-91,F-52,G-75,H-82,I-98,J-90
+test.html:270 Vertice E has adjacencies: A-5,B-47,C-80,D-91,F-21,G-1,H-22,I-30
+test.html:270 Vertice F has adjacencies: A-36,B-48,C-89,D-52,E-21,G-54,H-10,I-30,J-86
+test.html:270 Vertice G has adjacencies: A-19,B-76,C-45,D-75,E-1,F-54,H-23,I-79,J-25
+test.html:270 Vertice H has adjacencies: A-82,B-12,C-46,D-82,E-22,F-10,G-23,I-28,J-30
+test.html:270 Vertice I has adjacencies: A-11,B-12,C-16,D-98,E-30,F-30,G-79,H-28,J-47
+test.html:270 Vertice J has adjacencies: A-81,B-50,C-72,D-90,F-86,G-25,H-30,I-47
+test.html:412 all nodes are connected
+test.html:296 Minimum Spanning Tree is: 
+test.html:335 B->C
+B->H
+H->F
+B->I
+I->A
+A->E
+E->G
+G->J
+F->D
+test.html:336 Total Weight is: 129
+test.html:374 Path between J and E is: J > G > E

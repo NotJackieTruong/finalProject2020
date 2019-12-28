@@ -1,0 +1,12 @@
+test.html:232 Degree of A is: 2
+test.html:232 Degree of B is: 2
+test.html:232 Degree of C is: 2
+test.html:270 Vertice A has adjacencies: B-88,C-97
+test.html:270 Vertice B has adjacencies: A-88,C-17
+test.html:270 Vertice C has adjacencies: A-97,B-17
+test.html:412 all nodes are connected
+test.html:296 Minimum Spanning Tree is: 
+test.html:335 B->C
+B->A
+test.html:336 Total Weight is: 105
+test.html:374 Path between A and C is: A > C

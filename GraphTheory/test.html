@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <script src="jquery-3.4.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <title>
         Test
     </title>
@@ -86,30 +86,32 @@
 </head>
 
 <body>
-    <textarea id="input" class="u-full-width" placeholder="Input your matrix here"></textarea>
+    <textarea id="input" class="u-full-width" placeholder="Input your matrix here
+Example:
+* A B C
+A 0 88 97
+B 88 0 17
+C 97 17 0"></textarea>
     <input id="go" class="button-primary" type="submit" value="Create Graph">
+    <p>Open javascript console to see Degrees, Adjacencies of all vertices,Minimum Spanning tree of the graph and an
+        example of Dijkstra's algorithm result</p>
+    <p>** ALL INPUT FIELDS ARE CASE-SENSITIVE **</p>
 
     <div class="row">
         <div class="column">
             <div class="input-node">
                 <p>Input</p>
                 <input class='text-box' id='node_name' type="text" placeholder="Enter node">
-                <div class="btn">
-                    <button type="submit" onclick="getNodeText()">Enter</button>
-                </div>
+                <button type="submit" onclick="getNodeText()">Enter</button>
             </div>
             <div class="results">
-                <p>Results: </p>
-                <div class="result">
-                    <p> Degree of the node</p>
-                    <input class='text-box' id='degree' type="text">
-                </div>
-                <div class="result">
-                    <p> Adjacencies of the node</p>
-                    <input class='text-box' id='Adj' type="text">
-                </div>
+                <p> Degree of the node</p>
+                <input class='text-box' id='degree' type="text">
+                <p> Adjacencies of the node</p>
+                <input class='text-box' id='Adj' type="text">
             </div>
             <div class="input-path">
+                <h1>Shortest path: Dijkstra's algorithm</h1>
                 <p>Input Starting Node and Target Node</p>
                 <input class='text-box' id='start' type="text" placeholder="Start node">
                 <input class='text-box' id='end' type="text" placeholder="Target node">
@@ -129,7 +131,8 @@
         <div class="column2">
             <div class="input-path">
                 <div class="btn">
-                    <button type="submit" onclick="miniSpanTree()">Minimum Spanning tree</button>
+                    <h1>Minimum Spanning tree</h1>
+                    <button type="submit" onclick="miniSpanTree()">Find Minimum Spanning tree</button>
                 </div>
             </div>
             <div class="results">
@@ -183,6 +186,7 @@
                 this.AdjList.get(v).push({ Node: w, weighted: weight });
                 this.AdjList.get(w).push({ Node: v, weighted: weight });
             }
+            //Check if input vertice from user for search is valid
             checkifExist(user_input) {
                 var get_keys = this.AdjList.keys();
                 for (var i of get_keys) {
@@ -214,6 +218,8 @@
                 }
                 return conc
             }
+
+            //
             degreeOfVertice(node) {
                 var get_keys = this.AdjList.keys();
                 for (var i of get_keys) {
@@ -228,6 +234,8 @@
                 }
                 return conc
             }
+
+            // find smallest edge from a vertice
             minWeight(node, visited) {
                 var get_keys = this.AdjList.keys();
                 var min = null;
@@ -252,46 +260,17 @@
                 }
                 return { min, root, target }
             }
-            minWeightDij(node, end, visited) {
-                var get_keys = this.AdjList.keys();
-                var min = null;
-                var target;
-                var root;
-                var found = false
-                for (var i of get_keys) {
-                    if (i == node) {
-                        var get_values = this.AdjList.get(i);
-                        for (var j of get_values) {
-                            // console.log(end, j)
-                            if (j.Node == end) {
-                                min = j.weighted
-                                target = j.Node
-                                root = i
-                                found = true
-                            }
-                            else if (!found) {
-                                if (min == null && !visited[j.Node]) {
-                                    // console.log(visited[j.Node])
-                                    min = j.weighted
-                                    target = j.Node
-                                    root = i
-                                }
-                                else if (min > j.weighted && !visited[j.Node]) {
-                                    // console.log(visited[j.Node])
-                                    min = j.weighted
-                                    target = j.Node
-                                    root = i
-                                }
-                            }
-                        }
-                    }
-                }
-                return { min, root, target }
-            }
             printTest() {
-                console.log("Adjacencies of nodes")
-                console.log(this.AdjList)
+                var get_keys = this.AdjList.keys()
+                for(var i of get_keys){
+                    var get_values = this.AdjList.get(i)
+                    var adj = []
+                    for(var j of get_values)
+                    adj.push(j.Node + "-"+ j.weighted)
+                    console.log("Vertice "+ i +" has adjacencies: " +  adj.toString())
+                }
             }
+
             listEdge() {
                 var edge = []
                 var get_keys = this.AdjList.keys();
@@ -311,17 +290,25 @@
                 edge = edge.sort(function (a, b) { return a.weighted - b.weighted })
                 return edge
             }
+
+            // Find minimum spanning tree using Prim's algorithm
             MNStree() {
                 console.log("Minimum Spanning Tree is: ")
                 var path
+
+                //List of edges sorted by weight
                 var sortedEdge = this.listEdge()
+
                 var get_keys = this.AdjList.keys();
                 var visited = [];
                 var total_weight = 0
+
+                // Set all vertices are unvisited
                 for (var i of get_keys)
                     visited[i] = false;
                 var visitednode = []
 
+                //Add 2 vertices that have minimum weighted edge 
                 visited[sortedEdge[0].node1] = true;
                 visitednode.push(sortedEdge[0].node1)
 
@@ -342,40 +329,51 @@
                     visited[min_weight[0].target] = true
                     visitednode.push(min_weight[0].target)
                     total_weight += min_weight[0].min
-                    path += '\n'+min_weight[0].root + "->" + min_weight[0].target 
+                    path += '\n' + min_weight[0].root + "->" + min_weight[0].target
 
                 }
                 console.log(path)
                 console.log("Total Weight is: " + total_weight)
+                path += '\n' + "Total Weight is: " + total_weight
                 return path
             }
-            // Search path using Dijkastra
-            Dijkstra(start, end) {
-                console.log("Path from "+start+" to "+end+ " is: ")
-                var path = ""
+
+            dijikstraAlgorithm(startNode, endNode) {
+                var distances = []
+                var prev = []
+                var pq = new Queue()
                 var get_keys = this.AdjList.keys();
-                var visited = [];
-                var total_weight = 0
-                var visitednode = []
+                distances[startNode] = 0
+                pq.enqueue({ Node: startNode, Distance: 0 })
                 for (var i of get_keys) {
-                    visited[i] = false;
+                    if (i != startNode)
+                        distances[i] = Infinity
+                    prev[i] = null
                 }
-                visited[start] = true;
-                visitednode.push(start)
-                // console.log(visited,visitednode)
-                while (visitednode[visitednode.length - 1] != end) {
-                    var min_weight = []
-                    min_weight.push(this.minWeightDij(visitednode[visitednode.length - 1], end, visited))
-                    visited[min_weight[0].target] = true
-                    visitednode.push(min_weight[0].target)
-                    total_weight += min_weight[0].min
-                    path += min_weight[0].root + "->" + min_weight[0].target + "    "
+                // console.log(this.AdjList.get(pq.dequeue().Node))
+                while (!pq.isEmpty()) {
+                    var currentNode = pq.dequeue().Node
+                    var edgeofCurrentNode = this.AdjList.get(currentNode)
+                    edgeofCurrentNode.forEach(target => {
+                        var alt = distances[currentNode] + target.weighted
+                        if (alt < distances[target.Node]) {
+                            distances[target.Node] = alt;
+                            prev[target.Node] = currentNode
+                            pq.enqueue({ Node: target.Node, Distance: distances[target.Node] })
+                        }
+                    })
                 }
-                console.log(path)
-                console.log("Total Weight is: " + total_weight)
+                var nodeSearch = endNode
+                var path = endNode
+                do {
+                    path += " > " + prev[nodeSearch]
+                    nodeSearch = prev[nodeSearch]
+                }
+                while (nodeSearch != startNode)
+                path = path.split('').reverse().join('')
+                console.log("Path between "+startNode +" and "+endNode +" is: "+ path )
                 return path
             }
-
             // using bfs to find path through all nodes, if path's elements = (number of vertices -1)
             // then the graph is connected
             checkConnected(startingNode) {
@@ -436,7 +434,8 @@
             g.printTest()
             g.checkConnected(matrix[0][1])
             g.MNStree()
-            g.Dijkstra("J", "E")
+            g.dijikstraAlgorithm(matrix[0][1], matrix[0][matrix.length-1])
+            // g.Dijkstra(matrix[0][1], matrix[0][matrix.length-1])
         }
         $('#go').click(function () {
             matrix = []
@@ -460,7 +459,7 @@
             var end_input = document.getElementById('end').value
             g.checkifExist(start_input)
             g.checkifExist(end_input)
-            document.getElementById('path').value = g.Dijkstra(start_input, end_input)
+            document.getElementById('path').value = g.dijikstraAlgorithm(start_input, end_input)
 
         }
         function getNodeText() {
@@ -472,8 +471,6 @@
         }
         function miniSpanTree() {
             document.getElementById('spanning-tree').innerHTML = g.MNStree()
-            // document.getElementById("spanning-tree").insertAdjacentHTML("afterend",
-            //     g.MNStree());
         }
 
     </script>
