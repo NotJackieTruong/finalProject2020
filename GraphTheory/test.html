@@ -211,7 +211,6 @@
                         }
                         console.log("Incoming/OutComing Adjacency of " + i + " -> " + conc);
                     }
-
                 }
                 return conc
             }
@@ -229,6 +228,21 @@
                 }
                 return conc
             }
+            minWeight(node) {
+                var get_keys = this.AdjList.keys();
+                var min = null;
+                for (var i of get_keys) {
+                    if (i == node) {
+                        var get_values = this.AdjList.get(i);
+                        for (var j of get_values) {
+                            if(min == null || min > j.weighted)
+                                min = j.weighted
+                        }
+                        console.log("Min of " + i + " is: " + min);
+                    }
+                }
+                return min
+            }
             searchPath(s, f) {
                 var path = []
                 var startingNode, finishingNode
@@ -244,7 +258,7 @@
                 var visited = [];
                 for (var i = 0; i < this.noOfVertices; i++)
                     visited[i] = false;
-                var q = new Queue(); 
+                var q = new Queue();
                 visited[startingNode] = true;
                 q.enqueue(startingNode);
                 var getQueueElement
@@ -293,69 +307,29 @@
                 console.log(edge)
                 return edge
             }
-            listEdge2() {
-                var edge = []
-                var get_keys = this.AdjList.keys();
-                for (var i of get_keys) {
-                    var get_values = this.AdjList.get(i);
-                    for (var j of get_values) {
-                        edge.push({ node1: i, node2: j.Node, weighted: j.weighted })
-                        // console.log(i,j.Node,j.weighted)
-                    }
-                }
-                console.log(edge)
-                return edge
-            }
-            MNStree() {
+            MNStree(){
                 var sortedEdge = this.listEdge()
-                sortedEdge = sortedEdge.sort(function (a, b) { return a.weighted - b.weighted })
+                var get_keys = this.AdjList.keys();
                 var visited = [];
-                var checkArray = []
-                var weight = 0
-                var node_visited = []
-                for (var i = 0; i < this.noOfVertices*(this.noOfVertices-1); i++)
+                var min_weight = null
+                var total_weight
+                for (var i = 0; i < this.noOfVertices; i++)
                     visited[i] = false;
-                    for (var i = 0; i < sortedEdge.length; i++) {
-                    if (!visited[sortedEdge[i].node1] || !visited[sortedEdge[i].node2]) {
-                        checkArray.push(sortedEdge[i])
-                        visited[sortedEdge[i].node1] = true
-                        visited[sortedEdge[i].node2] = true
-                        weight += sortedEdge[i].weighted
-                    }
+                
+                var visitednode = []
+                visited[sortedEdge[0].node1] = true;
+                visitednode.push(sortedEdge[0].node1)
+                visited[sortedEdge[0].node2] = true;
+                visitednode.push(sortedEdge[0].node2)
+                for( var i = 0; i < visitednode.length; i++){
+                    this.minWeight(visitednode[i])
                 }
-                var textLine = ''
-                for (var j = 0; j < checkArray.length; j++) {
-                    textLine = textLine + 'From ' + checkArray[j].node1 + ' to ' + checkArray[j].node2 + '\n'
+                console.log(visitednode)
                 }
-                console.log(textLine)
-                console.log(checkArray, weight)
-                return String(textLine)
-
-            }
-            EulerCircuit() {
-                var edgeList = this.listEdge2()
-                var startV = null
-                var path = []
-                for (var i = 0; i < edgeList.length; i++) {
-                    if (startV == null) {
-                        startV = edgeList[i].node2
-                        path.push(edgeList[i].node1)
-                        path.push(edgeList[i].node2)
-                        edgeList.splice(i, 1)
-                    }
-                    for (var j = 0; j < edgeList.length; j++) {
-                        if (edgeList[j].node1 == startV) {
-                            startV = edgeList[j].node2
-                            path.push(edgeList[j].node1)
-                            path.push(edgeList[j].node2)
-                            edgeList.splice(j, 1)
-
-                        }
-                    }
-                }
-
-            }
-            bfs(startingNode) {
+                
+            // using bfs to find path through all nodes, if path's elements = (number of vertices -1)
+            // then the graph is connected
+            checkConnected(startingNode) {
 
                 var path = []
                 var visited = [];
@@ -387,26 +361,10 @@
                         }
                     }
                 }
-                console.log(path)
-                console.log(path.length,matrix.length - 1,"all node are connected")
                 if (path.length == (matrix.length - 1))
-                    return true
-                
-            }
-            isEulerCircus() {
-                var get_keys = this.AdjList.keys();
-                var count = 0
-                // iterate over the vertices 
-                for (var i of get_keys) {
-                    // console.log(i)
-                        if (this.degreeOfVertice(i) % 2 == 0) {
-                            count = count +1
-                        }
-                    
-                }
-                // console.log('count for degree is: ' + count)
-                console.log(count,matrix.length - 1,"all degrees are even number")
-
+                    console.log("all nodes are connected")
+                else
+                console.log("there are nodes that aren't connected")
             }
         }
         var g
@@ -423,10 +381,12 @@
                     }
                 }
             }
+            for (var v = 0; v < matrix.length - 1; v++) {
+                g.degreeOfVertice(matrix[0][v + 1]);
+            }
             g.printTest()
-            g.EulerCircuit()
-            g.bfs(matrix[0][1])
-            // g.EulerCircuit()
+            g.checkConnected(matrix[0][1])
+            g.MNStree()
         }
         $('#go').click(function () {
             matrix = []
