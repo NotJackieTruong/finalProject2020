@@ -104,14 +104,12 @@ div#results{
 
 @media screen and (max-width: 1024px) {
   div#sideMenu.sideNav{
-    height: 600px;
+    height: 480px;
   }
-
   #sideMenu div.search{
     width: auto;
  
   }
-
   #pano{
     width: auto;
     height: 280px;

@@ -66,9 +66,9 @@ main.content{
   margin-top: -50px;
 }
 .footer .footer_content{
-  height: inherit;
+  height: 18%;
   display: flex;
-  margin: 0% 8%;
+  margin: 0px 156px;
 }
 
 .footer .footer_content .footer_section{
@@ -78,13 +78,20 @@ main.content{
   padding: 25px;
 }
 
+.footer .footer_content h2{
+  font: 500 14px/16px Google Sans, Noto Sans, Noto Sans JP, Noto Sans KR , Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew, Noto Sans Bengali, sans-serif;
+  font-weight: 600;
+}
+
 .footer .footer_content .footer_section.about{
   flex-grow: 1;
 }
 
+
 .footer .footer_content .footer_section ul{
-  margin-top: 16px;
+  margin-top: 12px;
 }
+
 .footer .footer_content .footer_section ul a{
   display: block;
   margin-bottom: 8px;
@@ -94,7 +101,7 @@ main.content{
 
 .footer .footer_content .footer_section li.link{
   color: white;
-  font: 500 14px/20px Google Sans, Noto Sans, Noto Sans JP, Noto Sans KR , Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew, Noto Sans Bengali, sans-serif;
+  /* font: 500 14px/20px Google Sans, Noto Sans, Noto Sans JP, Noto Sans KR , Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew, Noto Sans Bengali, sans-serif; */
   font-weight: 500;
   transition: all .5s;
   
@@ -175,7 +182,17 @@ main.content{
 
 @media screen and (max-width: 1024px) {
  #map{
-   height: 600px;
+   height: 480px;
+ }
+ main.content{
+   min-height: 75%;
+ }
+ .footer .footer_content{
+   margin: 83px;
+ }
+ .footer .footer_content .footer_section{
+   padding: 13.5px;
+   width: 192px;
  }
 
 }
