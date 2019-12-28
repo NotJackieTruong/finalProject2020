@@ -191,7 +191,7 @@ function WardLevelMap(name1, name2) {
                         }
                     })
                 data_layer.setStyle(function (feature) {
-                    console.log('Ward  level drawn, current map level is: ' + currentmap_level + 'of district: ' + nameSearch2 + ' city: ' + nameSearch)
+                    console.log('Ward  level drawn, current map level is: ' + currentmap_level + ' of district: ' + nameSearch2 + ' city: ' + nameSearch)
                     var color = feature.getProperty('color');
                     return ({
                         strokeColor: 'purple',

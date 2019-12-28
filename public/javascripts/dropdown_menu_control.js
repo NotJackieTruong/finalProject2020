@@ -6,7 +6,7 @@ function createDropdown() {
         '        Options' +
         '        <img class="dropDownArrow" src="http://maps.gstatic.com/mapfiles/arrow-down.png"/>' +
         '    </div>' +
-        '    <div class = "dropDownOptionsDiv" id="myddOptsDiv">' +
+        '    <div class = "dropDownOptionsDiv" id="myddOptsDiv" style="right: 0">' +
         '        <div class = "dropDownItemDiv" id="option1"  title="Click to show province level boundary" onClick="ProvinceLevelMap()">Show Province</div>' +
         '        <div class = "dropDownItemDiv" id="option2" title="Click to show province level boundary" onClick="DistrictLevelMap(nameSearch)">Show District</div>' +
         '        <div class = "dropDownItemDiv" id="option3" title="Open Heatmap" onClick="HeatMapDensity()">Show HeatMap</div>' +

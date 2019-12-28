@@ -17,6 +17,7 @@ function initMap() {
             position: google.maps.ControlPosition.RIGHT_TOP
         },
         zoomControl: true,
+        streetViewControl: false,
     };
     //create map
     map = new google.maps.Map(document.getElementById("map"), options);
@@ -119,6 +120,7 @@ $(document).ready(function () {
                 $('#search_addr').val(results[0].formatted_address);
                 $('#search_latitude').val(marker.getPosition().lat());
                 $('#search_longitude').val(marker.getPosition().lng());
+                //street view
                 addStreetView(marker.getPosition().lat(), marker.getPosition().lng())
                 var search_addr = '<b>' + results[0].formatted_address + '</b>'
                 infowindow.setContent(search_addr)
