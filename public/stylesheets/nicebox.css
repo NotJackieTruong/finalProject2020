@@ -1,0 +1,31 @@
+#legend { 
+    position: relative;
+    display: -webkit-box; 
+    padding-top: 7px; 
+    height: 40px; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1; }
+.color-key {
+    background: linear-gradient(to left,
+    rgb(0, 255, 0) 0%,
+    rgb(166, 255, 0) 17%,
+    rgb(179, 255, 0) 33%,
+    rgb(238, 255, 0) 50%,
+    rgb(255, 196, 0) 67%,
+    rgb(250, 121, 0) 83%,
+    rgb(255, 0, 0) 100%);
+    flex: 1;
+    -webkit-box-flex: 1;
+    text-align: left;
+    font-size: 1.0em;
+    line-height: 1.0em;
+
+}
+#data-caret { margin-left: -5px; display: none; font-size: 14px; width: 14px}
+#PolygonName {
+    width: 25vw;
+    text-align: center;
+    font-size: 20px;
+}

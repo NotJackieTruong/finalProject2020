@@ -111,12 +111,6 @@ function getPopulation(P) {
         return P
     }
 }
-//đổi độ đậm nhạt
-function opacityOverlay(population) {
-    var opacity = (population - minPopulation) / (maxPopulation - minPopulation)
-    return opacity;
-}
-//Đổi màu polygon
 function colorOverlay(population) {
     var heso = (population - minPopulation) / (maxPopulation - minPopulation)//dân số tăng hệ số tăng
     var colorchange = heso * 510 //dân số tăng colorchange tăng
@@ -130,7 +124,8 @@ function colorOverlay(population) {
         green = (3 / 21160) * colorchange * colorchange + (-1341 / 2116) * colorchange + (151470 / 529)
     }
     if (population == 'null') {
-        red = green = blue = 0
+        green = 255
+        red = blue = 0
     }
     return ["rgb(", red, ",", green, ",", blue, ")"].join("")
 }

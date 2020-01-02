@@ -39,8 +39,23 @@ function initMap() {
     marker = new google.maps.Marker({
         position: LatLng
     });
-
-
+    data_layer.addListener('mouseover', function(event){
+        data_layer.overrideStyle(event.feature, {strokeColor: 'White',strokeWeight: 2,zIndex: 10});
+        var name
+        if (currentmap_level == 'Province') {
+            name = event.feature.getProperty("Name")
+        }
+        else if (currentmap_level == 'District') {
+            name = event.feature.getProperty("Ten_Huyen")
+        }
+        else if (currentmap_level == 'Ward') {
+            name = event.feature.getProperty('Ward')
+        }
+        document.getElementById('PolygonName').innerHTML = name
+    })
+    data_layer.addListener('mouseout', function(event){
+        data_layer.revertStyle(event.feature);
+    })
     data_layer.addListener('click', function (event) {
         var feat = event.feature;
         var html
