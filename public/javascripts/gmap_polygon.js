@@ -296,24 +296,6 @@ function geocoderFunction(address) {
         }
     });
 }
-function marker(address) {
-    // console.log(address)
-    // setTimeout(geocoder.geocode({ 'address': address }, function (results, status) {
-    //     if (status == google.maps.GeocoderStatus.OK) {
-    //         var m = new google.maps.Marker({
-    //             map: map,
-    //             position: results[0].geometry.location
-    //           });
-    //         map.setZoom(10)
-    //         map.setCenter(results[0].geometry.location)
-    //         console.log(results[0].formatted_address)
-    //     }
-    //     else{
-    //         throw('No results found: ' + status);
-    //     }
-    // }), 200)
-
-}
 function HeatMapDensity() {
     if (currentmap_level != 'heatmap' && visible == 'on') {
         var zoom = map.getZoom()
@@ -340,15 +322,5 @@ function toggleHeatmap() {
 }
 function TrafficMap() {
     trafficLayer.setMap(map);
-}
-function BDSBadinh() {
-    currentmap_level = 'bds'
-    data_layer.forEach(function (feature) {
-        data_layer.remove(feature);
-    });
-    heatmap.setMap(null)
-    for (var i = 0; i < Badinh.length; i++) {
-        setTimeout(marker(Badinh[i].Address), 200)
-    }
 }
 
