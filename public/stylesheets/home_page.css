@@ -3,9 +3,8 @@
     padding: 24px 0;
     z-index: 1;
     background-color: #e8eaed;
-    min-height: 100%;
     width: 100%;
-    margin: auto auto 50px auto;
+    min-height: 100%;
 }
 
 .main_content .homesite_article{
