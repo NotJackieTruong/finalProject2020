@@ -279,8 +279,11 @@ function ProvinceLevelMap() {
         var delta = maxPopulation-minPopulation
         console.log(delta*0.1+minPopulation)
         $("div.cm").each(function(i) {
-            if(i<5){
-                $(this).text(minPopulation+delta*i*0.03)
+            if(i<7){
+                $(this).text("  "+Math.round(minPopulation+delta*i*0.143))
+            }
+            else if(i = 8){
+                $(this).text("  "+maxPopulation)
             }
         });
         map.setZoom(6)
