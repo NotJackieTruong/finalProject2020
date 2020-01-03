@@ -113,7 +113,7 @@
   text-overflow: ellipsis;
   padding: 0 60px 0 12px;
   box-sizing: border-box;
-  background: #fff;
+  background: lightcoral;
   border-radius: 2px;
   border: none;
   transition: color .3s;
@@ -125,6 +125,7 @@
 .maps_inner .maps_bar_search_button{
   position: absolute;
   height: 100%;
+  width: 44px;
   top: 0;
   right: 0;
   display: flex;
@@ -132,15 +133,28 @@
 
 .maps_inner .maps_bar_search_button_search{
   box-sizing: border-box;
-  padding: 0 8px;
-  margin: 8px 0;
+  /* padding: 0 8px; */
+  /* margin: 8px 0; */
   display: block;
   cursor: pointer;
 }
 
-.maps_inner .maps_bar_search_button_search span{
+.maps_inner .maps_bar_search_button_search{
   width: 100%;
   height: 100%;
+
+}
+
+.maps_inner .search_button.get_map{
+  position: absolute;
+  left: 0;
+  width: 44px;
+  height: 44px;
+  background: url(/public/images/facebook-icon.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: none;
+  z-index: 1;
 }
 
 .maps_inner .maps_bar_list{
@@ -157,7 +171,7 @@
   padding: 12px;
   box-sizing: border-box;
   transition: box-shadow 0.3s, background 0.3s;
-  background-color: lightblue;
+  /* background-color: lightblue; */
 }
 
 .maps_inner .maps_bar_list_item_info_item{

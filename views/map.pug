@@ -15,38 +15,48 @@ block content
                   .maps_bar_header
                     .maps_bar_search_wrapper
                       .maps_bar_search_inner
-                        input.maps_bar_search_input#search_location(type='text' placeholder='Search')
-                        .maps_bar_search_button
-                          .maps_bar_search_button_search
-                            span.get_map def
+                        form.form_group
+                          input.maps_bar_search_input#search_location(type='text' placeholder='Search')
+                          .maps_bar_search_button
+                            .maps_bar_search_button_search
+                              button.search_button.get_map(type='submit')
+                              
                   //- List of results
                   .maps_bar_list
                     .maps_bar_list_item
                       .maps_bar_list_item_info
                         .maps_bar_list_item_info_item.maps_bar_list_item_info_title
-                          span#info_title abcxyz
+                          span#info_title
                         .maps_bar_list_item_info_item.maps_bar_list_item_info_address
                           #info_address 
+                          #search_lat
+                          #search_lng
       
         #maps_map_container.maps_map_container
           #map.map
+          .legend_container
+            .legend_inner
+              #legend
+                .legend.legend_polygon_name_wrapper
+                  .legend_polygon_name_inner
+                    #PolygonName Name
+                .legend.legend_color_box_wrapper
+                  #color-box
+                    .color-key
+                      #ruler
+                        span#data-caret &#x25C6;
+                        .cm Value
+                        .cm Value
+                        .cm Value
+                        .cm Value
+                        .cm Value
+                        .cm Value
+                        .cm Value
+                        .cm Value
       script.
         document.getElementById('maps_bar_toggle').onclick = close
-    #legend
-      #PolygonName Name
-      #color-box
-        .color-key
-          #ruler
-            span#data-caret &#x25C6;
-            .cm Value
-            .cm Value
-            .cm Value
-            .cm Value
-            .cm Value
-            .cm Value
-            .cm Value
-            .cm Value
-        
+    
+          
 
 
     //- legend

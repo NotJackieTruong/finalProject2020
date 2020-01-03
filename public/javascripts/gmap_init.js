@@ -129,9 +129,10 @@ $(document).ready(function () {
                 marker.setPosition(results[0].geometry.location)
                 map.setCenter(results[0].geometry.location);
                 map.fitBounds(results[0].geometry.viewport);
-                $('#search_addr').val(results[0].formatted_address);
-                $('#search_latitude').val(marker.getPosition().lat());
-                $('#search_longitude').val(marker.getPosition().lng());
+                $('#info_title').text(address)
+                $('#info_address').text(results[0].formatted_address);
+                $('#search_lat').text("Latitude: "+marker.getPosition().lat());
+                $('#search_lng').text("Longitude: "+marker.getPosition().lng());
                 //street view
                 addStreetView(marker.getPosition().lat(), marker.getPosition().lng())
                 var search_addr = '<b>' + results[0].formatted_address + '</b>'

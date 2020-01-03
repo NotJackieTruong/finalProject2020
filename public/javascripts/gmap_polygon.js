@@ -239,6 +239,8 @@ function WardLevelMap(name1, name2) {
         }
     }
 }
+
+
 //Data Layer with current level : District
 function DistrictLevelMap(name) {
     if (visible == 'on') {
