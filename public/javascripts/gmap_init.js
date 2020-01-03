@@ -43,15 +43,22 @@ function initMap() {
     data_layer.addListener('mouseover', function(event){
         data_layer.overrideStyle(event.feature, {strokeColor: 'White',strokeWeight: 2,zIndex: 10});
         var name
+        var delta = maxPopulation-minPopulation
+        var population, percentage
         if (currentmap_level == 'Province') {
             name = event.feature.getProperty("Name")
+            population = event.feature.getProperty("population")
         }
         else if (currentmap_level == 'District') {
             name = event.feature.getProperty("Ten_Huyen")
+            population = event.feature.getProperty("Dan_So")
         }
         else if (currentmap_level == 'Ward') {
             name = event.feature.getProperty('Ward')
+            population = event.feature.getProperty("Population")
         }
+        percentage = (population - minPopulation)/delta*100
+            $("#data-caret").css("left", percentage + "%")
         document.getElementById('PolygonName').innerHTML = name
     })
     data_layer.addListener('mouseout', function(event){

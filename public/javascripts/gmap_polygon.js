@@ -113,7 +113,6 @@ function getPopulation(P) {
     }
 }
 function colorOverlay(population) {
-    console.log("MIN - MAX", minPopulation,maxPopulation)
     var heso = (population - minPopulation) / (maxPopulation - minPopulation)//dân số tăng hệ số tăng
     var colorchange = heso * 510 //dân số tăng colorchange tăng
     var red = green = blue = 0
@@ -183,11 +182,29 @@ function WardLevelMap(name1, name2) {
         data_layer.forEach(function (feature) {
             data_layer.remove(feature);
         });
-        maxPopulation = 81690
-        minPopulation = 0
+        maxPopulation = 0
+        minPopulation = 81690
         var link = 'https://storage.googleapis.com/map_population/'+name1.replace(/\s+/g, '')+'/'+name2.replace(/\s+/g, '') + '.json'
         console.log(link)
         var WardData = getWardArray(link)
+        for(var j = 0; j < WardData.length;j++){
+            if(WardData[j].Population*1000 > maxPopulation){
+                maxPopulation = WardData[j].Population*1000
+            }
+            if(WardData[j].Population*1000 < minPopulation){
+                minPopulation = WardData[j].Population*1000
+            }
+        }
+        console.log(maxPopulation,minPopulation)
+        var delta = maxPopulation-minPopulation
+        $("div.cm").each(function(i) {
+            if(i<7){
+                $(this).text("  "+Math.round((minPopulation+delta*i*0.143)/1000)*1000)
+            }
+            else if(i = 8){
+                $(this).text("  "+maxPopulation)
+            }
+        });
         console.log('Ward  level drawn, current map level is: ' + currentmap_level + ' of district: ' + nameSearch2 + ' city: ' + nameSearch)
         for(var i = 0; i < WardData.length; i++){
             if(getFixedName(WardData[i].District) == name2){
@@ -201,7 +218,7 @@ function WardLevelMap(name1, name2) {
                             Province: WardData[i].Province,
                             District: WardData[i].District,
                             Ward: WardData[i].Ward,
-                            Population: WardData[i].Population
+                            Population: WardData[i].Population*1000
                         }
                     })
                 data_layer.setStyle(function (feature) {
@@ -242,9 +259,18 @@ function DistrictLevelMap(name) {
                     minPopulation = districtLevel[i].Min
                 }
             }
+            console.log(maxPopulation,minPopulation)
+            var delta = maxPopulation-minPopulation
+            $("div.cm").each(function(i) {
+                if(i<7){
+                    $(this).text("  "+Math.round((minPopulation+delta*i*0.143)/1000)*1000)
+                }
+                else if(i = 8){
+                    $(this).text("  "+maxPopulation)
+                }
+            });
             infowindow.close()
             name = name.replace(/\s+/g, '');
-            console.log(name)
             var link = 'https://storage.googleapis.com/map_population/'+name+'.json'
             console.log(link)
             data_layer.loadGeoJson(link)
@@ -280,7 +306,7 @@ function ProvinceLevelMap() {
         console.log(delta*0.1+minPopulation)
         $("div.cm").each(function(i) {
             if(i<7){
-                $(this).text("  "+Math.round(minPopulation+delta*i*0.143))
+                $(this).text("  "+Math.round((minPopulation+delta*i*0.143)/1000)*1000)
             }
             else if(i = 8){
                 $(this).text("  "+maxPopulation)
