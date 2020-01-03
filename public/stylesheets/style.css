@@ -1,6 +1,7 @@
 /* general css */
 html, body {
   position: relative;
+  width: 100%;
   height: 100%;
   background: white;
   font: 400 22px/32px Google Sans, Noto Sans, Noto SansJP, Noto Sans KR, Noto Naskh Arabic, Noto Sans Thai, Noto Sans hebrew, Noto Sans Bengail, sans-serif;
@@ -15,18 +16,18 @@ html, body {
 /* title css */
 .head_title{
   align-items: center;
-  height: 48px;
+  height: 4.4%;
   padding: 0;
-  margin: 0;
+  margin: 0 0 6px 0;
 }
-.head_title div.head_title_inner{
+/* .head_title div.head_title_inner{
   margin: 6px 0;
-}
+} */
 #title_name{
   vertical-align: middle;
   font: 400 22px/32px Google Sans, Noto Sans, Noto SansJP, Noto Sans KR, Noto Naskh Arabic, Noto Sans Thai, Noto Sans hebrew, Noto Sans Bengail, sans-serif;
   letter-spacing: 0;
-  max-height: 32px;
+  /* max-height: 32px; */
   overflow: hidden;
   white-space: nowrap;
   transition: color .2s;
@@ -41,41 +42,34 @@ html, body {
   color: black;
 }
 
-
-main.content{
-  min-height:80vh;
-  width: 100%;
-
-}
+/* content for home and about page */
 
 /* map css */
-#map{
-  position: relative;
-  height: 80vh;
-  width: 100%;
-  float: right;
-  z-index: 0;
-}
+/* content for map container */
 
 /* footer */
+.footer_container{
+  width: 100%;
+  height: auto;
+}
 .footer{
   background: #0F9D58;
   color: white;
   width: 100%;
-  height: 200px;
+  height: 100%;
   /* margin-top: -50px; */
 }
 .footer .footer_content{
   height: 18%;
   display: flex;
-  margin: 0px 156px;
+  margin: 0 8%;
 }
 
 .footer .footer_content .footer_section{
   font: 500 14px/20px Google Sans, Noto Sans, Noto Sans JP, Noto Sans KR , Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew, Noto Sans Bengali, sans-serif;
   font-weight: 500;
   width: 360px;
-  padding: 25px;
+  padding: 1.5%;
 }
 
 .footer .footer_content h2{
@@ -180,18 +174,10 @@ main.content{
 }
 
 
-/* @media screen and (max-width: 1024px) {
- #map{
-   height: 75%;
- }
- main.content{
-   min-height: 75%;
- }
- .footer .footer_content{
-   margin: 83px;
- }
+@media screen and (max-width: 1024px) {
  .footer .footer_content .footer_section{
-   padding: 13.5px;
+   padding: 1%;
    width: 192px;
  }
-} */
+
+}

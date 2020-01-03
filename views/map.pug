@@ -1,39 +1,46 @@
 extends layout
 block content
  main.content
-    //- nav(id="filters" class="filterUI") Filter
-    #map
-    //- create a search box like side menu
-    #legend
-      #PolygonName Name
-      #census-min Min Value
-      .color-key
-        span#data-caret &#x25C6;
-      #census-max Max Value
-    #sideMenu.sideNav
-      a.closeBtn(href='javascript:void(0)' onclick='closeNav()') &times;
-      form
-        .form-group.input-group
-          input#search_location.form-control(type='text' placeholder='Search location')
-          .input-group-btn
-            button.btn.btn-default.get_map(type='submit')
-      div#results
-        h4 Location Details
-        div#search_results
-          div(class="search")
-            p Address:
-            input#search_addr.form-control(type='text' readonly="readonly")
-          div(class="search")
-            p Latitude:
-            input#search_latitude.form-control(type='text' readonly="readonly")
-          div(class="search")
-            p Longitude:
-            input#search_longitude.form-control(type='text' readonly="readonly")
-          div(class="image_result")
-            h4 Image
-            div#pano
+  .search_map_container
+    .search_map_content
+      .maps_inner
+        
+        #maps_bar_container.maps_bar_container
+          .maps_bar
+            #maps_bar_toggle.maps_bar_toggle
+              span abc
+            .maps_bar_content
+              .bar_list
+                .bar_content_item
+                  .maps_bar_header
+                    .maps_bar_search_wrapper
+                      .maps_bar_search_inner
+                        input.maps_bar_search_input#search_location(type='text' placeholder='Search')
+                        .maps_bar_search_button
+                          .maps_bar_search_button_search
+                            span.get_map def
+                  //- List of results
+                  .maps_bar_list
+                    .maps_bar_list_item
+                      .maps_bar_list_item_info
+                        .maps_bar_list_item_info_item.maps_bar_list_item_info_title
+                          span#info_title abcxyz
+                        .maps_bar_list_item_info_item.maps_bar_list_item_info_address
+                          #info_address 
       
+        #maps_map_container.maps_map_container
+          #map.map
+      script.
+        document.getElementById('maps_bar_toggle').onclick = close
 
+
+    //- legend
+    //- #legend
+    //-   #PolygonName Name
+    //-   #census-min Min Value
+    //-   .color-key
+    //-     span#data-caret &#x25C6;
+    //-   #census-max Max Value
       //- div(class="population")
       //-   p Population:
       //-   input#population(type='text')
