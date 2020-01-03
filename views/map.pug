@@ -1,22 +1,6 @@
 extends layout
 block content
  main.content
-    //- nav(id="filters" class="filterUI") Filter
-    #map
-    //- create a search box like side menu
-    #legend
-      #PolygonName Name
-      #color-box
-        .color-key
-          #ruler
-            .cm Value
-            .cm Value
-            .cm Value
-            .cm Value
-            .cm Value
-            .cm Value
-            .cm Value
-            .cm Value
   .search_map_container
     .search_map_content
       .maps_inner
@@ -48,6 +32,19 @@ block content
           #map.map
       script.
         document.getElementById('maps_bar_toggle').onclick = close
+  #legend
+    #PolygonName Name
+    #color-box
+      .color-key
+        #ruler
+          .cm Value
+          .cm Value
+          .cm Value
+          .cm Value
+          .cm Value
+          .cm Value
+          .cm Value
+          .cm Value
 
 
     //- legend
