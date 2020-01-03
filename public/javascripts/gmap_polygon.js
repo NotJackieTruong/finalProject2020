@@ -13,6 +13,7 @@ var trafficLayer;
 var transitLayer;
 var bikeLayer;
 var visible = 'on'
+var bounds
 //bỏ dấu tiếng việt
 function getFixedName(str) {
     if (str == undefined) {
@@ -112,20 +113,37 @@ function getPopulation(P) {
     }
 }
 function colorOverlay(population) {
+    console.log("MIN - MAX", minPopulation,maxPopulation)
     var heso = (population - minPopulation) / (maxPopulation - minPopulation)//dân số tăng hệ số tăng
     var colorchange = heso * 510 //dân số tăng colorchange tăng
     var red = green = blue = 0
-    if (colorchange < 50) {
-        red = colorchange * 2.55
-        green = colorchange * 2.55 + 127.5
+    if(currentmap_level != 'Province'){
+        if (colorchange < 255) {
+            blue= 30
+            red = colorchange * (225/255) +30
+            green = 255
+        }
+        else {
+            blue = 30
+            red = 255
+            green = (-45/51)*colorchange + 480
+        }
     }
     else {
-        red = 255
-        green = (3 / 21160) * colorchange * colorchange + (-1341 / 2116) * colorchange + (151470 / 529)
+        if (heso < 0.1) {
+            blue= 30
+            red = colorchange * 4.41176471 +30
+            green = 255
+        }
+        else {
+            blue = 30
+            red = 255
+            green = (3 / 21160) * colorchange * colorchange + (-1341 / 2116) * colorchange + (151470 / 529)
+        }
     }
-    if (population == 'null') {
+    if (population == 0) {
         green = 255
-        red = blue = 0
+        red = blue = 30
     }
     return ["rgb(", red, ",", green, ",", blue, ")"].join("")
 }
@@ -170,6 +188,7 @@ function WardLevelMap(name1, name2) {
         var link = 'https://storage.googleapis.com/map_population/'+name1.replace(/\s+/g, '')+'/'+name2.replace(/\s+/g, '') + '.json'
         console.log(link)
         var WardData = getWardArray(link)
+        console.log('Ward  level drawn, current map level is: ' + currentmap_level + ' of district: ' + nameSearch2 + ' city: ' + nameSearch)
         for(var i = 0; i < WardData.length; i++){
             if(getFixedName(WardData[i].District) == name2){
                 var color = colorOverlay(getPopulation(WardData[i].Population*1000))
@@ -186,7 +205,6 @@ function WardLevelMap(name1, name2) {
                         }
                     })
                 data_layer.setStyle(function (feature) {
-                    console.log('Ward  level drawn, current map level is: ' + currentmap_level + ' of district: ' + nameSearch2 + ' city: ' + nameSearch)
                     var color = feature.getProperty('color');
                     return ({
                         strokeColor: 'purple',
@@ -199,8 +217,7 @@ function WardLevelMap(name1, name2) {
             }
         }
         for (var i = 0; i < ObjectData.length; i++) {
-            if (getFixedName(ObjectData[i].Province) == name1 && getFixedName(ObjectData[i].District) == name2) {
-                
+            if (getFixedName(ObjectData[i].Province) == name1 && getFixedName(ObjectData[i].District) == name2) {   
             }
         }
     }
@@ -218,6 +235,7 @@ function DistrictLevelMap(name) {
             alert('No city or province selected')
         }
         else {
+            console.log('District level drawn, current map level is: ' + currentmap_level + ' of ' + nameSearch)
             for (var i = 0; i < districtLevel.length; i++) {
                 if (name == districtLevel[i].Province) {
                     maxPopulation = districtLevel[i].Max
@@ -231,7 +249,7 @@ function DistrictLevelMap(name) {
             console.log(link)
             data_layer.loadGeoJson(link)
             data_layer.setStyle(function (feature) {
-                console.log('District level drawn, current map level is: ' + currentmap_level + ' of ' + nameSearch)
+                
                 var P = feature.getProperty('Dan_So')
                 var color = colorOverlay(P)
                 return {
@@ -257,13 +275,21 @@ function ProvinceLevelMap() {
         heatmap.setMap(null)
         maxPopulation = 8598700
         minPopulation = 327000
+        // $("div.cm").first().text(minPopulation)
+        var delta = maxPopulation-minPopulation
+        console.log(delta*0.1+minPopulation)
+        $("div.cm").each(function(i) {
+            if(i<5){
+                $(this).text(minPopulation+delta*i*0.03)
+            }
+        });
         map.setZoom(6)
         map.setCenter({ lat:16.467397, lng: 107.59053259999996})
         data_layer.loadGeoJson(
             'https://storage.googleapis.com/map_population/citylevelBoundary.json'
         )
+        console.log('Province level drawn, current map level is: ' + currentmap_level)
         data_layer.setStyle(function (feature) {
-            console.log('Province level drawn, current map level is: ' + currentmap_level)
             var cityname = feature.getProperty('Name')
             var color, p
             for (var i = 0; i < StringData.length; i++) {

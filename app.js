@@ -41,4 +41,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+app.get('/',function(req,res) {
+  res.sendFile('index.html');
+});
 module.exports = app;

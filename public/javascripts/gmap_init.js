@@ -10,6 +10,7 @@ function initMap() {
     // create options for the map
     var options = {
         zoom: 6,
+        gestureHandling: 'cooperative',
         center: LatLng,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         mapTypeControlOptions: {
@@ -69,22 +70,19 @@ function initMap() {
         if (currentmap_level == 'Province') {
             html = "<b>" + feat.getProperty("Name") + "</b><br>" + feat.getProperty("population");
             infowindow.setContent(html);
-            infowindow.setPosition(event.latLng);
-            // infowindow.setOptions({pixelOffset: new google.maps.Size(10,-10)});
+            infowindow.setPosition(bounds.getCenter());
             infowindow.open(map);
         }
         else if (currentmap_level == 'District') {
             html = "<b>" + feat.getProperty("Ten_Tinh") + "</b><br>" + feat.getProperty("Ten_Huyen") + "</b><br>" + feat.getProperty("Dan_So");
             infowindow.setContent(html);
-            infowindow.setPosition(event.latLng);
-            // infowindow.setOptions({pixelOffset: new google.maps.Size(10,-10)});
+            infowindow.setPosition(bounds.getCenter());
             infowindow.open(map);
         }
         else if (currentmap_level == 'Ward') {
             html = "<b>" + feat.getProperty('Province') + "</b><br>" + feat.getProperty('District') + "</b><br>" + feat.getProperty('Ward') + "</b><br>" + feat.getProperty('Population');
             infowindow.setContent(html);
             infowindow.setPosition(bounds.getCenter());
-            // infowindow.setOptions({pixelOffset: new google.maps.Size(10,-10)});
             infowindow.open(map);
         }
         map.setCenter(bounds.getCenter());
@@ -92,14 +90,6 @@ function initMap() {
 
     data_layer.addListener('dblclick', function (event) {
         var feat = event.feature;
-        var html
-        var bounds = new google.maps.LatLngBounds();
-        data_layer.forEach(function (feature) {
-            feat.getGeometry().forEachLatLng(function (latlng) {
-                bounds.extend(latlng);
-            });
-        });
-        map.fitBounds(bounds);
         infowindow.close()
         if (currentmap_level == 'Province') {
             nameSearch = getFixedName(feat.getProperty("Name"))
@@ -120,7 +110,7 @@ function initMap() {
     // marker.setMap(map);
 }
 
-//get lat long when searching
+//get latlng when searching
 $(document).ready(function () {
     //autocomplete search
     var PostCodeid = '#search_location';

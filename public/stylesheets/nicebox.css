@@ -1,29 +1,73 @@
 #legend { 
     position: relative;
     display: -webkit-box; 
-    padding-top: 7px; 
-    height: 40px; 
+    height: 30px; 
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1; }
-.color-key {
-    background: linear-gradient(to left,
-    rgb(0, 255, 0) 0%,
-    rgb(166, 255, 0) 17%,
-    rgb(179, 255, 0) 33%,
-    rgb(238, 255, 0) 50%,
-    rgb(255, 196, 0) 67%,
-    rgb(250, 121, 0) 83%,
-    rgb(255, 0, 0) 100%);
-    flex: 1;
+#color-box{
     -webkit-box-flex: 1;
-    text-align: left;
-    font-size: 1.0em;
-    line-height: 1.0em;
-
+    height: 30px;
+    width: 75vw;
+    align-content: center;
+    align-items: center;
 }
-#data-caret { margin-left: -5px; display: none; font-size: 14px; width: 14px}
+.color-key {
+    background: linear-gradient(to right,
+    rgb(30, 255, 30) 0%,
+    rgb(105, 255, 30) 14%,
+    rgb(180, 255, 30) 28%,
+    rgb(255, 255, 30) 43%,
+    rgb(255, 180, 30) 57%,
+    rgb(255, 105, 30) 70%,
+    rgb(255, 30, 30) 100%);
+    -webkit-box-flex: 1;
+    height: 20px;
+    width: 90%;
+    margin: 5px;
+    align-self: center
+}
+#ruler {
+    position: relative;
+  }
+  #ruler .cm{
+    font-size: 10px;
+    position: absolute;
+    border-left: 2px solid rgb(255, 255, 255);
+    height: 20px;
+    width: 10%;
+  }
+
+.ruler .cm:after {
+  position: absolute;
+  bottom: -20px;
+  font: 11px/1 sans-serif;
+}
+  #ruler .cm:nth-of-type(1) {
+    left: 0%;
+  }
+  #ruler .cm:nth-of-type(2) {
+    left: 14%;
+  }
+  #ruler .cm:nth-of-type(3) {
+    left: 28%;
+  }
+  #ruler .cm:nth-of-type(4) {
+    left: 43%;
+  }
+  #ruler .cm:nth-of-type(5) {
+    left: 57%;
+  }
+  #ruler .cm:nth-of-type(6) {
+    left: 70%;
+  }
+  #ruler .cm:nth-of-type(7) {
+    left: 85%;
+  }
+  #ruler .cm:nth-of-type(8) {
+    left: 100%;
+  }
 #PolygonName {
     width: 25vw;
     text-align: center;
