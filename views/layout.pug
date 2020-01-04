@@ -69,7 +69,7 @@ html
             div.footer_section.about
               h2 Title
               p Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur nulla provident soluta voluptates deserunt quas incidunt, corporis vitae, laborum architecto, necessitatibus totam quam. Voluptatem laborum unde quos aut quam rem?
-            
+
             div.footer_section.links
               h2 Links
               ul
@@ -81,16 +81,52 @@ html
                   li.link Events3
             div.footer_section.contacts
               h2 Contact us
-              .socials
-                a(href="")
-                  img(src="../images/PinClipart.com_prescription-clipart_3507301.png")
-                a(href="#")
-                  img(src="../images/GitHub-Mark-Light-120px-plus.png") 
-                a(href="#")
-                  img(src="../images/facebook-icon.png")
-                a(href="#")
-                  img(src="../images/mail-512.png")
-    
+              .contacts_container
+                .contacts_inner
+                  //- phone
+                  .contacts_phone_wrapper
+                    .contacts_phone_icon
+                      a(href="")
+                        img(src="../images/PinClipart.com_prescription-clipart_3507301.png")
+                    .contacts_phone_info
+                        .phone_info 0123-456-789
+                  //- gmail
+                  .contacts_gmail_wrapper
+                    .contacts_gmail_icon
+                      a(href="#")
+                        img(src="../images/mail-512.png")
+                    .contacts_gmail_info
+                      .gmail_info link to gmail
+                  //- 
+                  .contacts_location_wrapper  
+                    .contacts_location_icon
+                      a(href="")
+                        img(src=" ")
+                    .contacts_location_info
+                      .location_info location to contact
+                  //- github 
+                
+                    //- .contacts_github_info
+                    //-   .github_info link to github
+                  //- facebook
+                  //- .contacts_facebook_wrapper
+                    
+                  //-   .contacts_facebook_info
+                  //-     .facebook_info link to facebook
+          .footer_copyright_section
+            .footer_copyright_wrapper
+              .footer_copyright Copyright
+            .footer_contacts_icon
+              .contacts_social_wrapper
+                  .contacts_github_icon
+                    a(href="#")
+                      img(src="../images/GitHub-Mark-Light-120px-plus.png") 
+                  .contacts_facebook_icon
+                    a(href="#")
+                      img(src="../images/facebook-icon.png")
+                  .contacts_facebook_icon
+                    a(href="#")
+                      img(src="../images/facebook-icon.png")
             
         //- .footer_bottom
         //-   &copy; @Copyright

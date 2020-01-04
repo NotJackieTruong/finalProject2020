@@ -189,25 +189,25 @@ function addStreetView(lat, lng){
     map.setStreetView(panorama)
 }
 //create a control on gmap
-function CenterControl(controlDiv, map) {
-    controlDiv.style.clear = 'both';
-    // Set CSS for the search control border.
-    var searchUI = document.createElement('div');
-    searchUI.id = 'searchUI';
-    searchUI.title = 'Click to recenter the map';
+// function CenterControl(controlDiv, map) {
+//     controlDiv.style.clear = 'both';
+//     // Set CSS for the search control border.
+//     var searchUI = document.createElement('div');
+//     searchUI.id = 'searchUI';
+//     searchUI.title = 'Click to recenter the map';
 
-    controlDiv.appendChild(searchUI);
+//     controlDiv.appendChild(searchUI);
 
-    // Set CSS for the search control interior.
-    var searchControlText = document.createElement('div');
-    searchControlText.id = 'searchText';
+//     // Set CSS for the search control interior.
+//     var searchControlText = document.createElement('div');
+//     searchControlText.id = 'searchText';
 
-    searchUI.appendChild(searchControlText);
+//     searchUI.appendChild(searchControlText);
 
-    searchUI.addEventListener('click', function () {
-        openNav();
-    })
+//     searchUI.addEventListener('click', function () {
+//         openNav();
+//     })
 
-}
+// }
 
 

@@ -60,7 +60,22 @@
 }
 
 .maps_inner #triangle_bullet{
-  color: lightgray;
+  color: rgb(86, 86, 86);
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.maps_inner #triangle_bullet:hover{
+  color: black;
+}
+
+.maps_inner #rotating_triangle_bullet{
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
 }
 
 .maps_inner .maps_bar_content{

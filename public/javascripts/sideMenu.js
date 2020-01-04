@@ -14,6 +14,7 @@ function closeNav() {
 }
 
 // new function to open and close side menu
+var rotated = false
 function close(){
   var mapsBarContainer = document.getElementById('maps_bar_container')
   var windowWidth = screen.width
@@ -30,4 +31,14 @@ function close(){
       mapContainer[0].style.left='320px'
       mapsBarContainer.style.width = '320px'
   }
+  var triBullet = document.getElementById('triangle_bullet')
+  var deg = rotated?0:180;
+  triBullet.style.webkitTransform = 'rotate('+deg+'deg)'; 
+  triBullet.style.mozTransform    = 'rotate('+deg+'deg)'; 
+  triBullet.style.msTransform     = 'rotate('+deg+'deg)'; 
+  triBullet.style.oTransform      = 'rotate('+deg+'deg)'; 
+  triBullet.style.transform       = 'rotate('+deg+'deg)'; 
+
+  rotated = !rotated;
+  
 }
