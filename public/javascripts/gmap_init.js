@@ -25,7 +25,6 @@ function initMap() {
 
     //create geocoding map
     geocoder = new google.maps.Geocoder();
-    geocoderFunction("Viet Nam")
     //create data layer and infowindow
     infowindow = new google.maps.InfoWindow()
     data_layer = new google.maps.Data({ map: map });
@@ -58,7 +57,7 @@ function initMap() {
             population = event.feature.getProperty("Population")
         }
         percentage = (population - minPopulation)/delta*100
-        $("#data-caret").css("left", percentage + "%")
+        $("#data-caret").css("left", percentage - 1.5 + "%")
         document.getElementById('PolygonName').innerHTML = name
     })
     data_layer.addListener('mouseout', function(event){
@@ -129,9 +128,10 @@ $(document).ready(function () {
                 marker.setPosition(results[0].geometry.location)
                 map.setCenter(results[0].geometry.location);
                 map.fitBounds(results[0].geometry.viewport);
-                $('#search_addr').val(results[0].formatted_address);
-                $('#search_latitude').val(marker.getPosition().lat());
-                $('#search_longitude').val(marker.getPosition().lng());
+                $('#info_title').text(address)
+                $('#info_address').text(results[0].formatted_address);
+                $('#search_lat').text("Latitude: "+marker.getPosition().lat());
+                $('#search_lng').text("Longitude: "+marker.getPosition().lng());
                 //street view
                 addStreetView(marker.getPosition().lat(), marker.getPosition().lng())
                 var search_addr = '<b>' + results[0].formatted_address + '</b>'

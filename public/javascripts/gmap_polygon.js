@@ -182,11 +182,14 @@ function WardLevelMap(name1, name2) {
         data_layer.forEach(function (feature) {
             data_layer.remove(feature);
         });
+        geocoderFunction(name2+","+name1)
         maxPopulation = 0
         minPopulation = 81690
         var link = 'https://storage.googleapis.com/map_population/'+name1.replace(/\s+/g, '')+'/'+name2.replace(/\s+/g, '') + '.json'
         console.log(link)
         var WardData = getWardArray(link)
+        maxPopulation = WardData[0].Population*1000
+        minPopulation = WardData[0].Population*1000
         for(var j = 0; j < WardData.length;j++){
             if(WardData[j].Population*1000 > maxPopulation){
                 maxPopulation = WardData[j].Population*1000
@@ -197,11 +200,22 @@ function WardLevelMap(name1, name2) {
         }
         var delta = maxPopulation-minPopulation
         $("div.cm").each(function(i) {
-            if(i<7){
-                $(this).text("  "+Math.round((minPopulation+delta*i*0.143)/1000)*1000)
-            }
-            else if(i = 8){
-                $(this).text("  "+maxPopulation)
+            switch(i){
+                case 0:
+                    $(this).text(minPopulation)
+                    break;
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                    $(this).text(Math.round((minPopulation+delta*i*0.143)/1000)*1000)
+                    break;
+                case 8: 
+                $(this).text(maxPopulation)
+                break;
             }
         });
         console.log('Ward  level drawn, current map level is: ' + currentmap_level + ' of district: ' + nameSearch2 + ' city: ' + nameSearch)
@@ -234,11 +248,14 @@ function WardLevelMap(name1, name2) {
         }
     }
 }
+
+
 //Data Layer with current level : District
 function DistrictLevelMap(name) {
     if (visible == 'on') {
         currentmap_level = 'District'
         // heatmap.setMap(null)
+        geocoderFunction(name)
         data_layer.forEach(function (feature) {
             // If you want, check here for some constraints.
             data_layer.remove(feature);
@@ -257,11 +274,22 @@ function DistrictLevelMap(name) {
             console.log(maxPopulation,minPopulation)
             var delta = maxPopulation-minPopulation
             $("div.cm").each(function(i) {
-                if(i<7){
-                    $(this).text("  "+Math.round((minPopulation+delta*i*0.143)/1000)*1000)
-                }
-                else if(i = 8){
-                    $(this).text("  "+maxPopulation)
+                switch(i){
+                    case 0:
+                        $(this).text(minPopulation)
+                        break;
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                        $(this).text(Math.round((minPopulation+delta*i*0.143)/1000)*1000)
+                        break;
+                    case 8: 
+                    $(this).text(maxPopulation)
+                    break;
                 }
             });
             infowindow.close()
@@ -290,24 +318,33 @@ function ProvinceLevelMap() {
     // option = show or hide
     if (visible == 'on') {
         currentmap_level = 'Province'
+        geocoderFunction('Viet Name')
         data_layer.forEach(function (feature) {
             data_layer.remove(feature);
         });
         // heatmap.setMap(null)
         maxPopulation = 8598700
-        minPopulation = 327000
+        minPopulation = 327900
         // $("div.cm").first().text(minPopulation)
         var delta = maxPopulation-minPopulation
         console.log(delta*0.1+minPopulation)
         $("div.cm").each(function(i) {
-            if(i == 0){
-                $(this).text("  "+minPopulation)
-            }
-            if(i<8 && i!=0){
-                $(this).text("  "+Math.round((minPopulation+delta*i*0.143)/1000)*1000)
-            }
-            else if(i = 8){
-                $(this).text("  "+maxPopulation)
+            switch(i){
+                case 0:
+                    $(this).text(minPopulation)
+                    break;
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                    $(this).text(Math.round((minPopulation+delta*i*0.143)/1000)*1000)
+                    break;
+                case 8: 
+                $(this).text(maxPopulation)
+                break;
             }
         });
         map.setZoom(6)
@@ -344,31 +381,4 @@ function geocoderFunction(address) {
         }
     });
 }
-// function HeatMapDensity() {
-//     if (currentmap_level != 'heatmap' && visible == 'on') {
-//         var zoom = map.getZoom()
-//         currentmap_level = 'heatmap'
-//         data_layer.forEach(function (feature) {
-//             data_layer.remove(feature);
-//         });
-//         var heatmapData = []
-//         var centerPath
-//         for (var i = 0; i < ObjectData.length; i++) {
-//             centerPath = polygonCenter(getCoordinate(i))
-//             weight = getPopulation(i) * zoom
-//             heatmapData.push({ location: centerPath, weight: weight })
-//         }
-//         heatmap.setOptions({
-//             data: heatmapData,
-//             radius: 15,
-//             map: map
-//         })
-//     }
-// }
-// function toggleHeatmap() {
-//     heatmap.setMap(heatmap.getMap() ? null : map);
-// }
-// function TrafficMap() {
-//     trafficLayer.setMap(map);
-// }
 
