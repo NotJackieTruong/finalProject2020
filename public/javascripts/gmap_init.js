@@ -29,10 +29,10 @@ function initMap() {
     //create data layer and infowindow
     infowindow = new google.maps.InfoWindow()
     data_layer = new google.maps.Data({ map: map });
-    heatmap = new google.maps.visualization.HeatmapLayer();
-    trafficLayer = new google.maps.TrafficLayer();
-    transitLayer = new google.maps.TransitLayer();
-    transitLayer = new google.maps.BicyclingLayer();
+    // heatmap = new google.maps.visualization.HeatmapLayer();
+    // trafficLayer = new google.maps.TrafficLayer();
+    // transitLayer = new google.maps.TransitLayer();
+    // transitLayer = new google.maps.BicyclingLayer();
     ProvinceLevelMap()
     // BDSBadinh()
 
@@ -58,7 +58,7 @@ function initMap() {
             population = event.feature.getProperty("Population")
         }
         percentage = (population - minPopulation)/delta*100
-            $("#data-caret").css("left", percentage + "%")
+        $("#data-caret").css("left", percentage + "%")
         document.getElementById('PolygonName').innerHTML = name
     })
     data_layer.addListener('mouseout', function(event){

@@ -116,7 +116,7 @@ function colorOverlay(population) {
     var heso = (population - minPopulation) / (maxPopulation - minPopulation)//dân số tăng hệ số tăng
     var colorchange = heso * 510 //dân số tăng colorchange tăng
     var red = green = blue = 0
-    if(currentmap_level != 'Province'){
+    // if(currentmap_level != 'Province'){
         if (colorchange < 255) {
             blue= 30
             red = colorchange * (225/255) +30
@@ -127,19 +127,19 @@ function colorOverlay(population) {
             red = 255
             green = (-45/51)*colorchange + 480
         }
-    }
-    else {
-        if (heso < 0.1) {
-            blue= 30
-            red = colorchange * 4.41176471 +30
-            green = 255
-        }
-        else {
-            blue = 30
-            red = 255
-            green = (3 / 21160) * colorchange * colorchange + (-1341 / 2116) * colorchange + (151470 / 529)
-        }
-    }
+    // }
+    // else {
+    //     if (heso < 0.1) {
+    //         blue= 30
+    //         red = colorchange * 4.41176471 +30
+    //         green = 255
+    //     }
+    //     else {
+    //         blue = 30
+    //         red = 255
+    //         green = (3 / 21160) * colorchange * colorchange + (-1341 / 2116) * colorchange + (151470 / 529)
+    //     }
+    // }
     if (population == 0) {
         green = 255
         red = blue = 30
@@ -178,7 +178,7 @@ function polygonCenter(path) {
 function WardLevelMap(name1, name2) {
     if (visible == 'on') {
         currentmap_level = 'Ward'
-        heatmap.setMap(null)
+        // heatmap.setMap(null)
         data_layer.forEach(function (feature) {
             data_layer.remove(feature);
         });
@@ -195,7 +195,6 @@ function WardLevelMap(name1, name2) {
                 minPopulation = WardData[j].Population*1000
             }
         }
-        console.log(maxPopulation,minPopulation)
         var delta = maxPopulation-minPopulation
         $("div.cm").each(function(i) {
             if(i<7){
@@ -233,17 +232,13 @@ function WardLevelMap(name1, name2) {
                 });
             }
         }
-        for (var i = 0; i < ObjectData.length; i++) {
-            if (getFixedName(ObjectData[i].Province) == name1 && getFixedName(ObjectData[i].District) == name2) {   
-            }
-        }
     }
 }
 //Data Layer with current level : District
 function DistrictLevelMap(name) {
     if (visible == 'on') {
         currentmap_level = 'District'
-        heatmap.setMap(null)
+        // heatmap.setMap(null)
         data_layer.forEach(function (feature) {
             // If you want, check here for some constraints.
             data_layer.remove(feature);
@@ -298,14 +293,17 @@ function ProvinceLevelMap() {
         data_layer.forEach(function (feature) {
             data_layer.remove(feature);
         });
-        heatmap.setMap(null)
+        // heatmap.setMap(null)
         maxPopulation = 8598700
         minPopulation = 327000
         // $("div.cm").first().text(minPopulation)
         var delta = maxPopulation-minPopulation
         console.log(delta*0.1+minPopulation)
         $("div.cm").each(function(i) {
-            if(i<7){
+            if(i == 0){
+                $(this).text("  "+minPopulation)
+            }
+            if(i<8 && i!=0){
                 $(this).text("  "+Math.round((minPopulation+delta*i*0.143)/1000)*1000)
             }
             else if(i = 8){
@@ -346,31 +344,31 @@ function geocoderFunction(address) {
         }
     });
 }
-function HeatMapDensity() {
-    if (currentmap_level != 'heatmap' && visible == 'on') {
-        var zoom = map.getZoom()
-        currentmap_level = 'heatmap'
-        data_layer.forEach(function (feature) {
-            data_layer.remove(feature);
-        });
-        var heatmapData = []
-        var centerPath
-        for (var i = 0; i < ObjectData.length; i++) {
-            centerPath = polygonCenter(getCoordinate(i))
-            weight = getPopulation(i) * zoom
-            heatmapData.push({ location: centerPath, weight: weight })
-        }
-        heatmap.setOptions({
-            data: heatmapData,
-            radius: 15,
-            map: map
-        })
-    }
-}
-function toggleHeatmap() {
-    heatmap.setMap(heatmap.getMap() ? null : map);
-}
-function TrafficMap() {
-    trafficLayer.setMap(map);
-}
+// function HeatMapDensity() {
+//     if (currentmap_level != 'heatmap' && visible == 'on') {
+//         var zoom = map.getZoom()
+//         currentmap_level = 'heatmap'
+//         data_layer.forEach(function (feature) {
+//             data_layer.remove(feature);
+//         });
+//         var heatmapData = []
+//         var centerPath
+//         for (var i = 0; i < ObjectData.length; i++) {
+//             centerPath = polygonCenter(getCoordinate(i))
+//             weight = getPopulation(i) * zoom
+//             heatmapData.push({ location: centerPath, weight: weight })
+//         }
+//         heatmap.setOptions({
+//             data: heatmapData,
+//             radius: 15,
+//             map: map
+//         })
+//     }
+// }
+// function toggleHeatmap() {
+//     heatmap.setMap(heatmap.getMap() ? null : map);
+// }
+// function TrafficMap() {
+//     trafficLayer.setMap(map);
+// }
 

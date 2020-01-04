@@ -9,8 +9,6 @@ function createDropdown() {
         '    <div class = "dropDownOptionsDiv" id="myddOptsDiv" style="right: 0">' +
         '        <div class = "dropDownItemDiv" id="option1"  title="Click to show province level boundary" onClick="ProvinceLevelMap()">Show Province</div>' +
         '        <div class = "dropDownItemDiv" id="option2" title="Click to show province level boundary" onClick="DistrictLevelMap(nameSearch)">Show District</div>' +
-        '        <div class = "dropDownItemDiv" id="option3" title="Open Heatmap" onClick="HeatMapDensity()">Show HeatMap</div>' +
-        '        <div class = "dropDownItemDiv" id="option4" title="Open Traffic Map" onClick="TrafficMap()">Show Traffic Map</div>' +
         '        <div class="separatorDiv"></div>' +
         '        <div class="checkboxContainer" title="Turn on/off Polygon Layer" onclick="(document.getElementById(\'terrainCheck\').style.display == \'none\') ? document.getElementById(\'terrainCheck\').style.display = \'block\' : document.getElementById(\'terrainCheck\').style.display = \'none\'; show_hide_polygon(); ">' +
         '        <span role="checkbox" class="checkboxSpan ">' +
@@ -48,9 +46,6 @@ function show_hide_polygon() {
                 break;
             case 'Ward':
                 WardLevelMap(nameSearch, nameSearch2)
-                break;
-            case 'heatmap':
-                toggleHeatmap()
                 break;
         }
     }

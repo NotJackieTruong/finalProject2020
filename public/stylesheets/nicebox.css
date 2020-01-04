@@ -6,7 +6,7 @@
     left: 0;
     width: 100%;
     z-index: 1;
-    background-color: azure; }
+    background-color: rgb(185, 185, 185); }
 #color-box{
     -webkit-box-flex: 1;
     height: 40px;
@@ -41,9 +41,8 @@
   #ruler .cm{
     font-size: 10px;
     position: absolute;
-    border-left: 2px solid rgb(255, 255, 255);
-    height: 10px;
     width: 10%;
+    color: antiquewhite;
   }
 
 .ruler .cm:after {
@@ -76,7 +75,14 @@
     left: 100%;
   }
 #PolygonName {
+    border-radius: 4px;
+    border-color: darkolivegreen;
+    background-color: antiquewhite;
+    border-style: double;
+    margin: 4px;
     width: 25vw;
     text-align: center;
+    vertical-align: middle;
+    line-height: 36x;
     font-size: 20px;
 }
