@@ -188,14 +188,14 @@ function WardLevelMap(name1, name2) {
         var link = 'https://storage.googleapis.com/map_population/'+name1.replace(/\s+/g, '')+'/'+name2.replace(/\s+/g, '') + '.json'
         console.log(link)
         var WardData = getWardArray(link)
-        maxPopulation = WardData[0].Population*1000
-        minPopulation = WardData[0].Population*1000
+        maxPopulation = WardData[0].Population
+        minPopulation = WardData[0].Population
         for(var j = 0; j < WardData.length;j++){
-            if(WardData[j].Population*1000 > maxPopulation){
-                maxPopulation = WardData[j].Population*1000
+            if(WardData[j].Population > maxPopulation){
+                maxPopulation = WardData[j].Population
             }
-            if(WardData[j].Population*1000 < minPopulation){
-                minPopulation = WardData[j].Population*1000
+            if(WardData[j].Population < minPopulation){
+                minPopulation = WardData[j].Population
             }
         }
         var delta = maxPopulation-minPopulation
@@ -221,7 +221,7 @@ function WardLevelMap(name1, name2) {
         console.log('Ward  level drawn, current map level is: ' + currentmap_level + ' of district: ' + nameSearch2 + ' city: ' + nameSearch)
         for(var i = 0; i < WardData.length; i++){
             if(getFixedName(WardData[i].District) == name2){
-                var color = colorOverlay(getPopulation(WardData[i].Population*1000))
+                var color = colorOverlay(getPopulation(WardData[i].Population))
                 data_layer.add(
                     {
                         geometry: new google.maps.Data.Polygon([getCoordinate(WardData[i].WardCoordinates)]),
@@ -231,7 +231,7 @@ function WardLevelMap(name1, name2) {
                             Province: WardData[i].Province,
                             District: WardData[i].District,
                             Ward: WardData[i].Ward,
-                            Population: WardData[i].Population*1000
+                            Population: WardData[i].Population
                         }
                     })
                 data_layer.setStyle(function (feature) {
@@ -265,10 +265,10 @@ function DistrictLevelMap(name) {
         }
         else {
             console.log('District level drawn, current map level is: ' + currentmap_level + ' of ' + nameSearch)
-            for (var i = 0; i < districtLevel.length; i++) {
-                if (name == districtLevel[i].Province) {
-                    maxPopulation = districtLevel[i].Max
-                    minPopulation = districtLevel[i].Min
+            for (var i = 0; i < MaxMinPopulation.length; i++) {
+                if (name == MaxMinPopulation[i].Province) {
+                    maxPopulation = MaxMinPopulation[i].Max
+                    minPopulation = MaxMinPopulation[i].Min
                 }
             }
             console.log(maxPopulation,minPopulation)
