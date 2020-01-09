@@ -21,15 +21,15 @@ function close(){
   var mapContainer = document.getElementsByClassName('maps_map_container')
   console.log(mapsBarContainer.offsetWidth)
   console.log(windowWidth)
-  if(mapsBarContainer.offsetWidth==320){
+  if(mapsBarContainer.offsetWidth==408){
     mapContainer[0].style.width='100%'
     mapContainer[0].style.left = '0'
     mapsBarContainer.style.width = '0'
 
   } else if(mapsBarContainer.offsetWidth==0){
-      mapContainer[0].style.width='calc(100% - 320px)'
-      mapContainer[0].style.left='320px'
-      mapsBarContainer.style.width = '320px'
+      mapContainer[0].style.width='calc(100% - 408px)'
+      mapContainer[0].style.left='408px'
+      mapsBarContainer.style.width = '408px'
   }
   var triBullet = document.getElementById('triangle_bullet')
   var deg = rotated?0:180;

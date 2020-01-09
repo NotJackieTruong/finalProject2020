@@ -60,9 +60,11 @@ function initMap() {
         $("#data-caret").css("left", percentage - 1.5 + "%")
         document.getElementById('PolygonName').innerHTML = name
     })
+
     data_layer.addListener('mouseout', function(event){
         data_layer.revertStyle(event.feature);
     })
+
     data_layer.addListener('click', function (event) {
         var feat = event.feature;
         var html
@@ -73,8 +75,11 @@ function initMap() {
             });
         });
         map.fitBounds(bounds);
+        
         if (currentmap_level == 'Province') {
-            html = "<b>" + feat.getProperty("Name") + "</b><br>" + feat.getProperty("population")+ "</b><br>" + feat.getProperty("imageLink")+ "</b><br>" + feat.getProperty("area")+ "</b><br>" + feat.getProperty("density");
+            html = "<b>" + feat.getProperty("Name") + "</b><br>" + feat.getProperty("population")+ "</b><br>";
+            detailInfo(feat.getProperty("Name"), feat.getProperty("population"), feat.getProperty("area"), feat.getProperty('density'), feat.getProperty("imageLink"))
+            $('#image_description').text(feat.getProperty("Img_Description"))
             infowindow.setContent(html);
             infowindow.setPosition(bounds.getCenter());
             infowindow.open(map);
@@ -116,22 +121,31 @@ function initMap() {
     // marker.setMap(map);
 }
 
+function detailInfo(address, population, area, density, image){
+    var densityExpo = "Density: "+density + "/km"+"<sup>" + 2 + "</sup>"
+    var areaExpo = "Area: " + area +"/km"+"<sup>" + 2 + "</sup>"
+    $('#info_address').text("City: "+ address)
+    $('#info_population').text("Population: " + population)
+    $('#info_area').html(densityExpo)
+    $('#info_density').html(areaExpo)
+    $('#info_image').attr('src', image)
+}
+
 //get latlng when searching
 $(document).ready(function () {
     //autocomplete search
     var PostCodeid = '#search_location';
-
     $('.get_map').click(function (e) {
         var address = $(PostCodeid).val();
         geocoder.geocode({ 'address': address }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-                marker.setPosition(results[0].geometry.location)
+                // marker.setPosition(results[0].geometry.location)
                 map.setCenter(results[0].geometry.location);
                 map.fitBounds(results[0].geometry.viewport);
                 $('#info_title').text(address)
                 $('#info_address').text(results[0].formatted_address);
-                $('#search_lat').text("Latitude: "+marker.getPosition().lat());
-                $('#search_lng').text("Longitude: "+marker.getPosition().lng());
+                $('#search_lat').text("Latitude: "+results[0].geometry.location.lat());
+                $('#search_lng').text("Longitude: "+results[0].geometry.location.lng());
                 //street view
                 addStreetView(marker.getPosition().lat(), marker.getPosition().lng())
                 var search_addr = '<b>' + results[0].formatted_address + '</b>'
@@ -148,7 +162,7 @@ $(document).ready(function () {
             }
         });
         // map.setZoom(9)
-        marker.setMap(map)
+        // marker.setMap(map)
         e.preventDefault();
 
         // return marker.getPosition().lat(), marker.getPosition().lng();

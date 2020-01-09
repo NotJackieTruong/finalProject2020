@@ -71,6 +71,7 @@ function getCoordinate(str) {
 }
 // draw layer from search result
 function drawSearch(arrString) {
+
     switch (arrString[1].types[0]) {
         case "administrative_area_level_2":
             if (arrString[0].types[0] == 'locality') {
