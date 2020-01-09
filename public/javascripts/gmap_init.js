@@ -74,7 +74,7 @@ function initMap() {
         });
         map.fitBounds(bounds);
         if (currentmap_level == 'Province') {
-            html = "<b>" + feat.getProperty("Name") + "</b><br>" + feat.getProperty("population");
+            html = "<b>" + feat.getProperty("Name") + "</b><br>" + feat.getProperty("population")+ "</b><br>" + feat.getProperty("imageLink")+ "</b><br>" + feat.getProperty("area")+ "</b><br>" + feat.getProperty("density");
             infowindow.setContent(html);
             infowindow.setPosition(bounds.getCenter());
             infowindow.open(map);

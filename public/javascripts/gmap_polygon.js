@@ -355,12 +355,18 @@ function ProvinceLevelMap() {
         console.log('Province level drawn, current map level is: ' + currentmap_level)
         data_layer.setStyle(function (feature) {
             var cityname = feature.getProperty('Name')
-            var color, p
+            var color, p, link, area, density
             for (var i = 0; i < StringData.length; i++) {
                 if (cityname == StringData[i].City) {
                     color = colorOverlay(StringData[i].Population * 1000)
                     p = StringData[i].Population * 1000
+                    link = StringData[i].Image
+                    area = StringData[i].Area
+                    density = StringData[i].Density
                     feature.setProperty("population", p)
+                    feature.setProperty("imageLink", link)
+                    feature.setProperty("area", area)
+                    feature.setProperty("density", density)
                 }
             }
             return {
