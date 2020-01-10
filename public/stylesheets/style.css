@@ -75,6 +75,8 @@ html, body {
 .footer .footer_content h2{
   font: 500 14px/16px Google Sans, Noto Sans, Noto Sans JP, Noto Sans KR , Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew, Noto Sans Bengali, sans-serif;
   font-weight: 600;
+  margin: 0;
+  color: #fff;
 }
 
 .footer .footer_content .footer_section.about{

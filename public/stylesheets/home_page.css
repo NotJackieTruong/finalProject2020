@@ -4,11 +4,19 @@
     z-index: 1;
     background-color: #e8eaed;
     width: 100%;
-    min-height: 100%;
+    height: auto;
 }
 
 .main_content h1, h2, h3{
     margin: 40px 0 20px;
+    padding-bottom: 3px;
+    color: #5f6368;
+    letter-spacing: -0.01em;
+}
+
+.main_content h2, h3, h4{
+    border-bottom: 1px solid #e8eaed;
+    
 }
 .main_content .homesite_article{
     max-width: 936px;
@@ -33,6 +41,8 @@
 
 .main_content .homesite_article_header h1{
     margin: 0 0 20px;
+    font: 300 34px/40px Roboto,Noto Sans,Noto Sans JP,Noto Sans KR,Noto Naskh Arabic,Noto Sans Thai,Noto Sans Hebrew,Noto Sans Bengali,sans-serif;
+
 }
 
 /* style for the introduction */
@@ -79,10 +89,7 @@
     width: 100%;
 }
 
-/* province layer instruction */
-.homesite_article_guides_header{
-    border-bottom: 1px solid lightgrey;
-}
+/* layer instruction */
 .homesite_article_guides_content .homesite_article_guides_header h3{
     margin-top: 10px;
 }
@@ -93,7 +100,11 @@
 .homesite_article_guides_instruction .card_group{
     display: flex;
     flex-direction: row;
+    margin-top: 2%;
+}
 
+.main_content .homesite_article_guides_instruction .layer_level_header h3{
+    margin-top: 2%;
 }
 
 .main_content .card {
@@ -103,6 +114,11 @@
     height: 380px;
     margin: 0 2% 5% 2%;
   }
+
+.main_content .card .img_container{
+    width: 100%;
+    height: 70%;
+}
   
 .main_content .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -110,32 +126,45 @@
   
 .main_content .container {
     padding: 2px 16px;
-    width: 100%;
-}
-
-
-.homesite_article_guides_search .homesite_article_guides_instruction{
-    background-color: lightgray;
-    min-height: 100%;
-    float: right;
-    width: 100%;
-}
-
-/* style for searching and result */
-.homesite_article_guides_search{
-    display: flex;
     width: auto;
-    height: 320px;
-    background-color: grey;
 }
 
-.homesite_article_guides_image.search_img{
-    width: 50%;
-}
 
 .homesite_article_guides_search .homesite_article_guides_instruction{
     background-color: lightgray;
     min-height: 100%;
     float: right;
     width: 100%;
+}
+
+/* control button instruction */
+.main_content .control_button_instruction .control_button_list{
+    display: flex;
+    flex-direction: column;
+}
+
+.main_content .control_button_instruction .control_button_item{
+    display: flex;
+    flex-direction: row;
+    width: 85%;
+    height: auto;
+    margin: 2% auto 0 auto;
+}
+
+.main_content .control_button_instruction .control_button_img{
+    width: 100px;
+    height: auto;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.main_content .control_img_wrapper{
+    width: 100%;
+    height: 100%;
+}
+.main_content .control_button_instruction .control_button_img img{
+    width: 100px;
+    height:initial;
+}
+
+.main_content .control_button_instruction .control_button_description{
+    padding: 2% 5%;
 }

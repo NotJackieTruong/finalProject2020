@@ -28,34 +28,62 @@ block content
         //- guides
         .homesite_article_guides_content
           .homesite_article_guides_header
-            h2 Map Guides
+            h1 Map Guides
             //- map layer level
           .homesite_article_guides_layer_level
-            .homesite_article_guides_header
-              h3 Layer of the Map
+              
             .homesite_article_guides_instruction
+              .layer_level_header
+                h3 Layer of the Map
               .layer_level_instruction
-                span There are totally 3 layers of the Map: The Province, The Ward and The District
-              .card_group
-                .card
-                  img(src='../images/province_layer.png' alt='Avatar' style='width:100%')
-                  .container
-                    p The Province Layer automatically displays whenever you visit this page
-              
-                .card
-                  img(src='../images/ward_layer.png' alt='Avatar' style='width:100%')
-                  .container
-                    p The Ward Layer will display after you double click to the area you want when you are in Province Level
-              
-                .card
-                  img(src='../images/district_layer.png' alt='Avatar' style='width:100%')
-                  .container
-                    p The District Layer will display after you double click to the area you want when you are in Ward Level
-               
-
-            //-     //- search and result 
-          .homesite_article_guides_search
-            .homesite_article_guides_image.search_img  
-              p Image of searching and result(maybe gif)
-            .homesite_article_guides_instruction
-              p Instruction for searching  
+                .layer_level_instruction_header
+                  span There are totally 3 layers of the Map: The Province, The Ward and The District
+                .card_group
+                  .card
+                    .img_container
+                      img(src='../images/province_layer.png' alt='Avatar' style='width:100%')
+                    .container
+                      p The Province Layer automatically displays whenever you visit this page
+                
+                  .card
+                    .img_container
+                      img(src='../images/district_layer.png' alt='Avatar' style='width:100%')
+                    .container
+                      p The District Layer will display after you double click to the area you want when you are in Province Level
+                
+                  .card
+                    .img_container
+                      img(src='../images/ward_layer.png' alt='Avatar' style='width:100%')
+                    .container
+                      p The Ward Layer will display after you double click to the area you want when you are in District Level
+            .control_button_instruction
+              .control_button_header
+                h3 Control of the Map
+              .control_button_instruction
+                .control_button_header
+                  span In the Map page, the map displayed contain elements that you may want to use to interact with the map. These elements are known as Control Button. 
+                  | Below is a list of controls you can use in our map:
+                .control_button_list
+                  //- map type control
+                  .control_button_item
+                    .control_button_img
+                      .control_img_wrapper
+                        img(src="../images/map_type_control.png", alt="")  
+                    .control_button_description
+                      p The Map Type control is available in a dropdown or horizontal button bar style, allowing you to choose a map type (ROADMAP, SATELLITE, HYBRID, or TERRAIN). This control appears by default in the top left corner of the map.
+                  //- option control button
+                  .control_button_item
+                    .control_button_img
+                      .control_img_wrapper
+                        img(src="../images/options_control.png", alt="")
+                    .control_button_description
+                      p The Options control allowing you to choose to display or remove the different data layer. This control appears by default in the top right corner of the map.
+                  
+                  //- zoom control button
+                  .control_button_item
+                    .control_button_img
+                      .control_img_wrapper
+                        img(src="../images/zoom_control.png", alt="")
+                    .control_button_description
+                      p The Zoom control allowing you to zoom in or out the map view. This control appears by default in the bottom right corner of the map.
+                  
