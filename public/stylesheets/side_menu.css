@@ -27,7 +27,7 @@
 .maps_inner .maps_bar_container{
   left: 0;
   transition:width .3s;
-  width: 408px;
+  width: 0;
   height: 100%;
   position: absolute;
   top: 0;
@@ -220,11 +220,14 @@
   height: 200px;
 }
 
+.maps_inner #info_image_wrapper #image_description{
+  height: 20px;
+}
 .maps_inner .maps_map_container{
   position: absolute;
   height: 100%;
-  width: calc(100% - 408px);
-  left: 408px;
+  width: 100%;
+  left: 0;
   transition: 0.3s;
 }
 .maps_inner #map{

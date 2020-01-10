@@ -79,7 +79,7 @@ function initMap() {
         if (currentmap_level == 'Province') {
             html = "<b>" + feat.getProperty("Name") + "</b><br>" + feat.getProperty("population")+ "</b><br>";
             detailInfo(feat.getProperty("Name"), feat.getProperty("population"), feat.getProperty("area"), feat.getProperty('density'), feat.getProperty("imageLink"))
-            $('#image_description').text(feat.getProperty("Img_Description"))
+            $('#image_description').text(feat.getProperty("img_description"))
             infowindow.setContent(html);
             infowindow.setPosition(bounds.getCenter());
             infowindow.open(map);

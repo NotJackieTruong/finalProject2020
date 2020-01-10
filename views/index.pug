@@ -5,26 +5,55 @@ block content
       article.homesite_article_inner
         //- header of the page
         .homesite_article_header
-          h1 Data Map Overview
+          h1 Visualized Data Map Overview
 
         //- introduction
         .homesite_article_introduction_content
           .homesite_article_introduction
-            p Introduction of the page
+            .article_introduction_content_wrapper
+              p
+                | Welcome to the Visualizing Data Map where data is more beautiful. If you're familiar with our website, let's go and check out our map
+                a(href="/catalog/map")  here.
+              p
+                | If you're brand new to our website, let's jump to our Guide below!
+
+              
           .homesite_article_introduction_img
-            p Imgage of overview map
+            .article_introduction_img_wrapper
+              .map_overview_image
+                img(src="/images/overview_map2.png", alt="")
+              .figure_note
+                span Fig1. Map overview
 
         //- guides
         .homesite_article_guides_content
           .homesite_article_guides_header
-            h1 Map Guides
+            h2 Map Guides
             //- map layer level
           .homesite_article_guides_layer_level
+            .homesite_article_guides_header
+              h3 Layer of the Map
             .homesite_article_guides_instruction
-              p Introduction the layer levels of the map
-            .homesite_article_guides_image.layer_img
-              p Image of layer levels
-              //- search and result 
+              .layer_level_instruction
+                span There are totally 3 layers of the Map: The Province, The Ward and The District
+              .card_group
+                .card
+                  img(src='../images/province_layer.png' alt='Avatar' style='width:100%')
+                  .container
+                    p The Province Layer automatically displays whenever you visit this page
+              
+                .card
+                  img(src='../images/ward_layer.png' alt='Avatar' style='width:100%')
+                  .container
+                    p The Ward Layer will display after you double click to the area you want when you are in Province Level
+              
+                .card
+                  img(src='../images/district_layer.png' alt='Avatar' style='width:100%')
+                  .container
+                    p The District Layer will display after you double click to the area you want when you are in Ward Level
+               
+
+            //-     //- search and result 
           .homesite_article_guides_search
             .homesite_article_guides_image.search_img  
               p Image of searching and result(maybe gif)

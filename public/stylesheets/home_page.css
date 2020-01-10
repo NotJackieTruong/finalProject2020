@@ -7,6 +7,9 @@
     min-height: 100%;
 }
 
+.main_content h1, h2, h3{
+    margin: 40px 0 20px;
+}
 .main_content .homesite_article{
     max-width: 936px;
     min-width: 0;
@@ -23,41 +26,99 @@
     display: block;
 }
 
-/* style for header of the page */
-.main_content .homesite_article_header{
-    background-color: lightgrey;
+.main_content .homesite_article .homesite_article_inner p{
+    text-align: left;
+
+}
+
+.main_content .homesite_article_header h1{
+    margin: 0 0 20px;
 }
 
 /* style for the introduction */
 .main_content .homesite_article_introduction_content{
-    background-color: grey;
+    /* background-color: grey; */
     width: 100%;
-    height: 320px;
+    height: 30%;
     display: flex;
-    margin: 5px 0px;
+
 }
 
 .main_content .homesite_article_introduction{
-    background-color: lightgrey;
-    width: 360px;
+    /* background-color: lightgrey; */
+    width: 42%;
 }
 
-/* style for the layer levels guides  */
-.homesite_article_guides_header{
-    background-color: lightgrey;
-    margin-top: 32px;
+.main_content .homesite_article_introduction_img{
+    width: 100%;
+    height: 100%;
+    margin-left: 4%;
+}
+.main_content .map_overview_image{
+    width: 100%;
+    height: 90%;
 }
 
-.homesite_article_guides_layer_level{
+.main_content .map_overview_image img{
+    width: 100%;
+    height: 100%;
+}
+
+.main_content .figure_note span{
+    font-size: 70%;
+}
+
+.homesite_article_guides_layer_level .homesite_article_guides_province_layer, .homesite_article_guides_ward_layer{
     display: flex;
-    background-color: grey;
     width: auto;
-    height: 320px;
+    height: 250px;
+    margin: 20px 0;
+}
+.homesite_article_guides_layer_level .homesite_article_guides_instruction{
+    /* background-color: lightgrey; */
+    width: 100%;
 }
 
-.homesite_article_guides_layer_level .homesite_article_guides_instruction{
-    background-color: lightgrey;
-    width: 480px;
+/* province layer instruction */
+.homesite_article_guides_header{
+    border-bottom: 1px solid lightgrey;
+}
+.homesite_article_guides_content .homesite_article_guides_header h3{
+    margin-top: 10px;
+}
+
+.homesite_article_guides_instruction .layer_level_instruction{
+    margin: 2% 0;
+}
+.homesite_article_guides_instruction .card_group{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.main_content .card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 35%;
+    height: 380px;
+    margin: 0 2% 5% 2%;
+  }
+  
+.main_content .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+  
+.main_content .container {
+    padding: 2px 16px;
+    width: 100%;
+}
+
+
+.homesite_article_guides_search .homesite_article_guides_instruction{
+    background-color: lightgray;
+    min-height: 100%;
+    float: right;
+    width: 100%;
 }
 
 /* style for searching and result */
