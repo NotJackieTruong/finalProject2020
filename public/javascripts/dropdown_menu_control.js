@@ -51,6 +51,7 @@ function createDropdown() {
   
 
     control.rightTop.add(html1)
+
     // control.bottomCenter.add(html2)
     // control.leftCenter.add(html3)
    
@@ -68,19 +69,26 @@ function slider(){
         output.innerHTML = this.value;
     }
 }
+<<<<<<< HEAD
 
 
 
 
 
 
+=======
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = document.getElementById("myRange").value;
+console.log(document.getElementById("myRange").value)
+>>>>>>> 0b94e5c07bde7df7780412d96a42573221b2dfb7
 
 var checkbox = document.getElementById('terrainCheck')
 function show_hide_polygon() {
     infowindow.close()
     if (document.getElementById('terrainCheck').style.display == 'none') {
         visible = 'off'
-        if(currentmap_level == 'heatmap'){
+        if (currentmap_level == 'heatmap') {
             toggleHeatmap()
         }
         else
