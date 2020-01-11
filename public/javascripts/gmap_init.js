@@ -78,8 +78,21 @@ function initMap() {
         
         if (currentmap_level == 'Province') {
             html = "<b>" + feat.getProperty("Name") + "</b><br>" + feat.getProperty("population")+ "</b><br>";
-           
-            detailInfo(feat.getProperty("Name"), feat.getProperty("population"), feat.getProperty("area"), feat.getProperty('density'), feat.getProperty("imageLink"))
+            var imgLinkList = feat.getProperty("imageLink")
+        
+            // console.log(imgLinkList[0][0])
+            for(var j = 0; j<=imgLinkList.length; j++){
+                var img_container = document.createElement("div")
+                img_container.style.width= "100%"
+                img_container.style.height="150px"
+                var image = document.createElement("img")
+                image.src = imgLinkList[j]
+                image.style.width="100%"
+                image.style.height="200px"
+                img_container.appendChild(image)
+                document.getElementById("image_list").appendChild(img_container)
+                detailInfo(feat.getProperty("Name"), feat.getProperty("population"), feat.getProperty("area"), feat.getProperty('density'))
+            }
             $('#image_description').text(feat.getProperty("img_description"))
             infowindow.setContent(html);
             infowindow.setPosition(bounds.getCenter());
@@ -125,14 +138,14 @@ function initMap() {
     // marker.setMap(map);
 }
 
-function detailInfo(address, population, area, density, image){
+function detailInfo(address, population, area, density){
     var densityExpo = "Density: "+density + "/km"+"<sup>" + 2 + "</sup>"
     var areaExpo = "Area: " + area +"/km"+"<sup>" + 2 + "</sup>"
     $('#info_address').text("City: "+ address)
     $('#info_population').text("Population: " + population)
     $('#info_area').html(densityExpo)
     $('#info_density').html(areaExpo)
-    $('#info_image').attr('src', image)
+   
 }
 
 //get latlng when searching

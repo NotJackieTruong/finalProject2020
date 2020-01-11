@@ -45,12 +45,36 @@ function createDropdown() {
     '    </div>'+
     '</div>';
         
-    
+    var html3 = '<div class="slidecontainer">'+
+    '  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">'+
+    '  <p>Value: <span id="demo"></span></p>';
+  
 
     control.rightTop.add(html1)
     // control.bottomCenter.add(html2)
-
+    // control.leftCenter.add(html3)
+   
 }
+
+
+
+
+function slider(){
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
+    console.log("helloformtheotherside: "+slider)
+    slider.oninput = function() {
+        output.innerHTML = this.value;
+    }
+}
+
+
+
+
+
+
+
 var checkbox = document.getElementById('terrainCheck')
 function show_hide_polygon() {
     infowindow.close()

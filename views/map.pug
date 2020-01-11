@@ -35,7 +35,7 @@ block content
                           #info_population
                           #info_area
                           #info_density
-                          .image_suggestion
+                          .image_suggestion#image_list
                             #info_image_wrapper
                               img(src="", alt="" id="info_image")
                               #image_description
@@ -63,9 +63,16 @@ block content
                         .cm Value
                         .cm Value
                         .cm Value
+        #maps_slider
+          .slidecontainer
+            input#myRange.slider(type='range' min='1' max='100' value='50')
+            p
+              | Value: 
+              span#demo
+
       script.
         document.getElementById('maps_bar_toggle').onclick = close
-    
+        slider()
           
 
 

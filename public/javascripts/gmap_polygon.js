@@ -12,8 +12,8 @@ var heatmap;
 var trafficLayer;
 var transitLayer;
 var bikeLayer;
-var bounds
 var visible = 'on'
+var bounds
 //bỏ dấu tiếng việt
 function getFixedName(str) {
     if (str == undefined) {
@@ -36,10 +36,6 @@ function getFixedName(str) {
         str = str.replace(/Đ/g, "D");
         str = str.replace('Tp. ','')
         str = str.replace('Tx. ','')
-        str = str.replace('TP. ','')
-        str = str.replace('TX. ','')
-        str = str.replace(/\s+/g, '')
-        str = str.replace('tinh','')
         // str = str.replace(/ /g, '')
         return str;
     }
@@ -75,52 +71,36 @@ function getCoordinate(str) {
 }
 // draw layer from search result
 function drawSearch(arrString) {
-    var message=[]
-    var n1, n2
-    arrString.forEach(element => {
-        switch(element.types[0]){
-            case "administrative_area_level_1":
-                message.push({types: "ad1",name: getFixedName(element.short_name)})
-                n1 = getFixedName(element.short_name)
-                break;
-            case "locality":
-                message.push({types: "locality", name: getFixedName(element.short_name)})
-                n2 = getFixedName(element.short_name)
-                break;
-            case "administrative_area_level_2":
-                message.push({types: "ad2", name: getFixedName(element.short_name)})
-                n2 = getFixedName(element.short_name)
-                break;
-        }
-        } 
-    )
-    console.log(message[0].types + " found!")
-    switch(message[0].types){
-        case "ad1":
-            nameSearch = n1
-            DistrictLevelMap(nameSearch)
-            break;
-        case "ad2":
-            nameSearch = n1
-            nameSearch2 = n2
-            WardLevelMap(nameSearch, nameSearch2)
-            break;
-        case "locality":
-            // console.log()
-            if(n2 == "HoChiMinh"){
-                nameSearch = n2
+
+    switch (arrString[1].types[0]) {
+        case "administrative_area_level_2":
+            if (arrString[0].types[0] == 'locality') {
+                nameSearch = getFixedName(arrString[0].short_name)
                 DistrictLevelMap(nameSearch)
             }
-            else if(message[1].types == "ad1"){
-                nameSearch = n1
-                nameSearch2 = n2
+            else {
+                nameSearch2 = getFixedName(arrString[1].short_name)
+                nameSearch = getFixedName(arrString[2].short_name)
                 WardLevelMap(nameSearch, nameSearch2)
             }
-            else if (message[1].types == "ad2"){
-                nameSearch = n1
-                DistrictLevelMap(nameSearch)
+            break;
+        case "administrative_area_level_1":
+            if (arrString[0].types[0] == 'locality' || arrString[0].types[0] == 'establishment') {
+                nameSearch =  getFixedName(arrString[0].short_name)
+                nameSearch2 = getFixedName(arrString[1].short_name)
             }
+            else {
+                nameSearch2 = getFixedName(arrString[0].short_name)
+                nameSearch = getFixedName(arrString[1].short_name)  
+            }
+            WardLevelMap(nameSearch, nameSearch2)
+            break;
+        case "country":
+            nameSearch = getFixedName(arrString[0].short_name)
+            DistrictLevelMap(nameSearch)
+            break;
     }
+    console.log(nameSearch,nameSearch2)
 }
 //lấy population từ database
 function getPopulation(P) {
@@ -133,11 +113,11 @@ function getPopulation(P) {
         return P
     }
 }
-
 function colorOverlay(population) {
     var heso = (population - minPopulation) / (maxPopulation - minPopulation)//dân số tăng hệ số tăng
     var colorchange = heso * 510 //dân số tăng colorchange tăng
     var red = green = blue = 0
+    // if(currentmap_level != 'Province'){
         if (colorchange < 255) {
             blue= 30
             red = colorchange * (225/255) +30
@@ -148,37 +128,67 @@ function colorOverlay(population) {
             red = 255
             green = (-45/51)*colorchange + 480
         }
+    // }
+    // else {
+    //     if (heso < 0.1) {
+    //         blue= 30
+    //         red = colorchange * 4.41176471 +30
+    //         green = 255
+    //     }
+    //     else {
+    //         blue = 30
+    //         red = 255
+    //         green = (3 / 21160) * colorchange * colorchange + (-1341 / 2116) * colorchange + (151470 / 529)
+    //     }
+    // }
     if (population == 0) {
         green = 255
         red = blue = 30
     }
     return ["rgb(", red, ",", green, ",", blue, ")"].join("")
 }
+//Lẩy center polygon
+function polygonCenter(path) {
+    var longitudes = []
+    var latitudes = []
+    var vertices = path; // arry coordinate có dạng [{lat:, lng:}, {},...,{}]
 
+    // put all latitudes and longitudes in arrays
+    for (var i = 0; i < vertices.length; i++) {
+        longitudes.push(vertices[i].lng);
+        latitudes.push(vertices[i].lat);
+    }
+
+    // sort the arrays low to high
+    latitudes.sort();
+    longitudes.sort();
+
+    // get the min and max of each
+    var lowX = latitudes[0];
+    var highX = latitudes[latitudes.length - 1];
+    var lowy = longitudes[0];
+    var highy = longitudes[latitudes.length - 1];
+
+    // center of the polygon is the starting point plus the midpoint
+    var centerX = lowX + ((highX - lowX) / 2);
+    var centerY = lowy + ((highy - lowy) / 2);
+
+    return (new google.maps.LatLng(centerX, centerY));
+}
 // Data Layer with current level : Ward
 function WardLevelMap(name1, name2) {
-
-    infowindow.close()
-    console.log(name1, name2)
     if (visible == 'on') {
-
-        // set state to commune level
         currentmap_level = 'Ward'
-
-        // remove existing feature in data layer
+        // heatmap.setMap(null)
         data_layer.forEach(function (feature) {
             data_layer.remove(feature);
         });
-
+        geocoderFunction(name2+","+name1)
         maxPopulation = 0
         minPopulation = 81690
-
-        // get JSon file 
         var link = 'https://storage.googleapis.com/map_population/'+name1.replace(/\s+/g, '')+'/'+name2.replace(/\s+/g, '') + '.json'
         console.log(link)
         var WardData = getWardArray(link)
-
-        // set min max population value 
         maxPopulation = WardData[0].Population
         minPopulation = WardData[0].Population
         for(var j = 0; j < WardData.length;j++){
@@ -189,8 +199,6 @@ function WardLevelMap(name1, name2) {
                 minPopulation = WardData[j].Population
             }
         }
-
-        // color path set up 
         var delta = maxPopulation-minPopulation
         $("div.cm").each(function(i) {
             switch(i){
@@ -203,20 +211,18 @@ function WardLevelMap(name1, name2) {
                 case 4:
                 case 5:
                 case 6:
-                    $(this).text(Math.round((minPopulation+delta*i*1/7)/1000)*1000)
+                case 7:
+                    $(this).text(Math.round((minPopulation+delta*i*0.143)/1000)*1000)
                     break;
-                case 7: 
+                case 8: 
                 $(this).text(maxPopulation)
                 break;
             }
         });
-
         console.log('Ward  level drawn, current map level is: ' + currentmap_level + ' of district: ' + nameSearch2 + ' city: ' + nameSearch)
         for(var i = 0; i < WardData.length; i++){
             if(getFixedName(WardData[i].District) == name2){
                 var color = colorOverlay(getPopulation(WardData[i].Population))
-
-                // add data from Json file to data layer
                 data_layer.add(
                     {
                         geometry: new google.maps.Data.Polygon([getCoordinate(WardData[i].WardCoordinates)]),
@@ -229,8 +235,6 @@ function WardLevelMap(name1, name2) {
                             Population: WardData[i].Population
                         }
                     })
-
-                // set data layer style to colorize polygon by its population
                 data_layer.setStyle(function (feature) {
                     var color = feature.getProperty('color');
                     return ({
@@ -246,37 +250,29 @@ function WardLevelMap(name1, name2) {
     }
 }
 
+
 //Data Layer with current level : District
 function DistrictLevelMap(name) {
-    infowindow.close()
-    name = name.replace(/\s+/g, '');
     if (visible == 'on') {
-
-        // Set state to District level
         currentmap_level = 'District'
-        
-        // remove existing features in data layer
+        // heatmap.setMap(null)
+        geocoderFunction(name)
         data_layer.forEach(function (feature) {
             // If you want, check here for some constraints.
             data_layer.remove(feature);
         });
-
-        // in case there is no province-level polygon was selected 
         if (name == 'null') {
             alert('No city or province selected')
         }
         else {
             console.log('District level drawn, current map level is: ' + currentmap_level + ' of ' + nameSearch)
-
-            // set max min population value
             for (var i = 0; i < MaxMinPopulation.length; i++) {
-                if (name == getFixedName(MaxMinPopulation[i].Province)) {
+                if (name == MaxMinPopulation[i].Province) {
                     maxPopulation = MaxMinPopulation[i].Max
                     minPopulation = MaxMinPopulation[i].Min
                 }
             }
-
-            //color path set up
+            console.log(maxPopulation,minPopulation)
             var delta = maxPopulation-minPopulation
             $("div.cm").each(function(i) {
                 switch(i){
@@ -290,7 +286,7 @@ function DistrictLevelMap(name) {
                     case 5:
                     case 6:
                     case 7:
-                        $(this).text(Math.round((minPopulation+delta*i*1/7)/1000)*1000)
+                        $(this).text(Math.round((minPopulation+delta*i*0.143)/1000)*1000)
                         break;
                     case 8: 
                     $(this).text(maxPopulation)
@@ -298,16 +294,12 @@ function DistrictLevelMap(name) {
                 }
             });
             infowindow.close()
-
-            // create link to google cloud storage
+            name = name.replace(/\s+/g, '');
             var link = 'https://storage.googleapis.com/map_population/'+name+'.json'
             console.log(link)
-
-            // load geojson file district level 
             data_layer.loadGeoJson(link)
-
-            // set data layer style to colorize polygon by its population
             data_layer.setStyle(function (feature) {
+                
                 var P = feature.getProperty('Dan_So')
                 var color = colorOverlay(P)
                 return {
@@ -322,34 +314,19 @@ function DistrictLevelMap(name) {
     }
 
 }
-
 //initialize gg map on the website
 function ProvinceLevelMap() {
-    infowindow.close()
     // option = show or hide
     if (visible == 'on') {
-
-        //Set state to Province level
         currentmap_level = 'Province'
-
-        // make the map fit viet nam bound and center 
-        geocoder.geocode({ address: "Viet Nam" }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-                map.fitBounds(results[0].geometry.viewport);
-            }
-        });
-
-        //remove existing feature in data layer 
+        geocoderFunction('Viet Name')
         data_layer.forEach(function (feature) {
             data_layer.remove(feature);
         });
-
-        // set max min population value 
+        // heatmap.setMap(null)
         maxPopulation = 8598700
         minPopulation = 327900
-        
-        // color path set up
+        // $("div.cm").first().text(minPopulation)
         var delta = maxPopulation-minPopulation
         console.log(delta*0.1+minPopulation)
         $("div.cm").each(function(i) {
@@ -363,35 +340,34 @@ function ProvinceLevelMap() {
                 case 4:
                 case 5:
                 case 6:
-                    $(this).text(Math.round((minPopulation+delta*i*1/7)/1000)*1000)
+                case 7:
+                    $(this).text(Math.round((minPopulation+delta*i*0.143)/1000)*1000)
                     break;
                 case 8: 
                 $(this).text(maxPopulation)
                 break;
             }
         });
-
-        // load province level geojson data
+        map.setZoom(6)
+        map.setCenter({ lat:16.467397, lng: 107.59053259999996})
         data_layer.loadGeoJson(
             'https://storage.googleapis.com/map_population/citylevelBoundary.json'
         )
         console.log('Province level drawn, current map level is: ' + currentmap_level)
-
-        // set data layer style to colorize polygon by its population
         data_layer.setStyle(function (feature) {
             var cityname = feature.getProperty('Name')
-
             var color, p, link, area, density, imgDescription
-
+            
             for (var i = 0; i < StringData.length; i++) {
                 if (cityname == StringData[i].City) {
+               
                     color = colorOverlay(StringData[i].Population * 1000)
-                    p = StringData[i].Population * 1000
+                    p = StringData[i].Population * 1000	                    
                     link = StringData[i].Image
                     area = StringData[i].Area
                     density = StringData[i].Density
                     imgDescription = StringData[i].Img_Description
-                    feature.setProperty("population", p)
+                    feature.setProperty("population", p)	                    
                     feature.setProperty("imageLink", link)
                     feature.setProperty("area", area)
                     feature.setProperty("density", density)
@@ -407,5 +383,13 @@ function ProvinceLevelMap() {
             }
         })
     }
+}
+function geocoderFunction(address) {
+    geocoder.geocode({ address: address }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            map.fitBounds(results[0].geometry.viewport);
+        }
+    });
 }
 
