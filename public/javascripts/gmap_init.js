@@ -115,7 +115,7 @@ function initMap() {
     //dropdown menu as a custom control in map
     createDropdown();
     var searchControlDiv = document.createElement('div');
-    var centerControl = new CenterControl(searchControlDiv, map);
+    // var centerControl = new CenterControl(searchControlDiv, map);
     searchControlDiv.index = 1;
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(searchControlDiv);
     // marker.setMap(map);
@@ -146,16 +146,12 @@ $(document).ready(function () {
                 $('#info_address').text(results[0].formatted_address);
                 $('#search_lat').text("Latitude: "+results[0].geometry.location.lat());
                 $('#search_lng').text("Longitude: "+results[0].geometry.location.lng());
-                //street view
-                addStreetView(marker.getPosition().lat(), marker.getPosition().lng())
                 var search_addr = '<b>' + results[0].formatted_address + '</b>'
                 infowindow.setContent(search_addr)
                 infowindow.setPosition(results[0].geometry.location)
                 drawSearch(results[0].address_components)
                 console.log(results[0].address_components)
-                document.getElementById("results").style.height="100%";
-                document.getElementById("results").style.overflow="visible";
-                document.getElementById("results").style.transition=".5s";
+                
 
             } else {
                 alert("Geocode was not successful for the following reason: " + status);
@@ -168,60 +164,4 @@ $(document).ready(function () {
         // return marker.getPosition().lat(), marker.getPosition().lng();
     })
 })
-
-//street view control option
-// document.getElementById('map'), {
-//     position: {lat: 42.345573, lng: -71.098326},
-//     addressControlOptions: {
-//       position: google.maps.ControlPosition.BOTTOM_CENTER
-//     },
-//     linksControl: false,
-//     panControl: false,
-//     zoomControlOptions: {
-//       style: google.maps.ZoomControlStyle.SMALL
-//     },
-//     enableCloseButton: false
-// }
-
-function addStreetView(lat, lng){
-    var point = {lat: lat, lng: lng}
-    console.log("address for image: "+point)
-    var panoramaOptions = {
-        position: point,
-        pov:{
-            heading: 34,
-            pitch: 10
-        },
-        zoomControlOptions: {
-            style: google.maps.ZoomControlStyle.SMALL
-        },
-        disableDefaultUI: true
-    }
-    var panorama = new google.maps.StreetViewPanorama(
-        document.getElementById('pano'), panoramaOptions
-    )
-    map.setStreetView(panorama)
-}
-//create a control on gmap
-// function CenterControl(controlDiv, map) {
-//     controlDiv.style.clear = 'both';
-//     // Set CSS for the search control border.
-//     var searchUI = document.createElement('div');
-//     searchUI.id = 'searchUI';
-//     searchUI.title = 'Click to recenter the map';
-
-//     controlDiv.appendChild(searchUI);
-
-//     // Set CSS for the search control interior.
-//     var searchControlText = document.createElement('div');
-//     searchControlText.id = 'searchText';
-
-//     searchUI.appendChild(searchControlText);
-
-//     searchUI.addEventListener('click', function () {
-//         openNav();
-//     })
-
-// }
-
 

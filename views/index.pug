@@ -67,7 +67,7 @@ block content
                   //- map type control
                   .control_button_item
                     .control_button_img
-                      .control_img_wrapper
+                      .control_img_wrapper  
                         img(src="../images/map_type_control.png", alt="")  
                     .control_button_description
                       p The Map Type control is available in a dropdown or horizontal button bar style, allowing you to choose a map type (ROADMAP, SATELLITE, HYBRID, or TERRAIN). This control appears by default in the top left corner of the map.
@@ -82,8 +82,15 @@ block content
                   //- zoom control button
                   .control_button_item
                     .control_button_img
-                      .control_img_wrapper
-                        img(src="../images/zoom_control.png", alt="")
+                      .control_img_wrapper(style="padding-left: 25px")
+                        img(src="../images/zoom_control.png" alt="" style="margin-left: auto")
                     .control_button_description
                       p The Zoom control allowing you to zoom in or out the map view. This control appears by default in the bottom right corner of the map.
+                  //- side menu control
+                  .control_button_item
+                    .control_button_img
+                      .control_img_wrapper#wrapper(style="padding-left: 40px")
+                        img(src="../images/side_menu_control.png" alt="" )
+                    .control_button_description
+                      p The Side Menu control allowing you to open the side menu. The side menu will help you search the location you want or display more infomation when you click to a location in the map. This control appears by default in the top left corner of the map.
                   
