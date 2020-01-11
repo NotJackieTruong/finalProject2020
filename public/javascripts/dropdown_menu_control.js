@@ -21,33 +21,14 @@ function createDropdown() {
         '    </div>' +
         '</div>';
 
-    var html2 = '<div class="legend_container">'+
-    '    <div id="legend">'+
-    '        <div class="legend_polygon_name_container">'+
-    '            <div id="PolygonName">Name</div>'+
-    '        </div>'+
-    '        <div class="legend_color_box_container">'+
-    '            <div id="color-box">'+
-    '                <div class="color-key">'+
-    '                    <div id="ruler"><span id="data-caret">◆</span>'+
-    '                        <div class="cm">Value</div>'+
-    '                        <div class="cm">Value</div>'+
-    '                        <div class="cm">Value</div>'+
-    '                        <div class="cm">Value</div>'+
-    '                        <div class="cm">Value</div>'+
-    '                        <div class="cm">Value</div>'+
-    '                        <div class="cm">Value</div>'+
-    '                        <div class="cm">Value</div>'+
-    '                    </div>'+
-    '                </div>'+
-    '            </div>'+
-    '        </div>'+
-    '    </div>'+
-    '</div>';
-        
-    
+    var html2 = '<div class="slidecontainer">' +
+        '<input type="range" min="1" max="100" value="100" class="slider" id="myRange">' +
+        '<p>Value: <span id="demo"></span></p>'+
+        '</div>';
 
+    control.rightTop.add(html2)
     control.rightTop.add(html1)
+
     // control.bottomCenter.add(html2)
 
 }
@@ -56,7 +37,7 @@ function show_hide_polygon() {
     infowindow.close()
     if (document.getElementById('terrainCheck').style.display == 'none') {
         visible = 'off'
-        if(currentmap_level == 'heatmap'){
+        if (currentmap_level == 'heatmap') {
             toggleHeatmap()
         }
         else
