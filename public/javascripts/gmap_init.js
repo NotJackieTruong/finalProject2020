@@ -92,7 +92,7 @@ function initMap() {
                 img_container.appendChild(image)
                 document.getElementById("image_list").appendChild(img_container)
                 detailInfo(feat.getProperty("Name"), feat.getProperty("population"), feat.getProperty("area"), feat.getProperty('density'))
-                break
+            
             }
             $('#image_description').text(feat.getProperty("img_description"))
             infowindow.setContent(html);
