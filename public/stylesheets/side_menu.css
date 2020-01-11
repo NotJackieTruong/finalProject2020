@@ -222,6 +222,8 @@
 
 .maps_inner #info_image_wrapper #image_description{
   height: 20px;
+  position: relative;
+  float: right;
 }
 .maps_inner .maps_map_container{
   position: absolute;

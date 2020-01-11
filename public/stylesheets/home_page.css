@@ -108,11 +108,12 @@
 }
 
 .main_content .card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
     transition: 0.3s;
     width: 35%;
     height: 380px;
     margin: 0 2% 5% 2%;
+    border-radius: 2px;
   }
 
 .main_content .card .img_container{
@@ -164,10 +165,17 @@
 }
 
 .main_content .control_button_item img{
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
 }
 
 
 .main_content .control_button_description{
     padding: 0 5%;
 }
+
+
+code{
+    font: 500 90%/1 Roboto Mono,monospace;
+    word-break: break-word;
+}
+

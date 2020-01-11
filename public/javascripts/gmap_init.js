@@ -78,6 +78,7 @@ function initMap() {
         
         if (currentmap_level == 'Province') {
             html = "<b>" + feat.getProperty("Name") + "</b><br>" + feat.getProperty("population")+ "</b><br>";
+           
             detailInfo(feat.getProperty("Name"), feat.getProperty("population"), feat.getProperty("area"), feat.getProperty('density'), feat.getProperty("imageLink"))
             $('#image_description').text(feat.getProperty("img_description"))
             infowindow.setContent(html);
@@ -139,7 +140,7 @@ $(document).ready(function () {
         var address = $(PostCodeid).val();
         geocoder.geocode({ 'address': address }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-                // marker.setPosition(results[0].geometry.location)
+                marker.setPosition(results[0].geometry.location)
                 map.setCenter(results[0].geometry.location);
                 map.fitBounds(results[0].geometry.viewport);
                 $('#info_title').text(address)
@@ -158,7 +159,7 @@ $(document).ready(function () {
             }
         });
         // map.setZoom(9)
-        // marker.setMap(map)
+        marker.setMap(map)
         e.preventDefault();
 
         // return marker.getPosition().lat(), marker.getPosition().lng();

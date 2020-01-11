@@ -35,11 +35,13 @@ block content
                           #info_population
                           #info_area
                           #info_density
-                          #info_image_wrapper
-                            img(src="", alt="" id="info_image")
-                            #image_description
+                          .image_suggestion
+                            #info_image_wrapper
+                              img(src="", alt="" id="info_image")
+                              #image_description
+                            
 
-      
+        //- legend for coloring population
         #maps_map_container.maps_map_container
           #map.map
           .legend_container

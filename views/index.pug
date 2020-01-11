@@ -49,20 +49,28 @@ block content
                     .img_container
                       img(src='../images/district_layer.png' alt='Avatar' style='width:100%')
                     .container
-                      p The District Layer will display after you double click to the area you want when you are in Province Level
+                      p The District Layer will display after you 
+                        strong double click 
+                        | to the area you want when you are in Province Level
                 
                   .card
                     .img_container
                       img(src='../images/ward_layer.png' alt='Avatar' style='width:100%')
                     .container
-                      p The Ward Layer will display after you double click to the area you want when you are in District Level
+                      p The Ward Layer will display after you 
+                        strong double click 
+                        | to the area you want when you are in District Level
+            
+            
             .control_button_instruction
               .control_button_header
                 h3 Control of the Map
               .control_button_instruction
                 .control_button_header
-                  span In the Map page, the map displayed contain elements that you may want to use to interact with the map. These elements are known as Control Button. 
-                  | Below is a list of controls you can use in our map:
+                  span In 
+                    strong the Map page
+                    |, the map displayed contain elements that you may want to use to interact with the map. These elements are known as Control Button. 
+                    | Below is a list of controls you can use in our map:
                 .control_button_list
                   //- map type control
                   .control_button_item
@@ -70,27 +78,47 @@ block content
                       .control_img_wrapper  
                         img(src="../images/map_type_control.png", alt="")  
                     .control_button_description
-                      p The Map Type control is available in a dropdown or horizontal button bar style, allowing you to choose a map type (ROADMAP, SATELLITE, HYBRID, or TERRAIN). This control appears by default in the top left corner of the map.
+                      p The 
+                        strong 
+                          em Map Type control 
+                        | is available in a dropdown or horizontal button bar style, allowing you to choose a map type (
+                        code(dir="ltr") ROADMAP
+                        |,
+                        code(dir="ltr") SATELLITE
+                        |, 
+                        code(dir="ltr") HYBRID
+                        |, or 
+                        code(dir="ltr") TERRAIN
+                        |). This control appears by default in the top left corner of the map.
                   //- option control button
                   .control_button_item
                     .control_button_img
                       .control_img_wrapper
                         img(src="../images/options_control.png", alt="")
                     .control_button_description
-                      p The Options control allowing you to choose to display or remove the different data layer. This control appears by default in the top right corner of the map.
+                      p The
+                        strong 
+                          em Options control 
+                        | allowing you to choose to display or remove the different data layer. This control appears by default in the top right corner of the map.
                   
                   //- zoom control button
                   .control_button_item
                     .control_button_img
-                      .control_img_wrapper(style="padding-left: 25px")
+                      .control_img_wrapper(style="padding-left: 35px")
                         img(src="../images/zoom_control.png" alt="" style="margin-left: auto")
                     .control_button_description
-                      p The Zoom control allowing you to zoom in or out the map view. This control appears by default in the bottom right corner of the map.
+                      p The 
+                        strong 
+                          em Zoom control  
+                        | displays "+" and "-" buttons that allows you to change the zoom level of the map. This control appears by default in the bottom right corner of the map.
                   //- side menu control
                   .control_button_item
                     .control_button_img
-                      .control_img_wrapper#wrapper(style="padding-left: 40px")
+                      .control_img_wrapper#wrapper
                         img(src="../images/side_menu_control.png" alt="" )
                     .control_button_description
-                      p The Side Menu control allowing you to open the side menu. The side menu will help you search the location you want or display more infomation when you click to a location in the map. This control appears by default in the top left corner of the map.
+                      p The 
+                        strong 
+                          em Side Menu control 
+                        | allowing you to open the side menu. The side menu will help you search the location you want or display more infomation when you click to a location in the map. This control appears by default in the top left corner of the map.
                   
