@@ -75,29 +75,35 @@ function initMap() {
             });
         });
         map.fitBounds(bounds);
-        
+        var createImg = false
         if (currentmap_level == 'Province') {
             html = "<b>" + feat.getProperty("Name") + "</b><br>" + feat.getProperty("population")+ "</b><br>";
             var imgLinkList = feat.getProperty("imageLink")
-        
-            // console.log(imgLinkList[0][0])
-            for(var j = 0; j<=imgLinkList.length; j++){
-                var img_container = document.createElement("div")
-                img_container.style.width= "100%"
-                img_container.style.height="150px"
-                var image = document.createElement("img")
-                image.src = imgLinkList[j]
-                image.style.width="100%"
-                image.style.height="200px"
-                img_container.appendChild(image)
-                document.getElementById("image_list").appendChild(img_container)
-                detailInfo(feat.getProperty("Name"), feat.getProperty("population"), feat.getProperty("area"), feat.getProperty('density'))
             
-            }
+            // console.log(imgLinkList[0][0])
+            // for(var j = 0; j<=imgLinkList.length; j++){
+                // var img_container = document.createElement("div")
+                // img_container.style.width= "100%"
+                // img_container.style.height="150px"
+                // var image = document.createElement("img")
+                // image.src = imgLinkList[j]
+                // image.style.width="100%"
+                // image.style.height="200px"
+                // img_container.appendChild(image)
+                // document.getElementById("image_list").appendChild(img_container)
+                
+                
+            // }
+            detailInfo(feat.getProperty("Name"), feat.getProperty("population"), feat.getProperty("area"), feat.getProperty('density'))
+            $('#info_image1').attr('src', imgLinkList[0])
+            $('#info_image2').attr('src', imgLinkList[1])
+            $('#info_image3').attr('src', imgLinkList[2])
+            $('#info_image4').attr('src', imgLinkList[3])
             $('#image_description').text(feat.getProperty("img_description"))
             infowindow.setContent(html);
             infowindow.setPosition(bounds.getCenter());
             infowindow.open(map);
+  
         }
         else if (currentmap_level == 'District') {
             html = "<b>" + feat.getProperty("Ten_Tinh") + "</b><br>" + feat.getProperty("Ten_Huyen") + "</b><br>" + feat.getProperty("Dan_So");
