@@ -289,10 +289,9 @@ function DistrictLevelMap(name) {
                     case 4:
                     case 5:
                     case 6:
-                    case 7:
                         $(this).text(Math.round((minPopulation+delta*i*1/7)/1000)*1000)
                         break;
-                    case 8: 
+                    case 7: 
                     $(this).text(maxPopulation)
                     break;
                 }
@@ -365,7 +364,7 @@ function ProvinceLevelMap() {
                 case 6:
                     $(this).text(Math.round((minPopulation+delta*i*1/7)/1000)*1000)
                     break;
-                case 8: 
+                case 7: 
                 $(this).text(maxPopulation)
                 break;
             }

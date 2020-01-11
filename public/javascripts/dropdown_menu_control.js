@@ -23,15 +23,21 @@ function createDropdown() {
 
     var html2 = '<div class="slidecontainer">' +
         '<input type="range" min="1" max="100" value="100" class="slider" id="myRange">' +
-        '<p>Value: <span id="demo"></span></p>'+
+        '<p>Opacity: <span id="demo"></span></p>' +
         '</div>';
 
     control.rightTop.add(html2)
+
     control.rightTop.add(html1)
 
     // control.bottomCenter.add(html2)
 
 }
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = document.getElementById("myRange").value;
+console.log(document.getElementById("myRange").value)
+
 var checkbox = document.getElementById('terrainCheck')
 function show_hide_polygon() {
     infowindow.close()
