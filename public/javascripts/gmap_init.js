@@ -111,12 +111,15 @@ function initMap() {
             nameSearch2 = getFixedName(feat.getProperty("Ten_Huyen"))
             WardLevelMap(nameSearch, nameSearch2)
         }
+        else if (currentmap_level == 'Ward') {
+            alert("No lower level administration found!")
+        }
+        event.stop()
     })
 
     //dropdown menu as a custom control in map
     createDropdown();
     var searchControlDiv = document.createElement('div');
-    // var centerControl = new CenterControl(searchControlDiv, map);
     searchControlDiv.index = 1;
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(searchControlDiv);
     // marker.setMap(map);
