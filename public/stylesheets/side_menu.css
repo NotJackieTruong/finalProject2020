@@ -222,7 +222,7 @@
 
 }
 
-.maps_inner #info_image1, #info_image2, #info_image3, #info_image4{
+.maps_inner #info_image0, #info_image1, #info_image2, #info_image3{
   width: 100%;
   height: 200px;
 }

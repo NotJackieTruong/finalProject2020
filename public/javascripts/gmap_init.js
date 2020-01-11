@@ -95,10 +95,18 @@ function initMap() {
                 
             // }
             detailInfo(feat.getProperty("Name"), feat.getProperty("population"), feat.getProperty("area"), feat.getProperty('density'))
-            $('#info_image1').attr('src', imgLinkList[0])
-            $('#info_image2').attr('src', imgLinkList[1])
-            $('#info_image3').attr('src', imgLinkList[2])
-            $('#info_image4').attr('src', imgLinkList[3])
+            for(var i=0; i<=imgLinkList.length; i++){
+                if(imgLinkList[i]!=null){
+                    $('#info_image'+i).attr('src', imgLinkList[i])
+                } else{
+                    $('#info_image'+i).attr('src', ' ')
+                }
+                
+            }
+            // $('#info_image1').attr('src', imgLinkList[0])
+            // $('#info_image2').attr('src', imgLinkList[1])
+            // $('#info_image3').attr('src', imgLinkList[2])
+            // $('#info_image4').attr('src', imgLinkList[3])
             $('#image_description').text(feat.getProperty("img_description"))
             infowindow.setContent(html);
             infowindow.setPosition(bounds.getCenter());

@@ -359,10 +359,10 @@ function ProvinceLevelMap() {
             
             for (var i = 0; i < StringData.length; i++) {
                 if (cityname == StringData[i].City) {
-               
                     color = colorOverlay(StringData[i].Population * 1000)
                     p = StringData[i].Population * 1000	                    
                     link = StringData[i].Image
+                    console.log("check link: "+link)
                     area = StringData[i].Area
                     density = StringData[i].Density
                     imgDescription = StringData[i].Img_Description
