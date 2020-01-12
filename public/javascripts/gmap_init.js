@@ -78,42 +78,39 @@ function initMap() {
 
         if (currentmap_level == 'Province') {
             html = "<b>" + feat.getProperty("Name") + "</b><br>" + feat.getProperty("population")+ "</b><br>";
-            var imgLinkList = feat.getProperty("imageLink")
-            console.log("type of imgLInkList: "+typeof(imgLinkList))
-            
-            console.log("array item: "+array)
             detailInfo(feat.getProperty("Name"), feat.getProperty("population"), feat.getProperty("area"), feat.getProperty('density'))
-            var count = 0
-            console.log("length of imglinklist: "+imgLinkList.length)
+            // multiple images and desdcription
+            var imgLinkList = feat.getProperty("imageLink")
+            var imgDesList = feat.getProperty("img_description")
+            // console.log("Description list: "+imgDesList)
             for(var i=0; i<4; i++){
                 $('#info_image'+i).removeAttr('src')
-                
+                $('#image_description'+i).text(' ')
             }
             if(imgLinkList.length>4){
-                var array = new Array()
-                array = imgLinkList.split(",")
-                
-                for(var i=0; i<array.length; i++){
-                    if(array[i]!==null){
-                        $('#info_image'+i).attr('src', array[i])
-                        
-
-                    } 
-                    console.log("link in list "+imgLinkList[i])
-                    count++
+                var imgArr = new Array()
+                imgArr = imgLinkList.split(",")
+                var desArr = new Array()
+                desArr = imgDesList.split(",")
+                console.log("Des array: "+ desArr)
+                var index = 0
+                for(var i=0; i<imgArr.length; i++){
+                    if(imgArr[i]!==null){
+                        $('#info_image'+i).attr('src', imgArr[i])
+                        $('#image_description'+i).text(desArr[index]+", "+desArr[index+1]+", "+desArr[index+2])
+                        index+=3
+                    }    
                 }
             } else{
                 for(var i=0; i<imgLinkList.length; i++){
                     if(imgLinkList[i]!==null){
                         $('#info_image'+i).attr('src', imgLinkList[i])
+                        $('#image_description'+i).text(imgDesList[i])
                     } 
-                    console.log("link in list "+imgLinkList[i])
-                    count++
                 }
             }
-            
-            console.log("Iteration: "+ count)
-            $('#image_description').text(feat.getProperty("img_description"))
+
+            // $('#image_description').text(feat.getProperty("img_description"))
             infowindow.setContent(html);
             infowindow.setPosition(bounds.getCenter());
             infowindow.open(map);
@@ -174,6 +171,10 @@ $(document).ready(function () {
     //autocomplete search
     var PostCodeid = '#search_location';
     $('.get_map').click(function (e) {
+        for(var i=0; i<4; i++){
+            $('#info_image'+i).removeAttr('src')
+            
+        }
         var address = $(PostCodeid).val();
         geocoder.geocode({ 'address': address }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
