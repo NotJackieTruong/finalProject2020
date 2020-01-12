@@ -246,6 +246,7 @@ function WardLevelMap(name1, name2) {
                         strokeOpacity: 1,
                         strokeWeight: 0.2,
                         fillColor: color,
+                        fillOpacity: 1
                     });
                 });
             }
@@ -310,7 +311,8 @@ function DistrictLevelMap(name) {
                     strokeColor: 'purple',
                     strokeOpacity: 1,
                     strokeWeight: 0.2,
-                    fillColor: color
+                    fillColor: color,
+                    fillOpacity: 1
                 }
             })
         }
@@ -379,6 +381,7 @@ function ProvinceLevelMap() {
                 strokeOpacity: 1,
                 strokeWeight: 0.4,
                 fillColor: color,
+                fillOpacity: 1
             }
         })
     }
