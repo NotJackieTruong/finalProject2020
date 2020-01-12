@@ -158,8 +158,8 @@ function initMap() {
 
 function detailInfo(address, population, area, density){
     var densityExpo = "Density: "+density + "/km"+"<sup>" + 2 + "</sup>"
-    var areaExpo = "Area: " + area +"/km"+"<sup>" + 2 + "</sup>"
-    $('#info_address').text("City: "+ address)
+    var areaExpo = "Area: " + area +" km"+"<sup>" + 2 + "</sup>"
+    $('#info_address').text("Province: "+ address)
     $('#info_population').text("Population: " + population)
     $('#info_area').html(densityExpo)
     $('#info_density').html(areaExpo)
@@ -173,7 +173,7 @@ $(document).ready(function () {
     $('.get_map').click(function (e) {
         for(var i=0; i<4; i++){
             $('#info_image'+i).removeAttr('src')
-            
+            $('#image_description'+i).text(' ')
         }
         var address = $(PostCodeid).val();
         geocoder.geocode({ 'address': address }, function (results, status) {
@@ -181,8 +181,8 @@ $(document).ready(function () {
                 marker.setPosition(results[0].geometry.location)
                 map.setCenter(results[0].geometry.location);
                 map.fitBounds(results[0].geometry.viewport);
-                $('#info_title').text(address)
-                $('#info_address').text(results[0].formatted_address);
+                $('#info_title').text("Search result: ")
+                $('#info_address').text("Address: "+results[0].formatted_address);
                 $('#search_lat').text("Latitude: "+results[0].geometry.location.lat());
                 $('#search_lng').text("Longitude: "+results[0].geometry.location.lng());
                 var search_addr = '<b>' + results[0].formatted_address + '</b>'
