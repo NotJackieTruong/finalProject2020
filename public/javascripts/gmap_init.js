@@ -75,38 +75,44 @@ function initMap() {
             });
         });
         map.fitBounds(bounds);
-        var createImg = false
+
         if (currentmap_level == 'Province') {
             html = "<b>" + feat.getProperty("Name") + "</b><br>" + feat.getProperty("population")+ "</b><br>";
             var imgLinkList = feat.getProperty("imageLink")
+            console.log("type of imgLInkList: "+typeof(imgLinkList))
             
-            // console.log(imgLinkList[0][0])
-            // for(var j = 0; j<=imgLinkList.length; j++){
-                // var img_container = document.createElement("div")
-                // img_container.style.width= "100%"
-                // img_container.style.height="150px"
-                // var image = document.createElement("img")
-                // image.src = imgLinkList[j]
-                // image.style.width="100%"
-                // image.style.height="200px"
-                // img_container.appendChild(image)
-                // document.getElementById("image_list").appendChild(img_container)
-                
-                
-            // }
+            console.log("array item: "+array)
             detailInfo(feat.getProperty("Name"), feat.getProperty("population"), feat.getProperty("area"), feat.getProperty('density'))
-            for(var i=0; i<=imgLinkList.length; i++){
-                if(imgLinkList[i]!=null){
-                    $('#info_image'+i).attr('src', imgLinkList[i])
-                } else{
-                    $('#info_image'+i).attr('src', ' ')
-                }
+            var count = 0
+            console.log("length of imglinklist: "+imgLinkList.length)
+            for(var i=0; i<4; i++){
+                $('#info_image'+i).removeAttr('src')
                 
             }
-            // $('#info_image1').attr('src', imgLinkList[0])
-            // $('#info_image2').attr('src', imgLinkList[1])
-            // $('#info_image3').attr('src', imgLinkList[2])
-            // $('#info_image4').attr('src', imgLinkList[3])
+            if(imgLinkList.length>4){
+                var array = new Array()
+                array = imgLinkList.split(",")
+                
+                for(var i=0; i<array.length; i++){
+                    if(array[i]!==null){
+                        $('#info_image'+i).attr('src', array[i])
+                        
+
+                    } 
+                    console.log("link in list "+imgLinkList[i])
+                    count++
+                }
+            } else{
+                for(var i=0; i<imgLinkList.length; i++){
+                    if(imgLinkList[i]!==null){
+                        $('#info_image'+i).attr('src', imgLinkList[i])
+                    } 
+                    console.log("link in list "+imgLinkList[i])
+                    count++
+                }
+            }
+            
+            console.log("Iteration: "+ count)
             $('#image_description').text(feat.getProperty("img_description"))
             infowindow.setContent(html);
             infowindow.setPosition(bounds.getCenter());
