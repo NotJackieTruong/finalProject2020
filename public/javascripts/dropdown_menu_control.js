@@ -44,16 +44,10 @@ function createDropdown() {
     '        </div>'+
     '    </div>'+
     '</div>';
-        
-    var html3 = '<div class="slidecontainer">'+
-    '  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">'+
-    '  <p>Value: <span id="demo"></span></p>';
-  
-
     control.rightTop.add(html1)
 
     // control.bottomCenter.add(html2)
-    // control.leftCenter.add(html3)
+    
    
 }
 
@@ -66,6 +60,7 @@ function slider(){
     output.innerHTML = slider.value;
     slider.oninput = function() {
         output.innerHTML = this.value;
+        data_layer.overrideStyle({fillOpacity: this.value/100})
     }
 }
 
