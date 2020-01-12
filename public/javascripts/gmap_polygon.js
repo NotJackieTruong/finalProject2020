@@ -105,7 +105,6 @@ function drawSearch(arrString) {
             WardLevelMap(nameSearch, nameSearch2)
             break;
         case "locality":
-            // console.log()
             if (n2 == "HoChiMinh") {
                 nameSearch = n2
                 DistrictLevelMap(nameSearch)

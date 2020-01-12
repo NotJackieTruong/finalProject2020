@@ -229,7 +229,7 @@
 
 
 
-.maps_inner #info_image_wrapper #image_description{
+.maps_inner #info_image_wrapper #image_description0, #image_description1, #image_description2, #image_description3{
   height: 20px;
   position: relative;
   float: right;

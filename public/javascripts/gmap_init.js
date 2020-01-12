@@ -75,39 +75,42 @@ function initMap() {
             });
         });
         map.fitBounds(bounds);
-        var createImg = false
+
         if (currentmap_level == 'Province') {
             html = "<b>" + feat.getProperty("Name") + "</b><br>" + feat.getProperty("population")+ "</b><br>";
-            var imgLinkList = feat.getProperty("imageLink")
-            
-            // console.log(imgLinkList[0][0])
-            // for(var j = 0; j<=imgLinkList.length; j++){
-                // var img_container = document.createElement("div")
-                // img_container.style.width= "100%"
-                // img_container.style.height="150px"
-                // var image = document.createElement("img")
-                // image.src = imgLinkList[j]
-                // image.style.width="100%"
-                // image.style.height="200px"
-                // img_container.appendChild(image)
-                // document.getElementById("image_list").appendChild(img_container)
-                
-                
-            // }
             detailInfo(feat.getProperty("Name"), feat.getProperty("population"), feat.getProperty("area"), feat.getProperty('density'))
-            for(var i=0; i<=imgLinkList.length; i++){
-                if(imgLinkList[i]!=null){
-                    $('#info_image'+i).attr('src', imgLinkList[i])
-                } else{
-                    $('#info_image'+i).attr('src', ' ')
-                }
-                
+            // multiple images and desdcription
+            var imgLinkList = feat.getProperty("imageLink")
+            var imgDesList = feat.getProperty("img_description")
+            // console.log("Description list: "+imgDesList)
+            for(var i=0; i<4; i++){
+                $('#info_image'+i).removeAttr('src')
+                $('#image_description'+i).text(' ')
             }
-            // $('#info_image1').attr('src', imgLinkList[0])
-            // $('#info_image2').attr('src', imgLinkList[1])
-            // $('#info_image3').attr('src', imgLinkList[2])
-            // $('#info_image4').attr('src', imgLinkList[3])
-            $('#image_description').text(feat.getProperty("img_description"))
+            if(imgLinkList.length>4){
+                var imgArr = new Array()
+                imgArr = imgLinkList.split(",")
+                var desArr = new Array()
+                desArr = imgDesList.split(",")
+                console.log("Des array: "+ desArr)
+                var index = 0
+                for(var i=0; i<imgArr.length; i++){
+                    if(imgArr[i]!==null){
+                        $('#info_image'+i).attr('src', imgArr[i])
+                        $('#image_description'+i).text(desArr[index]+", "+desArr[index+1]+", "+desArr[index+2])
+                        index+=3
+                    }    
+                }
+            } else{
+                for(var i=0; i<imgLinkList.length; i++){
+                    if(imgLinkList[i]!==null){
+                        $('#info_image'+i).attr('src', imgLinkList[i])
+                        $('#image_description'+i).text(imgDesList[i])
+                    } 
+                }
+            }
+
+            // $('#image_description').text(feat.getProperty("img_description"))
             infowindow.setContent(html);
             infowindow.setPosition(bounds.getCenter());
             infowindow.open(map);
@@ -155,8 +158,8 @@ function initMap() {
 
 function detailInfo(address, population, area, density){
     var densityExpo = "Density: "+density + "/km"+"<sup>" + 2 + "</sup>"
-    var areaExpo = "Area: " + area +"/km"+"<sup>" + 2 + "</sup>"
-    $('#info_address').text("City: "+ address)
+    var areaExpo = "Area: " + area +" km"+"<sup>" + 2 + "</sup>"
+    $('#info_address').text("Province: "+ address)
     $('#info_population').text("Population: " + population)
     $('#info_area').html(densityExpo)
     $('#info_density').html(areaExpo)
@@ -168,14 +171,18 @@ $(document).ready(function () {
     //autocomplete search
     var PostCodeid = '#search_location';
     $('.get_map').click(function (e) {
+        for(var i=0; i<4; i++){
+            $('#info_image'+i).removeAttr('src')
+            $('#image_description'+i).text(' ')
+        }
         var address = $(PostCodeid).val();
         geocoder.geocode({ 'address': address }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 marker.setPosition(results[0].geometry.location)
                 map.setCenter(results[0].geometry.location);
                 map.fitBounds(results[0].geometry.viewport);
-                $('#info_title').text(address)
-                $('#info_address').text(results[0].formatted_address);
+                $('#info_title').text("Search result: ")
+                $('#info_address').text("Address: "+results[0].formatted_address);
                 $('#search_lat').text("Latitude: "+results[0].geometry.location.lat());
                 $('#search_lng').text("Longitude: "+results[0].geometry.location.lng());
                 var search_addr = '<b>' + results[0].formatted_address + '</b>'

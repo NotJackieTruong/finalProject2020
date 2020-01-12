@@ -110,7 +110,7 @@ em{
 .footer .footer_content .footer_section li.link:hover{
   text-decoration: none;
   font-weight: 600;
-  transition: all .5s;
+  /* transition: all .5s; */
 }
 .footer .footer_content .contacts_inner{
   display: flex;
