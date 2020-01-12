@@ -189,7 +189,6 @@ $(document).ready(function () {
                 infowindow.setContent(search_addr)
                 infowindow.setPosition(results[0].geometry.location)
                 drawSearch(results[0].address_components)
-                console.log(results[0].address_components)
                 
 
             } else {

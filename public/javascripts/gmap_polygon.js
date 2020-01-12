@@ -188,7 +188,6 @@ function WardLevelMap(name1, name2) {
         data_layer.forEach(function (feature) {
             data_layer.remove(feature);
         });
-        geocoderFunction(name2 + "," + name1)
         maxPopulation = 0
         minPopulation = 81690
         var link = 'https://storage.googleapis.com/map_population/' + name1.replace(/\s+/g, '') + '/' + name2.replace(/\s+/g, '') + '.json'
@@ -261,7 +260,6 @@ function DistrictLevelMap(name) {
     if (visible == 'on') {
         currentmap_level = 'District'
 
-        geocoderFunction(name)
         data_layer.forEach(function (feature) {
             // If you want, check here for some constraints.
             data_layer.remove(feature);
@@ -273,12 +271,12 @@ function DistrictLevelMap(name) {
         else {
             console.log('District level drawn, current map level is: ' + currentmap_level + ' of ' + nameSearch)
             for (var i = 0; i < MaxMinPopulation.length; i++) {
-                if (name == MaxMinPopulation[i].Province) {
+                if (name == getFixedName(MaxMinPopulation[i].Province)) {
                     maxPopulation = MaxMinPopulation[i].Max
                     minPopulation = MaxMinPopulation[i].Min
                 }
             }
-
+            console.log(minPopulation,maxPopulation)
             var delta = maxPopulation - minPopulation
             $("div.cm").each(function (i) {
                 switch (i) {
@@ -365,7 +363,7 @@ function ProvinceLevelMap() {
                     color = colorOverlay(StringData[i].Population * 1000)
                     p = StringData[i].Population * 1000
                     link = StringData[i].Image
-                    console.log("check link: " + link)
+                    // console.log("check link: " + link)
                     area = StringData[i].Area
                     density = StringData[i].Density
                     imgDescription = StringData[i].Img_Description
@@ -394,3 +392,4 @@ function geocoderFunction(address) {
         }
     });
 }
+
