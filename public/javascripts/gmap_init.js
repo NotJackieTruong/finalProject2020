@@ -40,7 +40,7 @@ function initMap() {
         position: LatLng
     });
     data_layer.addListener('mouseover', function(event){
-        data_layer.overrideStyle(event.feature, {strokeColor: 'White',strokeWeight: 2,zIndex: 10});
+        data_layer.overrideStyle(event.feature, {strokeColor: "bluepurple",strokeWeight: 2,zIndex: 10});
         var name
         var delta = maxPopulation-minPopulation
         var population, percentage
@@ -67,6 +67,8 @@ function initMap() {
 
     data_layer.addListener('click', function (event) {
         var feat = event.feature;
+        let html = "";
+        var polygonInfo;
         var bounds = new google.maps.LatLngBounds();
         data_layer.forEach(function (feature) {
             feat.getGeometry().forEachLatLng(function (latlng) {
@@ -76,28 +78,23 @@ function initMap() {
         map.fitBounds(bounds);
 
         if (currentmap_level == 'Province') {
-            let html = "<b>" + feat.getProperty("Name") + "</b><br>" + feat.getProperty("Population")*1000+ "</b><br>";
-            infowindow.setContent(html);
-            infowindow.setPosition(bounds.getCenter());
-            infowindow.open(map);
-            detailInfo(feat.getProperty("Name"), feat.getProperty("Population")*1000, feat.getProperty("Area"), feat.getProperty('Density'))
-            // console.log("Description list: "+imgDesList)
-            showDetailsInfor(feat.getProperty("Image"),feat.getProperty("Img_description"))
-            // $('#image_description').text(feat.getProperty("img_description"))
-  
+            html = "<b>" + feat.getProperty("Name") + "</b><br>" + feat.getProperty("Population")*1000+ "</b><br>";
+            polygonInfo = {Name: feat.getProperty("Name"), Population: feat.getProperty("Population")*1000, Area: feat.getProperty("Area"), Density: feat.getProperty('Density'), Image: feat.getProperty("Image"), Img_Des: feat.getProperty("Img_Description")  }
         }
         else if (currentmap_level == 'District') {
-            let html = "<b>" + feat.getProperty("Ten_Tinh") + "</b><br>" + feat.getProperty("Ten_Huyen") + "</b><br>" + feat.getProperty("Dan_So");
-            infowindow.setContent(html);
-            infowindow.setPosition(bounds.getCenter());
-            infowindow.open(map);
+            html = "<b>" + feat.getProperty("Ten_Tinh") + "</b><br>" + feat.getProperty("Ten_Huyen") + "</b><br>" + feat.getProperty("Dan_So");
+            polygonInfo = {Name: feat.getProperty("Ten_Tinh")+", "+ feat.getProperty("Ten_Huyen"), Population: feat.getProperty("Dan_So"), Area: feat.getProperty("Area"), Density: feat.getProperty('Density'), Image: feat.getProperty("Image"), Img_Des: feat.getProperty("Img_Description")  }
         }
         else if (currentmap_level == 'Ward') {
-            let html = "<b>" + feat.getProperty('Province') + "</b><br>" + feat.getProperty('District') + "</b><br>" + feat.getProperty('Ward') + "</b><br>" + feat.getProperty('Population');
-            infowindow.setContent(html);
-            infowindow.setPosition(bounds.getCenter());
-            infowindow.open(map);
+            html = "<b>" + feat.getProperty('Province') + "</b><br>" + feat.getProperty('District') + "</b><br>" + feat.getProperty('Ward') + "</b><br>" + feat.getProperty('Population');
+            polygonInfo = {Name: feat.getProperty('Province') + ", " + feat.getProperty('District') + ", " + feat.getProperty('Ward'), Population: feat.getProperty("Population"), Area: feat.getProperty("Area"), Density: feat.getProperty('Density'), Image: feat.getProperty("Image"), Img_Des: feat.getProperty("Img_Description")  }
         }
+        infowindow.setContent(html);
+        infowindow.setPosition(bounds.getCenter());
+        infowindow.open(map);
+        detailInfo(polygonInfo.Name, polygonInfo.Population, polygonInfo.Area, polygonInfo.Density)
+        if(polygonInfo.Image != undefined && polygonInfo.Img_Des != undefined)
+        showDetailsInfor(polygonInfo.Image,polygonInfo.Img_Des)
         map.setCenter(bounds.getCenter());
     })
 
@@ -129,7 +126,7 @@ function initMap() {
 function detailInfo(address, population, area, density){
     var densityExpo = "Density: "+density + "/km"+"<sup>" + 2 + "</sup>"
     var areaExpo = "Area: " + area +" km"+"<sup>" + 2 + "</sup>"
-    $('#info_address').text("Province: "+ address)
+    $('#info_address').text("Address: "+ address)
     $('#info_population').text("Population: " + population)
     $('#info_area').html(densityExpo)
     $('#info_density').html(areaExpo)

@@ -74,7 +74,11 @@ function show_hide_polygon() {
             toggleHeatmap()
         }
         else
-            data_layer.setStyle({ visible: false })
+            data_layer.setStyle({ 
+                fillOpacity: 0.001, 
+                strokeColor: 'purple',
+                strokeOpacity: 1,
+                strokeWeight: 0.2})
     } else if (document.getElementById('terrainCheck').style.display == 'block') {
         visible = 'on'
         switch (currentmap_level) {

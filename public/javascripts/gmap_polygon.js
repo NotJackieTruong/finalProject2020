@@ -229,7 +229,8 @@ function WardLevelMap(name1, name2) {
                             Province: WardData[i].Province,
                             District: WardData[i].District,
                             Ward: WardData[i].Ward,
-                            Population: WardData[i].Population
+                            Population: WardData[i].Population,
+                            Density: Math.round(WardData[i].Density)
                         }
                     })
                 data_layer.setStyle(function (feature) {
@@ -251,17 +252,12 @@ function WardLevelMap(name1, name2) {
 function DistrictLevelMap(name) {
     name = name.replace(/\s+/g, '');
     infowindow.close()
-    if (visible == 'on') {
+    if (visible == 'on' && name != 'null') {
         currentmap_level = 'District'
 
         data_layer.forEach(function (feature) {
             data_layer.remove(feature);
         });
-
-        if (name == 'null') {
-            alert('No city or province selected')
-        }
-        else {
             console.log('District level drawn, current map level is: ' + currentmap_level + ' of ' + nameSearch)
             for (var i = 0; i < MaxMinPopulation.length; i++) {
                 if (name == getFixedName(MaxMinPopulation[i].Province)) {
@@ -304,8 +300,10 @@ function DistrictLevelMap(name) {
                     fillOpacity: 1
                 }
             })
-        }
     }
+    else if(name == 'null')
+        alert('No city or province selected')
+    
 
 }
 //initialize gg map on the website
