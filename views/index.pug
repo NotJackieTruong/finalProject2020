@@ -12,7 +12,7 @@ block content
           .homesite_article_introduction
             .article_introduction_content_wrapper
               p
-                | Welcome to the Visualizing Data Map where data is more beautiful. If you're familiar with our website, let's go and check out our map
+                | Welcome to the Interactive Map with Vietnamese Population Data, where data is not just a number. If you're familiar with our website, let's go and check out our map
                 a(href="/catalog/map")  here.
               p
                 | If you're brand new to our website, let's jump to our Guide below!
@@ -47,7 +47,9 @@ block content
                         .img_container
                           img(src='../images/province_layer.png' alt='Avatar' style='width:100%')
                         .container
-                          p The Province Layer automatically displays whenever you visit this page
+                          p The Province Layer 
+                            strong automatically displays 
+                            | whenever you visit this page
                     .column
                       .card
                         .img_container
@@ -103,7 +105,7 @@ block content
                       p The
                         strong 
                           em Options control 
-                        | allowing you to choose to display or remove the different data layer. This control appears by default in the top right corner of the map.
+                        | allows you to choose to display or remove the different data layer. This control appears by default in the top right corner of the map.
                   
                   //- zoom control button
                   .control_button_item
@@ -124,5 +126,29 @@ block content
                       p The 
                         strong 
                           em Side Menu control 
-                        | allowing you to open the side menu. The side menu will help you search the location you want or display more infomation when you click to a location in the map. This control appears by default in the top left corner of the map.
-                  
+                        | allows you to open the side menu. The side menu will help you search the location you want or display more infomation when you click to a location in the map. This control appears by default in the top left corner of the map.
+                  //- legend
+                  .control_button_item
+                    .control_button_img
+                      .control_img_wrapper#wrapper
+                        img(src="../images/legend_bar.png" alt="" width="150px")
+                    .control_button_description
+                      p The
+                        strong
+                          em Legend bar
+                        | allows you to observe the population of an area when you hover the mouse on it
+
+            .search_result_instruction
+              .search_result_header
+                h3 Search
+              .search_result_instruction
+                .search_result_instruction_header 
+                  span The 
+                    strong Side Menu button 
+                    | displays the result menu when you search your location. It also shows attractive famous location images of that area when you click.
+                .search_result_images
+                  .search_result_wrapper
+                    img(src="../images/search_result.png", alt="")
+                .search_result_images
+                  .search_result_wrapper
+                    img(src="../images/search_result2.png", alt="")

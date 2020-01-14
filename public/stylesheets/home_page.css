@@ -208,3 +208,16 @@ code{
     word-break: break-word;
 }
 
+/* search result instruction */
+.main_content .search_result_images{
+    margin-bottom: 2%;
+}
+.main_content .search_result_instruction .search_result_wrapper{
+    width: 100%;
+    height: auto;
+}
+
+.main_content .search_result_wrapper img{
+    width: 100%;
+    height: auto;
+}

@@ -141,3 +141,17 @@ padding: 0 8px;
     background-color: #F4B400;
     transition: all .5s;
 }
+
+.main_content_about a{
+    text-decoration: none;
+    color: white;
+}
+
+.main_content_about .aboutsite_article_ref_doc a{
+    color: #4285F4;
+    transition: ease-out;
+}
+
+.main_content_about .aboutsite_article_ref_doc a:hover{
+    font-weight: 600;
+}
