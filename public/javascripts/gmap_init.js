@@ -46,7 +46,7 @@ function initMap() {
         var population, percentage
         if (currentmap_level == 'Province') {
             name = event.feature.getProperty("Name")
-            population = event.feature.getProperty("population")
+            population = event.feature.getProperty("Population")*1000
         }
         else if (currentmap_level == 'District') {
             name = event.feature.getProperty("Ten_Huyen")
@@ -67,7 +67,6 @@ function initMap() {
 
     data_layer.addListener('click', function (event) {
         var feat = event.feature;
-        var html
         var bounds = new google.maps.LatLngBounds();
         data_layer.forEach(function (feature) {
             feat.getGeometry().forEachLatLng(function (latlng) {
@@ -77,53 +76,24 @@ function initMap() {
         map.fitBounds(bounds);
 
         if (currentmap_level == 'Province') {
-            html = "<b>" + feat.getProperty("Name") + "</b><br>" + feat.getProperty("population")+ "</b><br>";
-            detailInfo(feat.getProperty("Name"), feat.getProperty("population"), feat.getProperty("area"), feat.getProperty('density'))
-            // multiple images and desdcription
-            var imgLinkList = feat.getProperty("imageLink")
-            var imgDesList = feat.getProperty("img_description")
-            // console.log("Description list: "+imgDesList)
-            for(var i=0; i<4; i++){
-                $('#info_image'+i).removeAttr('src')
-                $('#image_description'+i).text(' ')
-            }
-            if(imgLinkList.length>4){
-                var imgArr = new Array()
-                imgArr = imgLinkList.split(",")
-                var desArr = new Array()
-                desArr = imgDesList.split(",")
-                console.log("Des array: "+ desArr)
-                var index = 0
-                for(var i=0; i<imgArr.length; i++){
-                    if(imgArr[i]!==null){
-                        $('#info_image'+i).attr('src', imgArr[i])
-                        $('#image_description'+i).text(desArr[index]+", "+desArr[index+1]+", "+desArr[index+2])
-                        index+=3
-                    }    
-                }
-            } else{
-                for(var i=0; i<imgLinkList.length; i++){
-                    if(imgLinkList[i]!==null){
-                        $('#info_image'+i).attr('src', imgLinkList[i])
-                        $('#image_description'+i).text(imgDesList[i])
-                    } 
-                }
-            }
-
-            // $('#image_description').text(feat.getProperty("img_description"))
+            let html = "<b>" + feat.getProperty("Name") + "</b><br>" + feat.getProperty("Population")*1000+ "</b><br>";
             infowindow.setContent(html);
             infowindow.setPosition(bounds.getCenter());
             infowindow.open(map);
+            detailInfo(feat.getProperty("Name"), feat.getProperty("Population")*1000, feat.getProperty("Area"), feat.getProperty('Density'))
+            // console.log("Description list: "+imgDesList)
+            showDetailsInfor(feat.getProperty("Image"),feat.getProperty("Img_description"))
+            // $('#image_description').text(feat.getProperty("img_description"))
   
         }
         else if (currentmap_level == 'District') {
-            html = "<b>" + feat.getProperty("Ten_Tinh") + "</b><br>" + feat.getProperty("Ten_Huyen") + "</b><br>" + feat.getProperty("Dan_So");
+            let html = "<b>" + feat.getProperty("Ten_Tinh") + "</b><br>" + feat.getProperty("Ten_Huyen") + "</b><br>" + feat.getProperty("Dan_So");
             infowindow.setContent(html);
             infowindow.setPosition(bounds.getCenter());
             infowindow.open(map);
         }
         else if (currentmap_level == 'Ward') {
-            html = "<b>" + feat.getProperty('Province') + "</b><br>" + feat.getProperty('District') + "</b><br>" + feat.getProperty('Ward') + "</b><br>" + feat.getProperty('Population');
+            let html = "<b>" + feat.getProperty('Province') + "</b><br>" + feat.getProperty('District') + "</b><br>" + feat.getProperty('Ward') + "</b><br>" + feat.getProperty('Population');
             infowindow.setContent(html);
             infowindow.setPosition(bounds.getCenter());
             infowindow.open(map);
@@ -163,9 +133,39 @@ function detailInfo(address, population, area, density){
     $('#info_population').text("Population: " + population)
     $('#info_area').html(densityExpo)
     $('#info_density').html(areaExpo)
-   
 }
-
+function showDetailsInfor(polygonImage, polygonDescription){
+    // multiple images and desdcription
+    var imgLinkList = polygonImage
+    var imgDesList = polygonDescription
+    // console.log("Description list: "+imgDesList)
+    for(var i=0; i<4; i++){
+        $('#info_image'+i).removeAttr('src')
+        $('#image_description'+i).text(' ')
+    }
+    if(imgLinkList.length>4){
+        var imgArr = new Array()
+        imgArr = imgLinkList.split(",")
+        var desArr = new Array()
+        desArr = imgDesList.split(",")
+        console.log("Des array: "+ desArr)
+        var index = 0
+        for(var i=0; i<imgArr.length; i++){
+            if(imgArr[i]!==null){
+                $('#info_image'+i).attr('src', imgArr[i])
+                $('#image_description'+i).text(desArr[index]+", "+desArr[index+1]+", "+desArr[index+2])
+                index+=3
+            }    
+        }
+    } else{
+        for(var i=0; i<imgLinkList.length; i++){
+            if(imgLinkList[i]!==null){
+                $('#info_image'+i).attr('src', imgLinkList[i])
+                $('#image_description'+i).text(imgDesList[i])
+            } 
+        }
+    }
+}
 //get latlng when searching
 $(document).ready(function () {
     //autocomplete search
@@ -183,23 +183,21 @@ $(document).ready(function () {
                 map.fitBounds(results[0].geometry.viewport);
                 $('#info_title').text("Search result: ")
                 $('#info_address').text("Address: "+results[0].formatted_address);
-                $('#search_lat').text("Latitude: "+results[0].geometry.location.lat());
-                $('#search_lng').text("Longitude: "+results[0].geometry.location.lng());
+                $('#info_population').text("")
+                $('#info_area').text("")
+                $('#info_density').text("")
+                $('#maps_bar_list_item_info').css("color", "black")
                 var search_addr = '<b>' + results[0].formatted_address + '</b>'
                 infowindow.setContent(search_addr)
                 infowindow.setPosition(results[0].geometry.location)
                 drawSearch(results[0].address_components)
-                
 
             } else {
                 alert("Geocode was not successful for the following reason: " + status);
             }
         });
-        // map.setZoom(9)
         marker.setMap(map)
         e.preventDefault();
-
-        // return marker.getPosition().lat(), marker.getPosition().lng();
     })
 })
 
