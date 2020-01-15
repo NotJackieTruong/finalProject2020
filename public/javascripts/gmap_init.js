@@ -124,8 +124,20 @@ function initMap() {
 }
 
 function detailInfo(address, population, area, density){
-    var densityExpo = "Density: "+density + "/km"+"<sup>" + 2 + "</sup>"
-    var areaExpo = "Area: " + area +" km"+"<sup>" + 2 + "</sup>"
+    var densityExpo, areaExpo
+    if(density == undefined && area == undefined){
+        densityExpo = areaExpo = ""
+    }
+    else if( area == undefined && density != undefined){
+        area = population / density
+        area = Math.round(area * 100) / 100
+        densityExpo = "Density: "+density + "/km"+"<sup>" + 2 + "</sup>"
+        areaExpo = "Area: " + area +" km"+"<sup>" + 2 + "</sup>"
+    }
+    else{
+        densityExpo = "Density: "+density + "/km"+"<sup>" + 2 + "</sup>"
+        areaExpo = "Area: " + area +" km"+"<sup>" + 2 + "</sup>"    
+    }
     $('#info_address').text("Address: "+ address)
     $('#info_population').text("Population: " + population)
     $('#info_area').html(densityExpo)
